@@ -1,0 +1,15 @@
+{
+	"designWidth": 1920,
+	"libDirVer": {
+		"ui2Lib": "20210324181242",
+		"ui1Lib": "20210324183000",
+		"editor": "20210401163145",
+		"commonLib": "20210616213612",
+		"simulator3": "20210207152001"
+	},
+	"screenMode": 0,
+	"winHeight": 810,
+	"designHeight": 1080,
+	"platform": "",
+	"winWidth": 1440
+}

@@ -1,0 +1,8 @@
+{"file":"ui.png","frames":{
+"rms_btn_bg_3":{"x":194,"y":89,"w":195,"h":86,"offX":4,"offY":4,"sourceW":202,"sourceH":92},
+"rms_input_frame":{"x":0,"y":274,"w":149,"h":55,"offX":0,"offY":0,"sourceW":149,"sourceH":55},
+"rms_login_bg_1":{"x":391,"y":80,"w":102,"h":78,"offX":0,"offY":0,"sourceW":102,"sourceH":78},
+"rms_login_input_bg":{"x":0,"y":194,"w":452,"h":78,"offX":0,"offY":0,"sourceW":452,"sourceH":78},
+"rms_register_form":{"x":0,"y":0,"w":192,"h":192,"offX":0,"offY":0,"sourceW":192,"sourceH":192},
+"rms_view_field_bg_4":{"x":390,"y":0,"w":102,"h":78,"offX":0,"offY":0,"sourceW":102,"sourceH":78},
+"rms_btn_bg_2":{"x":194,"y":0,"w":194,"h":87,"offX":4,"offY":3,"sourceW":202,"sourceH":92}}}
