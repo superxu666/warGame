@@ -1,0 +1,805 @@
+{
+	"file": "w1sheet.png",
+	"frames": {
+		"war_account_btn_png": {
+			"h": 53,
+			"offX": 0,
+			"offY": 2,
+			"sourceH": 56,
+			"sourceW": 39,
+			"w": 39,
+			"x": 415,
+			"y": 921
+		},
+		"war_activity_img_png": {
+			"h": 21,
+			"offX": 2,
+			"offY": 4,
+			"sourceH": 28,
+			"sourceW": 28,
+			"w": 24,
+			"x": 305,
+			"y": 990
+		},
+		"war_banker_head_img_png": {
+			"h": 86,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 86,
+			"sourceW": 82,
+			"w": 82,
+			"x": 774,
+			"y": 832
+		},
+		"war_bean_banker_btn_png": {
+			"h": 42,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 42,
+			"sourceW": 145,
+			"w": 145,
+			"x": 133,
+			"y": 854
+		},
+		"war_bean_img_png": {
+			"h": 20,
+			"offX": 4,
+			"offY": 4,
+			"sourceH": 28,
+			"sourceW": 28,
+			"w": 19,
+			"x": 390,
+			"y": 929
+		},
+		"war_bet_item_bg_png": {
+			"h": 128,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 128,
+			"sourceW": 72,
+			"w": 72,
+			"x": 584,
+			"y": 466
+		},
+		"war_bet_item_chief_png": {
+			"h": 63,
+			"offX": 5,
+			"offY": 13,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 415,
+			"y": 854
+		},
+		"war_bet_item_coin_bg_png": {
+			"h": 77,
+			"offX": 5,
+			"offY": 51,
+			"sourceH": 128,
+			"sourceW": 72,
+			"w": 62,
+			"x": 282,
+			"y": 854
+		},
+		"war_bet_item_dragon_png": {
+			"h": 71,
+			"offX": 4,
+			"offY": 0,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 63,
+			"x": 348,
+			"y": 854
+		},
+		"war_bet_item_king_png": {
+			"h": 65,
+			"offX": 5,
+			"offY": 11,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 509,
+			"y": 720
+		},
+		"war_bet_item_knight_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 545,
+			"y": 874
+		},
+		"war_bet_item_master_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 610,
+			"y": 874
+		},
+		"war_bet_item_minotaur_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 675,
+			"y": 874
+		},
+		"war_bet_item_orc_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 133,
+			"y": 900
+		},
+		"war_bet_item_tribal_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 198,
+			"y": 900
+		},
+		"war_bet_item_union_png": {
+			"h": 61,
+			"offX": 6,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 59,
+			"x": 67,
+			"y": 912
+		},
+		"war_bet_item_warlock_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 2,
+			"y": 912
+		},
+		"war_bet_item_warrior_png": {
+			"h": 61,
+			"offX": 5,
+			"offY": 15,
+			"sourceH": 76,
+			"sourceW": 72,
+			"w": 61,
+			"x": 480,
+			"y": 854
+		},
+		"war_bet_mutiple_12_png": {
+			"h": 21,
+			"offX": 16,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 33,
+			"x": 660,
+			"y": 466
+		},
+		"war_bet_mutiple_24_99_png": {
+			"h": 19,
+			"offX": 0,
+			"offY": 2,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 49,
+			"x": 972,
+			"y": 981
+		},
+		"war_bet_mutiple_24_png": {
+			"h": 21,
+			"offX": 11,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 38,
+			"x": 692,
+			"y": 983
+		},
+		"war_bet_mutiple_2_png": {
+			"h": 21,
+			"offX": 23,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 26,
+			"x": 644,
+			"y": 985
+		},
+		"war_bet_mutiple_30_99_png": {
+			"h": 19,
+			"offX": 2,
+			"offY": 2,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 47,
+			"x": 78,
+			"y": 977
+		},
+		"war_bet_mutiple_4_png": {
+			"h": 21,
+			"offX": 21,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 28,
+			"x": 740,
+			"y": 874
+		},
+		"war_bet_mutiple_6_png": {
+			"h": 21,
+			"offX": 23,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 26,
+			"x": 345,
+			"y": 987
+		},
+		"war_bet_mutiple_8_png": {
+			"h": 21,
+			"offX": 23,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 49,
+			"w": 26,
+			"x": 521,
+			"y": 987
+		},
+		"war_bet_setting_continue_btn_png": {
+			"h": 63,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 63,
+			"sourceW": 109,
+			"w": 109,
+			"x": 584,
+			"y": 598
+		},
+		"war_bet_setting_selected_count_100_png": {
+			"h": 17,
+			"offX": 3,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 27,
+			"x": 654,
+			"y": 665
+		},
+		"war_bet_setting_selected_count_10_png": {
+			"h": 17,
+			"offX": 7,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 19,
+			"x": 835,
+			"y": 983
+		},
+		"war_bet_setting_selected_count_10w_png": {
+			"h": 17,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 34,
+			"x": 584,
+			"y": 665
+		},
+		"war_bet_setting_selected_count_1_png": {
+			"h": 17,
+			"offX": 12,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 9,
+			"x": 1006,
+			"y": 2
+		},
+		"war_bet_setting_selected_count_1k_png": {
+			"h": 17,
+			"offX": 6,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 21,
+			"x": 390,
+			"y": 953
+		},
+		"war_bet_setting_selected_count_1w_png": {
+			"h": 17,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 26,
+			"w": 26,
+			"x": 896,
+			"y": 994
+		},
+		"war_bet_setting_selected_count_5w_png": {
+			"h": 17,
+			"offX": 3,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 27,
+			"x": 740,
+			"y": 899
+		},
+		"war_bet_setting_selected_count__bormal_bg_png": {
+			"h": 27,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 27,
+			"sourceW": 54,
+			"w": 54,
+			"x": 130,
+			"y": 965
+		},
+		"war_bet_setting_selected_count_all_png": {
+			"h": 17,
+			"offX": 3,
+			"offY": 0,
+			"sourceH": 17,
+			"sourceW": 34,
+			"w": 28,
+			"x": 622,
+			"y": 665
+		},
+		"war_bet_setting_selected_count_bg_png": {
+			"h": 28,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 28,
+			"sourceW": 50,
+			"w": 50,
+			"x": 188,
+			"y": 965
+		},
+		"war_bet_setting_selected_type_bg_png": {
+			"h": 54,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 54,
+			"sourceW": 127,
+			"w": 127,
+			"x": 2,
+			"y": 854
+		},
+		"war_bet_setting_selected_type_item_bg_1_png": {
+			"h": 30,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 30,
+			"sourceW": 44,
+			"w": 44,
+			"x": 973,
+			"y": 947
+		},
+		"war_bet_setting_selected_type_item_bg_2_png": {
+			"h": 44,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 44,
+			"sourceW": 44,
+			"w": 44,
+			"x": 540,
+			"y": 939
+		},
+		"war_close_btn_png": {
+			"h": 51,
+			"offX": 2,
+			"offY": 4,
+			"sourceH": 56,
+			"sourceW": 39,
+			"w": 36,
+			"x": 305,
+			"y": 935
+		},
+		"war_gear_frame_png": {
+			"h": 257,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 257,
+			"sourceW": 67,
+			"w": 67,
+			"x": 948,
+			"y": 686
+		},
+		"war_gear_in_png": {
+			"h": 250,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 250,
+			"sourceW": 250,
+			"w": 250,
+			"x": 330,
+			"y": 466
+		},
+		"war_gear_out_png": {
+			"h": 324,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 324,
+			"sourceW": 324,
+			"w": 324,
+			"x": 2,
+			"y": 466
+		},
+		"war_gold_img_png": {
+			"h": 25,
+			"offX": 1,
+			"offY": 3,
+			"sourceH": 28,
+			"sourceW": 28,
+			"w": 25,
+			"x": 660,
+			"y": 563
+		},
+		"war_head_frame_png": {
+			"h": 56,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 56,
+			"sourceW": 56,
+			"w": 56,
+			"x": 480,
+			"y": 919
+		},
+		"war_history__red_dragon_png": {
+			"h": 54,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 54,
+			"sourceW": 38,
+			"w": 38,
+			"x": 348,
+			"y": 929
+		},
+		"war_id_img_png": {
+			"h": 22,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 22,
+			"sourceW": 30,
+			"w": 30,
+			"x": 660,
+			"y": 491
+		},
+		"war_medal_top_list_item_1_png": {
+			"h": 19,
+			"offX": 3,
+			"offY": 1,
+			"sourceH": 21,
+			"sourceW": 36,
+			"w": 31,
+			"x": 774,
+			"y": 983
+		},
+		"war_medal_top_list_item_2_png": {
+			"h": 19,
+			"offX": 1,
+			"offY": 1,
+			"sourceH": 21,
+			"sourceW": 36,
+			"w": 34,
+			"x": 660,
+			"y": 517
+		},
+		"war_medal_top_list_item_3_png": {
+			"h": 19,
+			"offX": 1,
+			"offY": 1,
+			"sourceH": 21,
+			"sourceW": 36,
+			"w": 34,
+			"x": 660,
+			"y": 540
+		},
+		"war_medal_top_list_item_4_png": {
+			"h": 21,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 21,
+			"sourceW": 36,
+			"w": 36,
+			"x": 734,
+			"y": 983
+		},
+		"war_medal_top_list_item_bg_png": {
+			"h": 58,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 58,
+			"sourceW": 175,
+			"w": 175,
+			"x": 330,
+			"y": 720
+		},
+		"war_medal_top_list_item_gold_medal_png": {
+			"h": 26,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 26,
+			"sourceW": 22,
+			"w": 22,
+			"x": 809,
+			"y": 983
+		},
+		"war_medal_top_list_item_head_bg_png": {
+			"h": 48,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 48,
+			"sourceW": 48,
+			"w": 48,
+			"x": 896,
+			"y": 832
+		},
+		"war_medal_top_list_item_silver_medal_png": {
+			"h": 26,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 26,
+			"sourceW": 22,
+			"w": 22,
+			"x": 832,
+			"y": 922
+		},
+		"war_right_bg_png": {
+			"h": 680,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 680,
+			"sourceW": 304,
+			"w": 304,
+			"x": 698,
+			"y": 2
+		},
+		"war_send_msg_img_png": {
+			"h": 33,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 33,
+			"sourceW": 54,
+			"w": 54,
+			"x": 588,
+			"y": 939
+		},
+		"war_setting_btn_png": {
+			"h": 52,
+			"offX": 1,
+			"offY": 3,
+			"sourceH": 56,
+			"sourceW": 39,
+			"w": 38,
+			"x": 263,
+			"y": 935
+		},
+		"war_show_banker_list_btn_png": {
+			"h": 20,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 20,
+			"sourceW": 73,
+			"w": 73,
+			"x": 896,
+			"y": 947
+		},
+		"war_silver_img_png": {
+			"h": 25,
+			"offX": 1,
+			"offY": 3,
+			"sourceH": 28,
+			"sourceW": 28,
+			"w": 25,
+			"x": 554,
+			"y": 789
+		},
+		"war_start_bg_png": {
+			"h": 142,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 142,
+			"sourceW": 360,
+			"w": 360,
+			"x": 584,
+			"y": 686
+		},
+		"war_start_img_png": {
+			"h": 56,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 56,
+			"sourceW": 273,
+			"w": 273,
+			"x": 2,
+			"y": 794
+		},
+		"war_start_mask_bg_png": {
+			"h": 42,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 42,
+			"sourceW": 42,
+			"w": 42,
+			"x": 646,
+			"y": 939
+		},
+		"war_status_bet_png": {
+			"h": 19,
+			"offX": 10,
+			"offY": 0,
+			"sourceH": 19,
+			"sourceW": 71,
+			"w": 52,
+			"x": 465,
+			"y": 979
+		},
+		"war_status_bg_png": {
+			"h": 33,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 33,
+			"sourceW": 88,
+			"w": 88,
+			"x": 740,
+			"y": 922
+		},
+		"war_status_locked_png": {
+			"h": 19,
+			"offX": 10,
+			"offY": 0,
+			"sourceH": 19,
+			"sourceW": 71,
+			"w": 52,
+			"x": 588,
+			"y": 976
+		},
+		"war_status_start_png": {
+			"h": 19,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 19,
+			"sourceW": 71,
+			"w": 71,
+			"x": 390,
+			"y": 978
+		},
+		"war_table_gear_png": {
+			"h": 181,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 181,
+			"sourceW": 32,
+			"w": 32,
+			"x": 860,
+			"y": 832
+		},
+		"war_tar_bg_png": {
+			"h": 460,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 460,
+			"sourceW": 692,
+			"w": 692,
+			"x": 2,
+			"y": 2
+		},
+		"war_top_activity_png": {
+			"h": 24,
+			"offX": 4,
+			"offY": 6,
+			"sourceH": 30,
+			"sourceW": 30,
+			"w": 22,
+			"x": 551,
+			"y": 987
+		},
+		"war_top_bet_normal_png": {
+			"h": 20,
+			"offX": 1,
+			"offY": 0,
+			"sourceH": 20,
+			"sourceW": 73,
+			"w": 72,
+			"x": 692,
+			"y": 959
+		},
+		"war_top_bet_selected_png": {
+			"h": 20,
+			"offX": 1,
+			"offY": 0,
+			"sourceH": 20,
+			"sourceW": 73,
+			"w": 72,
+			"x": 768,
+			"y": 959
+		},
+		"war_top_gold_png": {
+			"h": 22,
+			"offX": 4,
+			"offY": 7,
+			"sourceH": 30,
+			"sourceW": 30,
+			"w": 22,
+			"x": 268,
+			"y": 991
+		},
+		"war_top_list_btn_png": {
+			"h": 56,
+			"offX": 1,
+			"offY": 0,
+			"sourceH": 56,
+			"sourceW": 39,
+			"w": 38,
+			"x": 896,
+			"y": 884
+		},
+		"war_top_silver_png": {
+			"h": 22,
+			"offX": 4,
+			"offY": 7,
+			"sourceH": 30,
+			"sourceW": 30,
+			"w": 22,
+			"x": 242,
+			"y": 991
+		},
+		"war_top_title_bg_png": {
+			"h": 38,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 38,
+			"sourceW": 216,
+			"w": 216,
+			"x": 554,
+			"y": 832
+		},
+		"war_top_winner_normal_png": {
+			"h": 19,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 20,
+			"sourceW": 73,
+			"w": 72,
+			"x": 896,
+			"y": 971
+		},
+		"war_top_winner_selected_png": {
+			"h": 19,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 20,
+			"sourceW": 73,
+			"w": 72,
+			"x": 2,
+			"y": 977
+		},
+		"war_wait_img_png": {
+			"h": 56,
+			"offX": 0,
+			"offY": 0,
+			"sourceH": 56,
+			"sourceW": 271,
+			"w": 271,
+			"x": 279,
+			"y": 794
+		}
+	}
+}

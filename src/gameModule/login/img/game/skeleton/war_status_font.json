@@ -1,0 +1,12 @@
+{"file":"war_status_font.png","frames":{
+"0":{"x":58,"y":0,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+"1":{"x":36,"y":68,"w":9,"h":32,"offX":2,"offY":0,"sourceW":13,"sourceH":32},
+"2":{"x":20,"y":34,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+"3":{"x":38,"y":34,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+"4":{"x":0,"y":0,"w":20,"h":32,"offX":2,"offY":0,"sourceW":24,"sourceH":32},
+"5":{"x":0,"y":68,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+"6":{"x":22,"y":0,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+"7":{"x":0,"y":34,"w":18,"h":32,"offX":2,"offY":0,"sourceW":22,"sourceH":32},
+"8":{"x":40,"y":0,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+"9":{"x":18,"y":68,"w":16,"h":32,"offX":2,"offY":0,"sourceW":20,"sourceH":32},
+" ":{"x":0,"y":102,"w":5,"h":5,"offX":0,"offY":0,"sourceW":5,"sourceH":32}}}
