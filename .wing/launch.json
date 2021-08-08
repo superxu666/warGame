@@ -10,7 +10,7 @@
 			"useBuildInServer": true,
 			"sourceMaps": true,
 			"webRoot": "${workspaceRoot}",
-			"preLaunchTask":"build",
+			// "preLaunchTask":"build",
 			"port":5916
 		},
 		{

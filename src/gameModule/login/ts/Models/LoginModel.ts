@@ -1,6 +1,13 @@
 module login {
     export class LoginModel {
 
+        private static _instance: LoginModel
+
+        public static getInstance(): LoginModel {
+
+            return LoginModel._instance || (LoginModel._instance = new LoginModel)
+        }
+
         /*发送短信*/
         public sendSms(username: string): void {
 
@@ -35,6 +42,11 @@ module login {
                 password
             }, HTTPConf.M_POST, (res) => {
 
+                if (res.code == 200) {
+
+                    UserData.getInstance().token = res.token
+                }
+
             })
         }
 
@@ -53,7 +65,7 @@ module login {
         public logout(params): void {
 
             HttpMsg.getInstance().sendMsg('/logout', params, HTTPConf.M_POST, (res) => {
-                
+
             })
         }
 

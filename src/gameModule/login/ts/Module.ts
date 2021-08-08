@@ -8,7 +8,7 @@ module login {
 		// public fireClip: GYMovieClip;
 
 
-		public iframe:GYLite.GYScaleSprite
+		public iframe: GYLite.GYScaleSprite
 
 
 
@@ -49,10 +49,16 @@ module login {
 
 
 			s.leftBottomBtn.setOnClick(function(){
-				UIControl.getInstance().closeCurUI()
-				UIControl.getInstance().openUI('main')
+				// UIControl.getInstance().closeCurUI()
+				// UIControl.getInstance().openUI('main')
+
+				main.GameTime.getInstance().run()
+
 			}, s)
 
+			LoginModel.getInstance().loginPwd('admin', 'admin123')
+
+			
 
 		}
 		protected start(): void {

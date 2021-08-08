@@ -25,7 +25,8 @@ class ConfigManager {
 		let s = this;
 		let tk:string;
 		tk = UserData.getInstance().getQueryVariable("tk") || UserData.getInstance().token;
-		return (tk!=null&&tk!="")?tk:(window["token"]?window["token"]:"1311136300736184320");
+		// return (tk!=null&&tk!="")?tk:(window["token"]?window["token"]:"1311136300736184320");
+		return (tk!=null&&tk!="")?tk:(window["token"]?window["token"]:"");
 	}
 	/**窗口模式的配置宽度*/
 	public get winWidth():number

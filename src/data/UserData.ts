@@ -7,8 +7,8 @@ class UserData {
 		return UserData._instance;
 	}
 
-public token:string="eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifQ.W3sibmJmIjoxNjI0MjcxMDU5LCJpc3MiOiJkb2YiLCJ0emEiOiJDU1QiLCJleHAiOjE2MjQ4NzU4NTksImlhdCI6MTYyNDI3MTA1OSwic2lkIjoxfSx7InJhbmQiOiIyODQ2NDU5NTYxNzUwMDc0MDAzNDA0NDA4MzYwMTk4NTA3NzE0NTU4NjA0Mjg1MDI2MjcwNjUyOTA1NDA0ODg5IiwidWlkIjoyMTk4MjkzMDEsInR5cCI6InUiLCJ0aW1lIjoxNjI0MjcxMDU5LCJlbnYiOiJ1YXQifSx7ImJyYW5kIjoiVklQX1dhbkRvdSIsInVuaWQiOjExNzQ0ODY5fSx7InVuaWQiOmZhbHNlfV0.ZThmMzA0MDYyZDZmOWE4OGM4MGJlNWJmZGQzOTUxZWFlZWRkYTBiYjgyMGIwODAxMzRmN2E4ZjcwMWUxNTJkOB"; 
 
+	public token: string = ''
 	public whiteUserIndex:number=-1;
 	public userId:string="0";
 	public userNickName:string;
@@ -17,6 +17,7 @@ public token:string="eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifQ.W3sibmJmIjoxNjI0Mjcx
 	public studentNumber:string;
 	public age:string;
 	public openId:string;
+	public host: string="localhost:8080"
 	public root:string="https://wx.wit-learn.com";
 	public ossRoot:string="https://oss.wit-learn.com";//本地页面指定url
 	// public ossRoot:string="https://oss.iandcode.com/";//本地页面指定url
@@ -74,11 +75,9 @@ public token:string="eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifQ.W3sibmJmIjoxNjI0Mjcx
 		if(GameManager.getInstance().debug || this._webData["debug"] == "1")
 		{
 			let s = this;
-		// 	//老师账号token
-		// 	//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5cHRva2VuIiwidXNlcl9pZCI6NzA1MTEsIm5hbWUiOiJ0YW4iLCJpZCI6IjE2MDAyMzcyMTEyNzNfNzA1MTEiLCJleHAiOjE2MDAyODA0MTF9.yhhY5rbc7KihIsByn4RQW7gsErwEuioWkmGRLx2AIdE
-			// s.token = window["token"]?window["token"]:"1311136300736184320";
-			s.ossRoot = window.location.origin == "https://www.iandcode.com"?"https://oss.iandcode.com":"https://oss.wit-learn.com";
-			s.root = "https://wx.wit-learn.com";//"https://www.iandcode.com";//
+
+			s.root = "http://" + s.host;
+
 			s.headPortrait = "https://www.iandcode.com/s/images/userAvatar.png";
 		}
 		s.whiteUserIndex = s.getWhiteUserIndex();
@@ -112,11 +111,9 @@ public token:string="eyJhbGciOiJzaGEyNTYiLCJ0eXAiOiJKV1QifQ.W3sibmJmIjoxNjI0Mjcx
 		if(GameManager.getInstance().debug || this._webData["debug"] == "1")
 		{
 			let s = this;
-		   // s.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5cHRva2VuIiwidXNlcl9pZCI6NzA1MTEsIm5hbWUiOiJ0YW4iLCJpZCI6IjE2MDAzMDczMTk4NTRfNzA1MTEiLCJleHAiOjE2MDAzNTA1MTl9._gWOO6caJh4XWanoaKqLZi8um0c447PXeJd5lMhEuyA";//"1303986554342998016";
 			s.token = ConfigManager.getToken();
-			s.ossRoot = UserData.getInstance().isDebugOrigin()?"https://oss.wit-learn.com":"https://oss.iandcode.com";
-			s.root = UserData.getInstance().isDebugOrigin()? "https://wx.wit-learn.com" : "https://www.iandcode.com";//"https://www.iandcode.com";//
 			s.headPortrait = "https://www.iandcode.com/s/images/userAvatar.png";
+			s.root = 'http://localhost:8080'
 		}
 		if(s._webData.isRelease != null)
 			s.isRelease = s._webData.isRelease;

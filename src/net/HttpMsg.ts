@@ -23,7 +23,7 @@ class HttpMsg {
 	}
 	public get header():Array<any>
 	{let s = this;		
-		if(s._header)return s._header;
+		// if(s._header)return s._header;
 		if(MsgBase.haveMsgHandle())
 		{
 			s._header = [
@@ -33,7 +33,7 @@ class HttpMsg {
 		else
 		{
 			s._header = [
-					{key:"token",value:UserData.getInstance().token},
+					{key:"Authorization",value:UserData.getInstance().token},
 				];
 		}			
 		
@@ -138,7 +138,7 @@ class HttpMsg {
 			else
 				url += "?rrr=" + (++s._c);
 		}
-		// url = url.indexOf("http")==0?url:(UserData.getInstance().root + url);
+		url = url.indexOf("http")==0?url:(UserData.getInstance().root + url);
 		
 		if(method.toLocaleUpperCase() == HTTPConf.M_GET && data)
 		{

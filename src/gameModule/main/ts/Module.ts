@@ -6,8 +6,8 @@ module main {
 
 		public modulePreStart(): void {
 
-			let sdf = new SocketModel
-			sdf.send('sadfkajsdof')
+			// let sdf = new SocketModel
+			// sdf.send('sadfkajsdof')
 		}
 		protected start(): void {
 			super.start();
