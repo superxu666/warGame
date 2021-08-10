@@ -3,13 +3,35 @@ module login {
 
         public static _instance: LoginLayout
 
-        public phoneInput: GYLite.GYTextInput
-        public passwInput: GYLite.GYTextInput
-        public codeInput: GYLite.GYTextInput
+        public phone: string
+        public passw: string
+        public code: string
+        public nicknameInput: GYLite.GYTextInput
         public loginBtn: GYLite.GYButton
+
+        /*游客*/
+        public visitor: GYLite.GYText
+        /*注册*/
+        public registry: GYLite.GYText
+
+        /*登录方式切换: 1: 验证码, 2: 密码, 3: 找回密码, 4: 注册*/
+        public mod: any
+        public curMod: string = '1'
+        public switchMod: GYLite.GYText
 
         public static getInstance(): LoginLayout {
             return LoginLayout._instance ? LoginLayout._instance : (LoginLayout._instance = new LoginLayout)
+        }
+
+        constructor() {
+
+            let s = this
+            s.mod = {
+                '1': '切换到密码登录>',
+                '2': '切换到手机验证码>',
+                '3': '返回登录页面>',
+                '4': '返回登录页面>'
+            }
         }
 
         public layout(ui: Module): void {
@@ -18,82 +40,166 @@ module login {
 
             const iframe = SkinManager.createScaleImage(ui, 100, 200, 'rms_view_bg_png', Conf.main + 'img/d1sheet.png', new GYLite.Scale9GridRect(100, 100, 100, 100))
             iframe.width = 680
-            iframe.height = 460
+            iframe.height = 410
             iframe.horizonalCenter = 0
 
 
-            // const phone = TemplateTool.createTextInput(iframe, 170, 70, 452, 78, null, 30)
-            // phone.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
-            // phone.paddingLeft = 60
-            // phone.paddingRight = 60
-
-            s.phoneInput = s.phone_c(iframe, 66, 70, 452, 78)
-            s.passwInput = s.passw_c(iframe, 66, s.phoneInput.y + s.phoneInput.height + 10, 452, 78)
+            s.phone_c(iframe, 66, 70, 452, 78)
+            s.passw_c(iframe, 66, 70 + 78 + 10, 452, 78)
+            // s.code_c(iframe, 66, 70 + 78 + 10, 452, 78)
 
             s.loginBtn = SkinManager.createBtn(iframe, 210, 250, 'rms_login_btn_bg_png', null, null, Conf.main + 'img/d1sheet.png')
             s.loginBtn.label = '登录'
-            s.loginBtn.labelDisplay.size = 30
+            s.loginBtn.labelDisplay.size = 26
+            s.loginBtn.labelDisplay.textColor = 0xffffff
 
+            s.visitor = SkinManager.createText(iframe, 66, 300, '游客登录', 0xffffff, 26)
+            s.registry = SkinManager.createText(iframe, 510, 300, '快速注册', 0xffffff, 26)
 
-            s.openDrag(iframe, false)
+            s.switchMod = SkinManager.createText(iframe, 240, 450, s.listenMod(), 0xffffff, 26)
+            s.switchMod.touchEnabled = true
 
+            s.bindEvent()
+
+            // s.openDrag(iframe, false)
             s.test(ui)
         }
 
-        public bindLogin(cb: Function, thisobj: any) {
+        /*密码登录布局*/
+        private passwLayout(): void {
             let s = this;
+
+        }
+
+        /*验证码登录布局*/
+        private codeLayout(): void {
+
+        }
+
+        /*忘记密码布局*/
+        private gotPasswLayout(): void {
+
+        }
+
+        /*注册布局*/
+        private registryLayout(): void {
+
+        }
+
+        private bindEvent(): void {
+
+            let s = this
+            s.switchMod.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSwitch, s)
+        }
+
+        private handleSwitch(): void {
+
+            let s = this
+            if (s.curMod == '1') {/*去密码登录*/
+
+                s.curMod = '2'
+
+            } else if (s.curMod == '2') {/*去验证码登录*/
+
+                s.curMod = '1'
+
+            } else {/*返回登录页面*/
+
+                s.curMod = '1'
+            }
+            s.switchMod.text = s.listenMod()
+        }
+
+        public listenMod(): string {
+
+            let s = this
+            // s.passwInput.visible = s.curMod == '2'
+            // s.codeInput.visible = !s.passwInput.visible
+            return s.mod[s.curMod]
+        }
+
+        public bindLogin(cb: Function, thisobj: any): void {
+            let s = this
             s.loginBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, cb, thisobj)
         }
 
-        public phone_c(pr: GYLite.GYSprite, x: number, y: number, w: number, h: number): GYLite.GYTextInput {
+        private sendCallback: Function
+        private sendThisobj: any
+        public bindSend(cb: Function, thisobj: any): void {
+            let s = this
+            s.sendCallback = cb
+            s.sendThisobj = thisobj
+        }
+
+        public phone_c(pr: GYLite.GYSprite, x: number, y: number, w: number, h: number) {
 
             const s = this;
-            const t = SkinManager.createText(pr, x, 0, '手机号', 0xffffff, 30)
+            const parent = new GYLite.GYUIComponent
+            const t = SkinManager.createText(parent, x, 0, '手机号', 0xffffff, 30)
             t.y = (h - t.height) / 2 + y
-            const p = TemplateTool.createTextInput(pr, t.x + t.width + 10, y, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, y, 452, 78, null, 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.addEventListener(egret.Event.CHANGE, function () {
+                s.phone = p.text
+            }, s)
             p.paddingLeft = 60
             p.paddingRight = 60
-
-            return p
+            pr.addElement(parent)
 
         }
 
-        public code_c(pr: GYLite.GYSprite, x: number, y: number, w: number, h: number): GYLite.GYTextInput {
+        public code_c(pr: GYLite.GYSprite, x: number, y: number, w: number, h: number) {
 
             const s = this;
-            const t = SkinManager.createText(pr, x, 0, '验证码', 0xffffff, 30)
+            const parent = new GYLite.GYUIComponent
+            const t = SkinManager.createText(parent, x, 0, '验证码', 0xffffff, 30)
             t.y = (h - t.height) / 2 + y
-            const p = TemplateTool.createTextInput(pr, t.x + t.width + 10, y, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, y, 452, 78, null, 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.addEventListener(egret.Event.CHANGE, () => {
+                s.code = p.text
+            }, s)
             p.textInput.y = 10
             p.paddingLeft = 60
             p.paddingRight = 160
 
-            const send = SkinManager.createBtn(pr, 490, y + 12, 'rms_login__send_vitify_code_png', null, null, Conf.main + 'img/d1sheet.png')
+            const send = SkinManager.createBtn(parent, 490, y + 12, 'rms_login__send_vitify_code_png', null, null, Conf.main + 'img/d1sheet.png')
+            send.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+                s.sendCallback && s.sendCallback.call(s.sendThisobj)
+            }, s)
             send.label = '发送'
             send.labelDisplay.size = 22
 
-            return p
+            pr.addElement(parent)
 
         }
 
-        public passw_c(pr: GYLite.GYSprite, x: number, y: number, w: number, h: number): GYLite.GYTextInput {
+        public passw_c(pr: GYLite.GYSprite, x: number, y: number, w: number, h: number) {
 
             const s = this;
-            const t = SkinManager.createText(pr, x, 0, '密码', 0xffffff, 30)
+            const parent = new GYLite.GYUIComponent
+            const t = SkinManager.createText(parent, x, 0, '密码', 0xffffff, 30)
             t.y = (h - t.height) / 2 + y
-            const p = TemplateTool.createTextInput(pr, t.x + t.width + 40, y, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, y, 452, 78, null, 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.addEventListener(egret.Event.CHANGE, () => {
+                s.passw = p.text
+            }, s)
             p.paddingLeft = 60
             p.paddingRight = 60
             p.textInput.displayAsPassword = true;
             p.textInput.inputType = egret.TextFieldInputType.PASSWORD;
 
             //rms_login_display_password_png
-            const send = SkinManager.createBtn(pr, 520, y + 26, 'rms_login__hide_password_png', null, null, Conf.main + 'img/d1sheet.png')
-
-            return p
+            let selected = false
+            const hidePs = SkinManager.createBtn(parent, 520, y + 26, 'rms_login__hide_password_png', null, null, Conf.main + 'img/d1sheet.png')
+            hidePs.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+                selected = !selected
+                p.textInput.displayAsPassword = !selected;
+                p.textInput.inputType = !selected ? egret.TextFieldInputType.TEXT : egret.TextFieldInputType.PASSWORD
+            }, s)
+            
+            pr.addElement(parent)
 
         }
 

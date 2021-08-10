@@ -48,7 +48,7 @@ module login {
 			s.loginView.layout(s)
 
 			console.log(s.loginView);
-			
+
 
 			/*登录*/
 			s.loginView.bindLogin(() => {
@@ -57,11 +57,18 @@ module login {
 				// UIControl.getInstance().openUI('main')
 				// 	main.GameTime.getInstance().run()
 
-				console.log(s.loginView.phoneInput.text);
-				console.log(s.loginView.passwInput.text);
+				console.log(s.loginView.phone);
+				console.log(s.loginView.passw);
 
-				LoginModel.getInstance().loginPwd(s.loginView.phoneInput.text, s.loginView.passwInput.text)
-				
+				LoginModel.getInstance().loginPwd(s.loginView.phone, s.loginView.passw)
+
+			}, s)
+
+			s.loginView.bindSend(() => {
+
+				console.log(s.loginView.phone);
+				console.log(s.loginView.code);
+
 			}, s)
 
 
