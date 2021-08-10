@@ -8,9 +8,7 @@ module login {
 		// public fireClip: GYMovieClip;
 
 
-		public iframe: GYLite.GYScaleSprite
-
-
+		public loginView: LoginLayout
 
 		public constructor() {
 			super();
@@ -45,20 +43,27 @@ module login {
 			// s.fireClip.y = 500;
 			// s.addElement(s.fireClip);
 
-			LoginLayout.getInstance().layout(s)
 
+			this.loginView = LoginLayout.getInstance()
+			s.loginView.layout(s)
 
-			s.leftBottomBtn.setOnClick(function(){
+			console.log(s.loginView);
+			
+
+			/*登录*/
+			s.loginView.bindLogin(() => {
+
 				// UIControl.getInstance().closeCurUI()
 				// UIControl.getInstance().openUI('main')
+				// 	main.GameTime.getInstance().run()
 
-				main.GameTime.getInstance().run()
+				console.log(s.loginView.phoneInput.text);
+				console.log(s.loginView.passwInput.text);
 
+				LoginModel.getInstance().loginPwd(s.loginView.phoneInput.text, s.loginView.passwInput.text)
+				
 			}, s)
 
-			LoginModel.getInstance().loginPwd('admin', 'admin123')
-
-			
 
 		}
 		protected start(): void {
