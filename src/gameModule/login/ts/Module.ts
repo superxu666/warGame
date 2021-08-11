@@ -60,7 +60,10 @@ module login {
 				console.log(s.loginView.phone);
 				console.log(s.loginView.passw);
 
-				LoginModel.getInstance().loginPwd(s.loginView.phone, s.loginView.passw)
+				LoginModel.getInstance().loginPwd(s.loginView.phone, s.loginView.passw, () => {
+					UIControl.getInstance().closeCurUI()
+					UIControl.getInstance().openUI('main')
+				})
 
 			}, s)
 

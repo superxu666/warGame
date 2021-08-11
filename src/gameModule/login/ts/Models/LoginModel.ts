@@ -35,19 +35,29 @@ module login {
         }
 
         /*密码登录*/
-        public loginPwd(username: string, password: string): void {
+        public loginPwd(username: string, password: string, cb: Function): void {
 
-            HttpMsg.getInstance().sendMsg('/war/user/loginPwd', {
+            // HttpMsg.getInstance().sendMsg('/war/user/loginPwd', {
+            //     username,
+            //     password
+            // }, HTTPConf.M_POST, (res) => {
+
+            //     if (res.code == 200) {
+
+            //         UserData.getInstance().token = res.token
+                    
+            //     }
+
+            // })
+
+            BaseHttp.getInstance().sendMsg('/war/user/loginPwd', {
                 username,
                 password
-            }, HTTPConf.M_POST, (res) => {
+            }, HTTPConf.M_POST, (res)=>{
+                UserData.getInstance().token = res.token
+                cb && cb(res)
+            }, this)
 
-                if (res.code == 200) {
-
-                    UserData.getInstance().token = res.token
-                }
-
-            })
         }
 
         /*验证码登录*/

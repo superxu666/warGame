@@ -78,7 +78,7 @@ class TemplateTool {
 
 		let input = new GYLite.GYTextInput;
 		input.x = x;
-		input.y = y - 5;
+		input.y = y;
 		input.width = input.textInput.width = w;
 		input.height = input.textInput.height = h;
 		input.paddingTop = (h - size) / 2;

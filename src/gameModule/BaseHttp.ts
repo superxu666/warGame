@@ -12,7 +12,7 @@ class BaseHttp {
         HttpMsg.getInstance().sendMsg(url, data, method, (res) => {
 
             if (res.code == 200) {
-                callBack && callBack.call(thisObj, res.data)
+                callBack && callBack.call(thisObj, res)
             } else {
                 throw new Error(url + ': error - ' + res.mes)
             }
