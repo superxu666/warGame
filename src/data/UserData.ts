@@ -17,7 +17,7 @@ class UserData {
 	public studentNumber:string;
 	public age:string;
 	public openId:string;
-	public host: string="localhost:8080"
+	public host: string="103.218.3.72:8080"
 	public root:string="https://wx.wit-learn.com";
 	public ossRoot:string="https://oss.wit-learn.com";//本地页面指定url
 	// public ossRoot:string="https://oss.iandcode.com/";//本地页面指定url
@@ -113,7 +113,7 @@ class UserData {
 			let s = this;
 			s.token = ConfigManager.getToken();
 			s.headPortrait = "https://www.iandcode.com/s/images/userAvatar.png";
-			s.root = 'http://localhost:8080'
+			s.root = 'http://' + s.host
 		}
 		if(s._webData.isRelease != null)
 			s.isRelease = s._webData.isRelease;

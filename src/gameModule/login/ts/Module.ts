@@ -43,41 +43,80 @@ module login {
 			// s.fireClip.y = 500;
 			// s.addElement(s.fireClip);
 
-
 			this.loginView = LoginLayout.getInstance()
 			s.loginView.layout(s)
 
-			console.log(s.loginView);
+		}
+		protected start(): void {
+			let s = this;
 
+			const loginType = {
+				/*密码登录*/
+				'1': () => {
+					LoginModel.getInstance().loginPwd(s.loginView.phone, s.loginView.passw, () => {
+						UIControl.getInstance().closeCurUI()
+						UIControl.getInstance().openUI('main')
+						BaseWar.getInstance().trigger('clear_login_all_info')
+					})
+				},
+				/*验证码登录*/
+				'2': () => {
+					LoginModel.getInstance().loginCode(s.loginView.phone, s.loginView.code, () => {
+						UIControl.getInstance().closeCurUI()
+						UIControl.getInstance().openUI('main')
+						BaseWar.getInstance().trigger('clear_login_all_info')
+					})
+				},
+				/*找回密码*/
+				'3': () => {
+					LoginModel.getInstance().resetPwd({
+						username: s.loginView.phone,
+						password: s.loginView.passw,
+						code: s.loginView.code
+					}, () => {
+
+						BaseWar.getInstance().trigger('clear_login_info')
+						s.loginView.switchMode('1')
+					})
+				},
+				/*注册*/
+				'4': () => {
+					LoginModel.getInstance().register({
+						username: s.loginView.phone,
+						password: s.loginView.passw,
+						nickname: s.loginView.nickname,
+						code: s.loginView.code
+					}, () => {
+
+						BaseWar.getInstance().trigger('clear_login_info')
+						s.loginView.switchMode('1')
+					})
+				}
+			}
 
 			/*登录*/
-			s.loginView.bindLogin(() => {
-
-				// UIControl.getInstance().closeCurUI()
-				// UIControl.getInstance().openUI('main')
-				// 	main.GameTime.getInstance().run()
+			s.loginView.bindLogin((loginBtnType) => {
 
 				console.log(s.loginView.phone);
 				console.log(s.loginView.passw);
+				console.log(s.loginView.code);
+				console.log(loginBtnType);
 
-				LoginModel.getInstance().loginPwd(s.loginView.phone, s.loginView.passw, () => {
-					UIControl.getInstance().closeCurUI()
-					UIControl.getInstance().openUI('main')
-				})
+				loginType[loginBtnType] && loginType[loginBtnType]()
 
 			}, s)
 
+			/*发送验证码*/
 			s.loginView.bindSend(() => {
 
 				console.log(s.loginView.phone);
 				console.log(s.loginView.code);
 
+				LoginModel.getInstance().sendSms(s.loginView.phone, () => {
+
+				})
+
 			}, s)
-
-
-		}
-		protected start(): void {
-			let s = this;
 		}
 		protected ready(): void {
 

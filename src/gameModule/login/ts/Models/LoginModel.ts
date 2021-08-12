@@ -9,51 +9,38 @@ module login {
         }
 
         /*发送短信*/
-        public sendSms(username: string): void {
+        public sendSms(username: string, cb: Function): void {
 
-            HttpMsg.getInstance().sendMsg('/war/user/sendsms', {
-                username: username
+            BaseHttp.getInstance().sendMsg('/war/user/sendsms', {
+                username
             }, HTTPConf.M_POST, (res) => {
-
-            })
+                cb && cb(res)
+            }, this)
         }
 
         /*注册*/
-        public register(params): void {
+        public register(params: Object, cb: Function): void {
 
-            HttpMsg.getInstance().sendMsg('/war/user/register', params, HTTPConf.M_POST, (res) => {
-
-            })
+            BaseHttp.getInstance().sendMsg('/war/user/register', params, HTTPConf.M_POST, (res) => {
+                cb && cb(res)
+            }, this)
         }
 
         /*重置密码*/
-        public resetPwd(params): void {
+        public resetPwd(params: Object, cb: Function): void {
 
-            HttpMsg.getInstance().sendMsg('/war/user/resetPwd', params, HTTPConf.M_POST, (res) => {
-
-            })
+            BaseHttp.getInstance().sendMsg('/war/user/resetPwd', params, HTTPConf.M_POST, (res) => {
+                cb && cb(res)
+            }, this)
         }
 
         /*密码登录*/
         public loginPwd(username: string, password: string, cb: Function): void {
 
-            // HttpMsg.getInstance().sendMsg('/war/user/loginPwd', {
-            //     username,
-            //     password
-            // }, HTTPConf.M_POST, (res) => {
-
-            //     if (res.code == 200) {
-
-            //         UserData.getInstance().token = res.token
-                    
-            //     }
-
-            // })
-
             BaseHttp.getInstance().sendMsg('/war/user/loginPwd', {
                 username,
                 password
-            }, HTTPConf.M_POST, (res)=>{
+            }, HTTPConf.M_POST, (res) => {
                 UserData.getInstance().token = res.token
                 cb && cb(res)
             }, this)
@@ -61,21 +48,23 @@ module login {
         }
 
         /*验证码登录*/
-        public loginCode(username: string, code: string): void {
+        public loginCode(username: string, code: string, cb: Function): void {
 
-            HttpMsg.getInstance().sendMsg('/war/user/loginCode', {
+            BaseHttp.getInstance().sendMsg('/war/user/loginCode', {
                 username,
                 code
             }, HTTPConf.M_POST, (res) => {
-
-            })
+                UserData.getInstance().token = res.token
+                cb && cb(res)
+            }, this)
         }
 
         /*退出*/
-        public logout(params): void {
+        public logout(cb: Function): void {
 
-            HttpMsg.getInstance().sendMsg('/logout', params, HTTPConf.M_POST, (res) => {
-
+            BaseHttp.getInstance().sendMsg('/logout', {}, HTTPConf.M_POST, (res) => {
+                UserData.getInstance().token = ''
+                cb && cb(res)
             })
         }
 

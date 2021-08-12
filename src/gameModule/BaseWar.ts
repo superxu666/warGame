@@ -1,11 +1,18 @@
 class BaseWar implements IEventsBus {
 
     private _callbacks: Object
+    private static _instance: BaseWar
+
     constructor() {
     }
 
+    public static getInstance(): BaseWar {
+
+        return BaseWar._instance || (BaseWar._instance = new BaseWar)
+    }
+
     /**绑定事件 */
-    bind(ev: string, callback: Function, thisObject: any) {
+    public bind(ev: string, callback: Function, thisObject: any) {
 
         let calls = this._callbacks || (this._callbacks = {})
         if (!calls[ev]) {

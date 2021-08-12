@@ -20,9 +20,10 @@ module login {
         public c_nickname: GYLite.GYUIComponent
 
 
-        /*登录方式切换: 1: 验证码, 2: 密码, 3: 找回密码, 4: 注册*/
-        public mod: any
-        public curMod: string = '1'
+        /*登录方式切换: 1: 密码 2: 验证码, , 3: 找回密码, 4: 注册*/
+        private switchBtnText: Object
+        private loginBtnText: Object
+        private curMod: string = '2'
         public switchMod: GYLite.GYText
         public forgetPassw: GYLite.GYText
         public frame: GYLite.GYScaleSprite
@@ -34,12 +35,19 @@ module login {
         constructor() {
 
             let s = this
-            s.mod = {
-                '1': '切换到密码登录>',
-                '2': '切换到手机验证码>',
+            s.switchBtnText = {
+                '1': '切换到手机验证码>',
+                '2': '切换到密码登录>',
                 '3': '返回登录页面>',
                 '4': '返回登录页面>'
             }
+            s.loginBtnText = {
+                '1': '登录',
+                '2': '登录',
+                '3': '修改',
+                '4': '注册'
+            }
+
         }
 
         public layout(ui: Module): void {
@@ -53,7 +61,6 @@ module login {
             frame.height = 410
             frame.horizonalCenter = 0
 
-
             s.c_phone = s.phone_c(frame)
             s.c_passw = s.passw_c(frame)
             s.c_code = s.code_c(frame)
@@ -64,112 +71,112 @@ module login {
             s.loginBtn.labelDisplay.size = 26
             s.loginBtn.labelDisplay.textColor = 0xffffff
 
-
             s.forgetPassw = SkinManager.createText(frame, 480, 240, '忘记密码', 0xffffff, 20)
             s.visitor = SkinManager.createText(frame, 66, 300, '游客登录', 0xffffff, 26)
             s.registry = SkinManager.createText(frame, 510, 300, '快速注册', 0xffffff, 26)
-            s.switchMod = SkinManager.createText(frame, 250, 450, s.mod[s.curMod], 0xffffff, 26)
+            s.switchMod = SkinManager.createText(frame, 250, 450, s.switchBtnText['2'], 0xffffff, 26)
             s.forgetPassw.touchEnabled = s.visitor.touchEnabled = s.registry.touchEnabled = s.switchMod.touchEnabled = true
 
             s.bindEvent()
+            s.getLayout('2')
 
-            s.codeLayout()
-
-            s.openDrag(frame, false)
+            // s.openDrag(frame, false)
             s.test(ui)
         }
 
-        /*密码登录布局*/
-        private passwLayout(): void {
-            let s = this;
-            s.c_nickname.visible = false
-            s.c_passw.visible = true
-            s.c_passw.y = s.c_phone.y + s.c_phone.height + 10
-
-            s.c_code.visible = false
-
-            s.forgetPassw.visible = true
-            s.forgetPassw.x = 480
-            s.forgetPassw.y = 240
-
-            s.visitor.visible = true
-            s.visitor.x = 66
-            s.visitor.y = 300
-
-            s.registry.visible = true
-            s.registry.x = 510
-            s.registry.y = 300
-
-            s.loginBtn.y = 250
-            s.frame.height = 410
-            s.switchMod.y = s.frame.height + 20
-
-        }
-
-        /*验证码登录布局*/
-        private codeLayout(): void {
-            let s = this;
-            s.c_nickname.visible = false
-            s.c_code.visible = true
-            s.c_code.y = s.c_phone.y + s.c_phone.height + 10
-            s.c_passw.visible = false
-
-            s.forgetPassw.visible = false
-
-            s.visitor.visible = true
-            s.visitor.x = 66
-            s.visitor.y = 300
-
-            s.registry.visible = true
-            s.registry.x = 510
-            s.registry.y = 300
-
-            s.loginBtn.y = 250
-            s.frame.height = 410
-            s.switchMod.y = s.frame.height + 20
-        }
-
-        /*忘记密码布局*/
-        private gotPasswLayout(): void {
+        private getLayout(state: string): void {
 
             let s = this;
-            s.c_nickname.visible = false
-            s.c_passw.visible = true
-            s.c_passw.y = s.c_phone.y + s.c_phone.height + 10
-            s.c_code.visible = true
-            s.c_code.y = s.c_passw.y + s.c_passw.height + 10
+            let switText = ''
+            const stateObj = {
+                '1': () => {
+                    /*密码登录布局*/
+                    s.c_nickname.visible = false
+                    s.c_passw.visible = true
+                    s.c_passw.y = s.c_phone.y + s.c_phone.height + 10
+
+                    s.c_code.visible = false
+
+                    s.forgetPassw.visible = true
+                    s.forgetPassw.x = 480
+                    s.forgetPassw.y = 240
+
+                    s.visitor.visible = true
+                    s.visitor.x = 66
+                    s.visitor.y = 300
+
+                    s.registry.visible = true
+                    s.registry.x = 510
+                    s.registry.y = 300
+
+                    s.loginBtn.y = 250
+                    s.frame.height = 410
+                    s.switchMod.y = s.frame.height + 20
+
+                },
+                '2': () => {
+                    /*验证码登录布局*/
+                    s.c_nickname.visible = false
+                    s.c_code.visible = true
+                    s.c_code.y = s.c_phone.y + s.c_phone.height + 10
+                    s.c_passw.visible = false
+
+                    s.forgetPassw.visible = false
+
+                    s.visitor.visible = true
+                    s.visitor.x = 66
+                    s.visitor.y = 300
+
+                    s.registry.visible = true
+                    s.registry.x = 510
+                    s.registry.y = 300
+
+                    s.loginBtn.y = 250
+                    s.frame.height = 410
+                    s.switchMod.y = s.frame.height + 20
+                },
+                '3': () => {
+                    /*忘记密码布局*/
+                    s.c_nickname.visible = false
+                    s.c_passw.visible = true
+                    s.c_passw.y = s.c_phone.y + s.c_phone.height + 10
+                    s.c_code.visible = true
+                    s.c_code.y = s.c_passw.y + s.c_passw.height + 10
 
 
-            s.forgetPassw.visible = false
-            s.visitor.visible = false
-            s.registry.visible = false
+                    s.forgetPassw.visible = false
+                    s.visitor.visible = false
+                    s.registry.visible = false
 
-            s.loginBtn.y = 310
-            s.frame.height = 450
-            s.switchMod.y = s.frame.height + 20
-
-        }
-
-        /*注册布局*/
-        private registryLayout(): void {
-
-            let s = this;
-            s.c_nickname.visible = true
-            s.c_nickname.y = s.c_phone.y + s.c_phone.height + 10
-            s.c_passw.visible = true
-            s.c_passw.y = s.c_nickname.y + s.c_nickname.height + 10
-            s.c_code.visible = true
-            s.c_code.y = s.c_passw.y + s.c_passw.height + 10
+                    s.loginBtn.y = 310
+                    s.frame.height = 450
+                    s.switchMod.y = s.frame.height + 20
+                },
+                '4': () => {
+                    /*注册布局*/
+                    s.c_nickname.visible = true
+                    s.c_nickname.y = s.c_phone.y + s.c_phone.height + 10
+                    s.c_passw.visible = true
+                    s.c_passw.y = s.c_nickname.y + s.c_nickname.height + 10
+                    s.c_code.visible = true
+                    s.c_code.y = s.c_passw.y + s.c_passw.height + 10
 
 
-            s.forgetPassw.visible = false
-            s.visitor.visible = false
-            s.registry.visible = false
+                    s.forgetPassw.visible = false
+                    s.visitor.visible = false
+                    s.registry.visible = false
 
-            s.loginBtn.y = 390
-            s.frame.height = 510
-            s.switchMod.y = s.frame.height + 20
+                    s.loginBtn.y = 390
+                    s.frame.height = 510
+                    s.switchMod.y = s.frame.height + 20
+                }
+            }
 
+            s.curMod = state
+            s.switchMod.text = s.switchBtnText[state]
+            s.loginBtn.label = s.loginBtnText[state]
+            stateObj[state] && stateObj[state]()
+            BaseWar.getInstance().trigger('clear_login_info')
         }
 
         /*绑定事件*/
@@ -183,51 +190,50 @@ module login {
 
         public offEvent(): void {
 
+            let s = this
+            s.switchMod.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSwitch, s)
+            s.forgetPassw.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleForget, s)
+            s.registry.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleRegistry, s)
         }
 
         /*切换按钮事件*/
         private handleSwitch(): void {
 
             let s = this
-            if (s.curMod == '1') {/*去密码登录*/
+            s.getLayout(s.curMod == '1' ? '2' : s.curMod == '2' ? '1' : '2')
+        }
 
-                s.curMod = '2'
-                s.passwLayout()
-
-            } else if (s.curMod == '2') {/*去验证码登录*/
-
-                s.curMod = '1'
-                s.codeLayout()
-
-            } else {/*返回登录页面*/
-
-                s.curMod = '1'
-                s.codeLayout()
-            }
-            s.switchMod.text = s.mod[s.curMod]
+        public switchMode(mod: string): void {
+            let s = this
+            s.getLayout(mod)
         }
 
         /*忘记密码事件*/
         private handleForget(): void {
             let s = this
-
-            s.curMod = '3'
-            s.switchMod.text = s.mod[s.curMod]
-            s.gotPasswLayout()
+            s.getLayout('3')
         }
 
         /*注册事件*/
         private handleRegistry(): void {
             let s = this
-            s.curMod = '4'
-            s.switchMod.text = s.mod[s.curMod]
-            s.registryLayout()
+            s.getLayout('4')
         }
 
+        private loginCallback: Function
+        private loginThisobj: any
         /*外部绑定登录按钮事件*/
         public bindLogin(cb: Function, thisobj: any): void {
             let s = this
-            s.loginBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, cb, thisobj)
+            s.loginCallback = cb
+            s.loginThisobj = thisobj
+            s.loginBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleLogin, s)
+        }
+
+        private handleLogin(): void {
+            let s = this
+
+            s.loginCallback && s.loginCallback.call(s.loginThisobj, s.curMod)
         }
 
         private sendCallback: Function
@@ -251,6 +257,9 @@ module login {
             p.addEventListener(egret.Event.CHANGE, function () {
                 s.phone = p.text
             }, s)
+            BaseWar.getInstance().bind('clear_login_all_info', () => {
+                s.phone = p.text = ''
+            }, s)
             p.paddingLeft = 60
             p.paddingRight = 60
             parent.x = 66
@@ -272,6 +281,12 @@ module login {
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.code = p.text
+            }, s)
+            BaseWar.getInstance().bind('clear_login_all_info', () => {
+                s.code = p.text = ''
+            }, s)
+            BaseWar.getInstance().bind('clear_login_info', () => {
+                s.code = p.text = ''
             }, s)
             p.textInput.y = 10
             p.paddingLeft = 60
@@ -308,18 +323,23 @@ module login {
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.passw = p.text
             }, s)
+            BaseWar.getInstance().bind('clear_login_all_info', () => {
+                s.passw = p.text = ''
+            }, s)
+            BaseWar.getInstance().bind('clear_login_info', () => {
+                s.passw = p.text = ''
+            }, s)
             p.paddingLeft = 60
             p.paddingRight = 60
             p.textInput.displayAsPassword = true;
             p.textInput.inputType = egret.TextFieldInputType.PASSWORD;
 
             //rms_login_display_password_png
-            let selected = false
             const hidePs = SkinManager.createBtn2(parent, 0, 78 - 20 >> 1, ['rms_login__hide_password_png', null, null, null, 'rms_login_display_password_png', 'rms_login_display_password_png', 'rms_login_display_password_png', 'rms_login_display_password_png'], Conf.main + 'img/d1sheet.png')
             hidePs.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-                selected = !selected
-                p.textInput.displayAsPassword = !selected;
-                p.textInput.inputType = !selected ? egret.TextFieldInputType.TEXT : egret.TextFieldInputType.PASSWORD
+                hidePs.selected = !hidePs.selected
+                p.textInput.displayAsPassword = !hidePs.selected;
+                p.textInput.inputType = hidePs.selected ? egret.TextFieldInputType.TEXT : egret.TextFieldInputType.PASSWORD
             }, s)
             hidePs.right = 30
             parent.visible = false
@@ -349,10 +369,14 @@ module login {
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.nickname = p.text
             }, s)
+            BaseWar.getInstance().bind('clear_login_all_info', () => {
+                s.nickname = p.text = ''
+            }, s)
+            BaseWar.getInstance().bind('clear_login_info', () => {
+                s.nickname = p.text = ''
+            }, s)
             p.paddingLeft = 60
             p.paddingRight = 60
-            p.textInput.displayAsPassword = true;
-            p.textInput.inputType = egret.TextFieldInputType.PASSWORD;
 
             parent.visible = false
             parent.x = 66
@@ -366,8 +390,6 @@ module login {
             return parent
 
         }
-
-
 
 
 
