@@ -1,7 +1,14 @@
 module main {
 	export class Module extends ModuleBase {
 
+		public back: GYLite.GYImage
 		public btn: GYLite.GYButton
+
+		public mainimg: GYLite.GYImage
+		public sideLeft: GYLite.GYImage
+
+		public sideTopRight: SideTopRightView
+		public sideTopLeft: SideTopLeftView
 
 		public constructor() {
 			super();
@@ -9,18 +16,7 @@ module main {
 
 		public modulePreStart(): void {
 
-			let s = this
-
-			s.btn = SkinManager.createBtn(s, 500, 500, 'rms_login_input_bg_png', null, null, login.Conf.main + 'img/d2sheet.png')
-			s.btn.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
-
-				login.LoginModel.getInstance().logout((res)=>{
-
-					UIControl.getInstance().closeCurUI()
-					UIControl.getInstance().openUI('login')
-				})
-			}, s)
-
+			TheFirstGame.getInstance().isFirstGame = true
 		}
 		protected start(): void {
 			super.start();
@@ -36,11 +32,83 @@ module main {
 		public show(pr: GYLite.GYSprite = null): void {
 			let s = this;
 			super.show(pr);
+
+
+			s.back = SkinManager.createImage(s, 0, 0, URLConf.mainImg + "war_bg_2.jpg");
+			s.back.horizonalCenter = s.back.verticalCenter = 0
+			// s.back.left = s.back.right = s.back.top = s.back.bottom = 0;
+
+
+			s.mainimg = SkinManager.createImage(s, 0, 0, 'war_tar_bg_png', URLConf.gameImg + 'w1sheet.png')
+			s.mainimg.horizonalCenter = 0
+			s.mainimg.verticalCenter = -30
+
+
+			s.sideTopLeft = SideTopLeftView.getInstance()
+			s.sideTopLeft.left = 280
+			s.sideTopLeft.verticalCenter = 0
+			s.addElement(s.sideTopLeft)
+
+
+			s.sideTopRight = SideTopRightView.getInstance()
+			s.sideTopRight.right = 280
+			s.sideTopRight.verticalCenter = 0
+			s.addElement(s.sideTopRight)
+
+
+
+			if (UserData.getInstance().token) {
+
+				PersonalModel.getInstance().getMyInfo((res) => {
+					s.sideTopLeft.renderPersonvalView(res)
+					s.sideTopLeft.notifyChatView(res)
+				})
+
+				/*绑定登出按钮*/
+				s.sideTopRight.bindLoginOut(s.loginout, s)
+
+
+				GameTime.getInstance().run()
+
+			}
+
+
+			// TemplateTool.openDrag(s)
+			// TemplateTool.openDrag(s)
+
+			document.addEventListener('keydown', s.handleKeyborad.bind(s))
+
+		}
+
+		private handleKeyborad(e): void {
+
+			if (e.keyCode == 13) {
+				BaseWar.getInstance().trigger('keyCode:13')
+			}
 		}
 
 		public hide(): void {
 			let s = this;
 			super.hide();
+
+			TheFirstGame.getInstance().isFirstGame = false
+		}
+
+
+		private handleMessage(e): void {
+			let s = this
+		}
+
+		private loginout(): void {
+
+			let s = this
+
+			PersonalModel.getInstance().logout(() => {
+
+				UIControl.getInstance().closeCurUI()
+				UIControl.getInstance().openUI('login')
+			})
+
 		}
 	}
 }

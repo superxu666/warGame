@@ -1,7 +1,13 @@
 module main {
     export class MainModel {
 
+        private static _instance: MainModel
 
+        constructor() { }
+
+        public static getInstance(): MainModel {
+            return MainModel._instance || (MainModel._instance = new MainModel)
+        }
 
         /*获取机器人数量*/
         public getRobotNum(): void {
@@ -56,5 +62,6 @@ module main {
 
             })
         }
+
     }
 }

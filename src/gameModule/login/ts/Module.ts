@@ -7,7 +7,6 @@ module login {
 		public rightBottomBtn: GYLite.GYButton;
 		// public fireClip: GYMovieClip;
 
-
 		public loginView: LoginLayout
 
 		public constructor() {
@@ -16,24 +15,23 @@ module login {
 		public modulePreStart(): void {
 			let s = this;
 			super.modulePreStart();
-			s.back = SkinManager.createImage(s, 0, 0, Conf.img + "rms_login_bg.jpg");
-			s.back.left = s.back.right = s.back.top = s.back.bottom = 0;
-			s.leftTopBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
-			s.leftTopBtn.y = -LayerManager.getInstance().gameSpriteTop;
-			s.leftTopBtn.x = -LayerManager.getInstance().gameSpriteLeft;
-			s.leftTopBtn.label = "y:" + s.leftTopBtn.y;
-			s.rightTopBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
-			s.rightTopBtn.y = -LayerManager.getInstance().gameSpriteTop;
-			s.rightTopBtn.x = s.width + LayerManager.getInstance().gameSpriteLeft - s.rightTopBtn.width;
-			s.rightTopBtn.label = "y:" + s.rightTopBtn.y;
-			s.leftBottomBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
-			s.leftBottomBtn.y = s.height + LayerManager.getInstance().gameSpriteTop - s.leftBottomBtn.height;
-			s.leftBottomBtn.x = -LayerManager.getInstance().gameSpriteLeft;
-			s.leftBottomBtn.label = "y:" + s.leftBottomBtn.y;
-			s.rightBottomBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
-			s.rightBottomBtn.y = s.height + LayerManager.getInstance().gameSpriteTop - s.rightBottomBtn.height;
-			s.rightBottomBtn.x = s.width + LayerManager.getInstance().gameSpriteLeft - s.rightBottomBtn.width;
-			s.rightBottomBtn.label = "y:" + s.rightBottomBtn.y;
+
+			// s.leftTopBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
+			// s.leftTopBtn.y = -LayerManager.getInstance().gameSpriteTop;
+			// s.leftTopBtn.x = -LayerManager.getInstance().gameSpriteLeft;
+			// s.leftTopBtn.label = "y:" + s.leftTopBtn.y;
+			// s.rightTopBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
+			// s.rightTopBtn.y = -LayerManager.getInstance().gameSpriteTop;
+			// s.rightTopBtn.x = s.width + LayerManager.getInstance().gameSpriteLeft - s.rightTopBtn.width;
+			// s.rightTopBtn.label = "y:" + s.rightTopBtn.y;
+			// s.leftBottomBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
+			// s.leftBottomBtn.y = s.height + LayerManager.getInstance().gameSpriteTop - s.leftBottomBtn.height;
+			// s.leftBottomBtn.x = -LayerManager.getInstance().gameSpriteLeft;
+			// s.leftBottomBtn.label = "y:" + s.leftBottomBtn.y;
+			// s.rightBottomBtn = SkinManager.createBtn2(s, 0, 0, ["rms_btn_bg_3"], Conf.atlas);
+			// s.rightBottomBtn.y = s.height + LayerManager.getInstance().gameSpriteTop - s.rightBottomBtn.height;
+			// s.rightBottomBtn.x = s.width + LayerManager.getInstance().gameSpriteLeft - s.rightBottomBtn.width;
+			// s.rightBottomBtn.label = "y:" + s.rightBottomBtn.y;
 
 			// s.fireClip = new GYMovieClip();
 			// s.fireClip.setDataPath(Conf.img + "war_fire_clips.json", Conf.img + "war_fire_clips.png");
@@ -43,12 +41,24 @@ module login {
 			// s.fireClip.y = 500;
 			// s.addElement(s.fireClip);
 
-			this.loginView = LoginLayout.getInstance()
-			s.loginView.layout(s)
 
 		}
 		protected start(): void {
 			let s = this;
+
+
+			s.back = SkinManager.createImage(s, 0, 0, Conf.img + "rms_login_bg.jpg");
+			s.back.left = s.back.right = s.back.top = s.back.bottom = 0;
+
+			let token = sessionStorage.getItem('token')
+			if (token) {
+				UserData.getInstance().token = token
+				UIControl.getInstance().closeCurUI()
+				UIControl.getInstance().openUI('main')
+			}
+
+			this.loginView = LoginLayout.getInstance()
+			s.loginView.layout(s)
 
 			const loginType = {
 				/*密码登录*/
@@ -97,11 +107,6 @@ module login {
 			/*登录*/
 			s.loginView.bindLogin((loginBtnType) => {
 
-				console.log(s.loginView.phone);
-				console.log(s.loginView.passw);
-				console.log(s.loginView.code);
-				console.log(loginBtnType);
-
 				loginType[loginBtnType] && loginType[loginBtnType]()
 
 			}, s)
@@ -116,6 +121,13 @@ module login {
 
 				})
 
+			}, s)
+
+			/*游客登录*/
+			s.loginView.bindVisitor(() => {
+
+				UIControl.getInstance().closeCurUI()
+				UIControl.getInstance().openUI('main')
 			}, s)
 		}
 		protected ready(): void {

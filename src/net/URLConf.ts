@@ -15,7 +15,10 @@ class URLConf {
 	private static _cfgVer:string;
 	private static _resVer:string;
 	public static scratchVideo:string;	
-	public static scratchAudio:string;	
+	public static scratchAudio:string;
+	public static loginImg:string = 'login/img/'
+	public static gameImg:string = 'game/img/'
+	public static mainImg:string = 'main/img/'
 
 	public static resetRoot():void
 	{
@@ -41,8 +44,7 @@ class URLConf {
 		else if(hostStr == "dev")
 		{
 			//本地测试页指定完整路径
-			// URLConf.root = "https://www.iandcode.com/";
-			URLConf.root = UserData.getInstance().ossRoot + "/s/platform/interactive/common/interactiveTemplate/wdProj/" + debugDir;
+			URLConf.root = "http://103.218.3.72/";
 			URLConf.modules = URLConf.root + "moduleRelease/";
 			URLConf.moduleLibs = URLConf.root + "moduleLibRelease/";
 			URLConf.videoRoot = "";
@@ -50,8 +52,7 @@ class URLConf {
 		else if(hostStr == "www")
 		{
 			//本地生产页指定完整路径
-			// URLConf.root = "https://www.iandcode.com/";//本地页面指定url 生产
-			URLConf.root = "https://oss.iandcode.com/s/platform/interactive/common/interactiveTemplate/wdProj/" + debugDir;
+			URLConf.root = "http://103.218.3.72/";//本地页面指定url 生产
 			URLConf.modules = URLConf.root + "moduleRelease/";
 			URLConf.moduleLibs = URLConf.root + "moduleLibRelease/";
 			URLConf.videoRoot = "";

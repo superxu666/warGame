@@ -54,9 +54,9 @@ module login {
 
             let s = this;
 
-            console.log('layout - ');
+            console.log('layout - ', Main.instance.getRes('rms_view_bg_png', Conf.d1sheetAlias));
 
-            let frame = s.frame = SkinManager.createScaleImage(ui, 100, 200, 'rms_view_bg_png', Conf.main + 'img/d1sheet.png', new GYLite.Scale9GridRect(100, 100, 100, 100))
+            let frame = s.frame = SkinManager.createScaleImage(ui, 100, 200, 'rms_view_bg_png', Conf.d1sheetAlias, new GYLite.Scale9GridRect(100, 100, 100, 100))
             frame.width = 680
             frame.height = 410
             frame.horizonalCenter = 0
@@ -66,13 +66,14 @@ module login {
             s.c_code = s.code_c(frame)
             s.c_nickname = s.nickname_c(frame)
 
-            s.loginBtn = SkinManager.createBtn(frame, 210, 250, 'rms_login_btn_bg_png', null, null, Conf.main + 'img/d1sheet.png')
+            s.loginBtn = SkinManager.createBtn(frame, 210, 250, 'rms_login_btn_bg_png', null, null, Conf.d1sheetAlias)
             s.loginBtn.label = '登录'
             s.loginBtn.labelDisplay.size = 26
             s.loginBtn.labelDisplay.textColor = 0xffffff
 
             s.forgetPassw = SkinManager.createText(frame, 480, 240, '忘记密码', 0xffffff, 20)
             s.visitor = SkinManager.createText(frame, 66, 300, '游客登录', 0xffffff, 26)
+            s.visitor.visible = false
             s.registry = SkinManager.createText(frame, 510, 300, '快速注册', 0xffffff, 26)
             s.switchMod = SkinManager.createText(frame, 250, 450, s.switchBtnText['2'], 0xffffff, 26)
             s.forgetPassw.touchEnabled = s.visitor.touchEnabled = s.registry.touchEnabled = s.switchMod.touchEnabled = true
@@ -81,7 +82,7 @@ module login {
             s.getLayout('2')
 
             // s.openDrag(frame, false)
-            s.test(ui)
+            // s.test(ui)
         }
 
         private getLayout(state: string): void {
@@ -101,7 +102,7 @@ module login {
                     s.forgetPassw.x = 480
                     s.forgetPassw.y = 240
 
-                    s.visitor.visible = true
+                    // s.visitor.visible = true
                     s.visitor.x = 66
                     s.visitor.y = 300
 
@@ -123,7 +124,7 @@ module login {
 
                     s.forgetPassw.visible = false
 
-                    s.visitor.visible = true
+                    // s.visitor.visible = true
                     s.visitor.x = 66
                     s.visitor.y = 300
 
@@ -145,7 +146,7 @@ module login {
 
 
                     s.forgetPassw.visible = false
-                    s.visitor.visible = false
+                    // s.visitor.visible = false
                     s.registry.visible = false
 
                     s.loginBtn.y = 310
@@ -163,7 +164,7 @@ module login {
 
 
                     s.forgetPassw.visible = false
-                    s.visitor.visible = false
+                    // s.visitor.visible = false
                     s.registry.visible = false
 
                     s.loginBtn.y = 390
@@ -186,6 +187,7 @@ module login {
             s.switchMod.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSwitch, s)
             s.forgetPassw.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleForget, s)
             s.registry.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleRegistry, s)
+            s.visitor.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleVisitor, s)
         }
 
         public offEvent(): void {
@@ -194,6 +196,7 @@ module login {
             s.switchMod.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSwitch, s)
             s.forgetPassw.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleForget, s)
             s.registry.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleRegistry, s)
+            s.visitor.removeEventListener(egret.TouchEvent.TOUCH_TAP, s.handleVisitor, s)
         }
 
         /*切换按钮事件*/
@@ -232,9 +235,23 @@ module login {
 
         private handleLogin(): void {
             let s = this
-
             s.loginCallback && s.loginCallback.call(s.loginThisobj, s.curMod)
         }
+
+        private visitorCallback: Function
+        private visitorThisobj: any
+
+        public bindVisitor(cb: Function, thisobj: any): void {
+            let s = this
+            s.visitorCallback = cb
+            s.visitorThisobj = thisobj
+        }
+
+        private handleVisitor(): void {
+            let s = this
+            s.visitorCallback && s.visitorCallback.call(s.visitorThisobj)
+        }
+
 
         private sendCallback: Function
         private sendThisobj: any
@@ -253,7 +270,7 @@ module login {
             const t = SkinManager.createText(parent, 0, 0, '手机号', 0xffffff, 30)
             t.y = (78 - t.height) / 2
             const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, 0, 452, 78, null, 30)
-            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, function () {
                 s.phone = p.text
             }, s)
@@ -278,7 +295,7 @@ module login {
             const t = SkinManager.createText(parent, 0, 0, '验证码', 0xffffff, 30)
             t.y = (78 - t.height) / 2
             const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, 0, 452, 78, null, 30)
-            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.code = p.text
             }, s)
@@ -292,7 +309,7 @@ module login {
             p.paddingLeft = 60
             p.paddingRight = 160
 
-            const send = SkinManager.createBtn(parent, 0, 78 - 44 >> 1, 'rms_login__send_vitify_code_png', null, null, Conf.main + 'img/d1sheet.png')
+            const send = SkinManager.createBtn(parent, 0, 78 - 44 >> 1, 'rms_login__send_vitify_code_png', null, null, Conf.d1sheetAlias)
             send.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
                 s.sendCallback && s.sendCallback.call(s.sendThisobj)
             }, s)
@@ -319,7 +336,7 @@ module login {
             const t = SkinManager.createText(parent, 0, 0, '密码', 0xffffff, 30)
             t.y = (78 - t.height) / 2
             const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, 0, 452, 78, null, 30)
-            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.passw = p.text
             }, s)
@@ -335,7 +352,7 @@ module login {
             p.textInput.inputType = egret.TextFieldInputType.PASSWORD;
 
             //rms_login_display_password_png
-            const hidePs = SkinManager.createBtn2(parent, 0, 78 - 20 >> 1, ['rms_login__hide_password_png', null, null, null, 'rms_login_display_password_png', 'rms_login_display_password_png', 'rms_login_display_password_png', 'rms_login_display_password_png'], Conf.main + 'img/d1sheet.png')
+            const hidePs = SkinManager.createBtn2(parent, 0, 78 - 20 >> 1, ['rms_login__hide_password_png', null, null, null, 'rms_login_display_password_png', 'rms_login_display_password_png', 'rms_login_display_password_png', 'rms_login_display_password_png'], Conf.d1sheetAlias)
             hidePs.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
                 hidePs.selected = !hidePs.selected
                 p.textInput.displayAsPassword = !hidePs.selected;
@@ -365,7 +382,7 @@ module login {
             const t = SkinManager.createText(parent, 0, 0, '昵称', 0xffffff, 30)
             t.y = (78 - t.height) / 2
             const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, 0, 452, 78, null, 30)
-            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.main + 'img/d2sheet.png'), new GYLite.Scale9GridRect())
+            p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.nickname = p.text
             }, s)
@@ -391,47 +408,6 @@ module login {
 
         }
 
-
-
-        public test(ui: Module): void {
-
-            let s = this;
-            let t = LoginLayout.createScrollGroup(ui, 0, 800, ui.width, 620, true, 1, 50);
-            t.horizonalCenter = 0;
-            ui.addElement(t);
-            let f = (<any>GYLite.GYLoader)._resDataDict['d1sheet.json']['res']['frames']
-            let f2 = (<any>GYLite.GYLoader)._resDataDict['d2sheet.json']['res']['frames']
-            let f3 = (<any>GYLite.GYLoader)._resDataDict['d3sheet.json']['res']['frames']
-            let x = 0
-            let y = 0
-            for (var key in f) {
-                let img = SkinManager.createImage(t, 0, 0, key, 'd1sheet.png')
-                img.x = x
-                img.y = y
-                x += img.width
-                img['imgname'] = key
-            }
-            x = 0
-            y += 400
-            for (var key in f2) {
-                let img = SkinManager.createImage(t, 0, 0, key, 'd2sheet.png')
-                img.x = x
-                img.y = y
-                x += img.width
-                img['imgname'] = key
-            }
-            x = 0
-            y += 400
-            for (var key in f3) {
-                let img = SkinManager.createImage(t, 0, 0, key, 'd3sheet.png')
-                img.x = x
-                img.y = y
-                x += img.width
-                img['imgname'] = key
-            }
-
-            s.openDrag(t)
-        }
 
         public static createScrollGroup(pr: GYLite.GYSprite = null, x: number, y: number, w: number, h: number, canDrag: boolean = false, /**滚动条 1显示 0不显示*/scrollBar: number = 0, /**滚动默认距离:5 */step: number = 5) {
 

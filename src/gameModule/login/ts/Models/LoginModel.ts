@@ -42,6 +42,7 @@ module login {
                 password
             }, HTTPConf.M_POST, (res) => {
                 UserData.getInstance().token = res.token
+                sessionStorage.setItem('token', res.token)
                 cb && cb(res)
             }, this)
 
@@ -55,17 +56,9 @@ module login {
                 code
             }, HTTPConf.M_POST, (res) => {
                 UserData.getInstance().token = res.token
+                sessionStorage.setItem('token', res.token)
                 cb && cb(res)
             }, this)
-        }
-
-        /*退出*/
-        public logout(cb: Function): void {
-
-            BaseHttp.getInstance().sendMsg('/logout', {}, HTTPConf.M_POST, (res) => {
-                UserData.getInstance().token = ''
-                cb && cb(res)
-            })
         }
 
     }

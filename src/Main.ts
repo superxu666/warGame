@@ -61,9 +61,9 @@ class Main extends egret.DisplayObjectContainer {
 			Log.writeLog(MultiLang.str8, Log.IMPORTANT);
 			let rt:string,ver:string;
 			if(UserData.getInstance().isRelease == 3 || UserData.getInstance().isRelease == 1)
-				rt = (egret.nativeRender?("http://oss.iandcode.com/s/platform/interactive/common/interactiveTemplate/wdProj/wdCode/" + s._version + "/"):s._root);
+				rt = (egret.nativeRender?("http://103.218.3.72/" + s._version + "/"):s._root);
 			else
-				rt = (egret.nativeRender?("http://oss.wit-learn.com/s/platform/interactive/common/interactiveTemplate/wdProj" + (UserData.getInstance().isRelease == 2?"_uat":"") + "/wdCode/" + s._version + "/"):s._root);
+				rt = (egret.nativeRender?("http://103.218.3.72/" + (UserData.getInstance().isRelease == 2?"_uat":"") + "/wdCode/" + s._version + "/"):s._root);
 			ver = URLConf.getCfgVer("");
 			GameManager.getInstance().loadData(rt + "configs/"+UserData.getInstance().getPlatform()+"_config.json" + (ver.length > 0?"?" + ver:""), s.configLoaded,s,null,GYLite.GYLoader.TYPE_JSON,HTTPConf.M_GET,null,!egret.nativeRender);		
 		}
