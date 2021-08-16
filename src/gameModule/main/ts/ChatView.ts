@@ -70,10 +70,12 @@ module main {
             let s = this
             s.send.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSend, s)
             s.trumpet.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleTrumpet, s)
-            BaseWar.getInstance().bind('keyCode:13', s.handleSend, s)
+            s.input.addEventListener(egret.Event.FOCUS_IN, s.focusIn, s)
+            s.input.addEventListener(egret.Event.FOCUS_OUT, s.focusOut, s)
+            BaseWar.getInstance().bind('chatInput', s.handleSend, s)
         }
 
-        private handleSend(): void {
+        public handleSend(text: string): void {
 
             let s = this
             if (PersonalModel.getInstance().black == '1') {
@@ -81,15 +83,24 @@ module main {
                 console.log('你被关进小黑屋, 联系管理员');
                 return
             }
-            if (!s.input.text) return
-            s.ws.send(s.input.text)
+            if (!s.input.text && !text) return
+            s.ws.send(s.input.text || text)
             s.input.text = ''
             s.vb.scroller.scrollPosY = s.vb.scroller.scrollBarV.maximum
         }
 
         private handleTrumpet(): void {
-            let s=this
+            let s = this
             TrumpetView.getInstance().show()
+        }
+
+        private focusIn(): void {
+            const s = this
+            EventTranspond.getInstance().curActiveTarget = 'chatInput'
+        }
+        private focusOut(): void {
+            const s = this
+            EventTranspond.getInstance().curActiveTarget = null
         }
 
         public createWebsocket(d: any): void {
@@ -107,7 +118,11 @@ module main {
 
             if (d && typeof d.data == 'string') {
                 const rd = JSON.parse(d.data)
+                if (rd.type != '1') {
 
+                    TrumpetTopView.getInstance().updateList(rd)
+                    return
+                }
                 if (!s.vb.dataProvider) {
                     s.vb.dataProvider = [rd]
                 } else {
@@ -132,21 +147,12 @@ module main {
 
         /*用户名颜色以等级区分*/
         private mes: GYLite.GYText
-        private color: Object
+        private static color: Object
 
         constructor() {
             super()
 
             let s = this
-
-            s.color = {
-                '1': 0xFFFFFF,
-                '2': 0x3FA5A9,
-                '3': 0x3FA5A9,
-                '4': 0x9EB45B,
-                '5': 0x9EB45B,
-                '6': 0xBA5B5B,
-            }
 
             s.width = 210
             s.mes = SkinManager.createText(s, 2, 0, '', 0xffffff, 14)
@@ -165,7 +171,7 @@ module main {
 
             let s = this
             s.height = s.mes.contentHeight + 22
-            s.mes.color = s.color[d.grade] || s.color['6']
+            s.mes.color = NickNameColor.colorSets[d.grade] || NickNameColor.colorSets['6']
         }
 
     }

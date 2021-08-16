@@ -39,11 +39,10 @@ module main {
         /*发送大喇叭*/
         public addNotice(msg: string): void {
 
-            HttpMsg.getInstance().sendMsg('/war/game/addNotice', {
+            BaseHttp.getInstance().sendMsg('/war/game/addNotice', {
                 msg
-            }, HTTPConf.M_POST, (res) => {
+            }, HTTPConf.M_POST, (res) => { })
 
-            })
         }
         /*昨今日金银币榜*/
         public selectWinRank(type: string | number, tody: string | number): void {

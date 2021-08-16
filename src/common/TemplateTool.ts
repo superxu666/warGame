@@ -31,7 +31,7 @@ class TemplateTool {
 
 			c = Number('0x' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6));
 		}
-		if(pr.graphics)
+		if (pr.graphics)
 			pr.graphics.clear();
 		g = pr.graphics;
 		g.beginFill(c, alpha);
@@ -79,13 +79,12 @@ class TemplateTool {
 		let input = new GYLite.GYTextInput;
 		input.x = x;
 		input.y = y;
-		input.width = input.textInput.width = w;
-		input.height = input.textInput.height = h;
-		input.paddingTop = (h - size) / 2;
+		input.width = input.promptText.width = input.textInput.width = w;
+		input.height = input.promptText.height = input.textInput.height = h;
 		input.paddingLeft = input.paddingRight = 10;
 		input.prompt = prompt;
-		input.promptText.size = size - 4;
-		input.promptText.paddingTop = input.paddingTop + 4;
+		input.promptText.size = size;
+		input.promptText.paddingTop = input.textInput.paddingTop = h >> 1
 		input.promptText.color = color;
 		input.textInput.size = size;
 		input.textInput.color = color;
@@ -261,7 +260,7 @@ class TemplateTool {
 		pr.setWheelFunc(null);
 	}
 
-	public static setDrag(pr: GYLite.GYSprite|any, id: number = 0): void {
+	public static setDrag(pr: GYLite.GYSprite | any, id: number = 0): void {
 
 		let s = this
 

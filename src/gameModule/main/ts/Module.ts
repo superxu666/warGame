@@ -7,8 +7,11 @@ module main {
 		public mainimg: GYLite.GYImage
 		public sideLeft: GYLite.GYImage
 
+		public trumpetTop: TrumpetTopView
 		public sideTopRight: SideTopRightView
 		public sideTopLeft: SideTopLeftView
+		public sideBottomMid: SideBottomMidView
+
 
 		public constructor() {
 			super();
@@ -38,6 +41,10 @@ module main {
 			s.back.horizonalCenter = s.back.verticalCenter = 0
 			// s.back.left = s.back.right = s.back.top = s.back.bottom = 0;
 
+			s.trumpetTop = TrumpetTopView.getInstance()
+			s.trumpetTop.horizonalCenter = 0
+			s.trumpetTop.y = 200
+			s.addElement(s.trumpetTop)
 
 			s.mainimg = SkinManager.createImage(s, 0, 0, 'war_tar_bg_png', URLConf.gameImg + 'w1sheet.png')
 			s.mainimg.horizonalCenter = 0
@@ -50,11 +57,16 @@ module main {
 			s.addElement(s.sideTopLeft)
 
 
+			s.sideBottomMid = SideBottomMidView.getInstance()
+			s.sideBottomMid.bottom = 200
+			s.sideBottomMid.horizonalCenter = 0
+			s.addElement(s.sideBottomMid)
+
+
 			s.sideTopRight = SideTopRightView.getInstance()
 			s.sideTopRight.right = 280
 			s.sideTopRight.verticalCenter = 0
 			s.addElement(s.sideTopRight)
-
 
 
 			if (UserData.getInstance().token) {
@@ -68,7 +80,7 @@ module main {
 				s.sideTopRight.bindLoginOut(s.loginout, s)
 
 
-				GameTime.getInstance().run()
+				// GameTime.getInstance().run()
 
 			}
 
@@ -83,7 +95,7 @@ module main {
 		private handleKeyborad(e): void {
 
 			if (e.keyCode == 13) {
-				BaseWar.getInstance().trigger('keyCode:13')
+				EventTranspond.getInstance().transpond()
 			}
 		}
 
