@@ -49,6 +49,22 @@ module main {
 			s.mainimg = SkinManager.createImage(s, 0, 0, 'war_tar_bg_png', URLConf.gameImg + 'w1sheet.png')
 			s.mainimg.horizonalCenter = 0
 			s.mainimg.verticalCenter = -30
+			s.mainimg.touchEnabled = true
+			s.mainimg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+
+				SideBottomMidView.getInstance().bet([
+					{
+						role: 'h',
+						g: 10,
+						y: 100
+					},
+					{
+						role: 'j',
+						g: 120,
+						y: 20309
+					}
+				])
+			}, s)
 
 
 			s.sideTopLeft = SideTopLeftView.getInstance()

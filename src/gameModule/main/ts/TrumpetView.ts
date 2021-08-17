@@ -66,6 +66,8 @@ module main {
                 },
                 'sendb': () => {
 
+                    if (!s.trumpet_b.text) return
+
                     /*调用大喇叭接口*/
                     MainModel.getInstance().addNotice(s.trumpet_b.text)
                     /*发送socke信息*/
