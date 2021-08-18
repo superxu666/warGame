@@ -18,7 +18,9 @@ class URLConf {
 	public static scratchAudio:string;
 	public static loginImg:string = 'login/img/'
 	public static gameImg:string = 'game/img/'
+	public static gameSke:string = 'game/skeleton/'
 	public static mainImg:string = 'main/img/'
+	public static mainSke:string = 'main/skeleton/'
 
 	public static resetRoot():void
 	{

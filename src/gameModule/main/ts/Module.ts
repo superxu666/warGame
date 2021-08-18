@@ -4,9 +4,10 @@ module main {
 		public back: GYLite.GYImage
 		public btn: GYLite.GYButton
 
-		public mainimg: GYLite.GYImage
 		public sideLeft: GYLite.GYImage
 
+		public gameView: GameView
+		public betView: BetView
 		public trumpetTop: TrumpetTopView
 		public sideTopRight: SideTopRightView
 		public sideTopLeft: SideTopLeftView
@@ -36,55 +37,49 @@ module main {
 			let s = this;
 			super.show(pr);
 
-
+			/*背景图*/
 			s.back = SkinManager.createImage(s, 0, 0, URLConf.mainImg + "war_bg_2.jpg");
 			s.back.horizonalCenter = s.back.verticalCenter = 0
-			// s.back.left = s.back.right = s.back.top = s.back.bottom = 0;
 
+			/*轮盘背后的下注数量区*/
+			s.betView = BetView.getInstance()
+			s.betView.horizonalCenter = 3
+			s.betView.bottom = 350
+			s.addElement(s.betView)
+
+			/*游戏轮盘*/
+			s.gameView = GameView.getInstance()
+			s.gameView.horizonalCenter = 0
+			s.gameView.bottom = 340
+			s.addElement(s.gameView)
+			
+			/*中间顶部, 大喇叭*/
 			s.trumpetTop = TrumpetTopView.getInstance()
 			s.trumpetTop.horizonalCenter = 0
 			s.trumpetTop.y = 200
 			s.addElement(s.trumpetTop)
 
-			s.mainimg = SkinManager.createImage(s, 0, 0, 'war_tar_bg_png', URLConf.gameImg + 'w1sheet.png')
-			s.mainimg.horizonalCenter = 0
-			s.mainimg.verticalCenter = -30
-			s.mainimg.touchEnabled = true
-			s.mainimg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-
-				SideBottomMidView.getInstance().bet([
-					{
-						role: 'h',
-						g: 10,
-						y: 100
-					},
-					{
-						role: 'j',
-						g: 120,
-						y: 20309
-					}
-				])
-			}, s)
-
-
+			/*左上,用户信息面板*/
 			s.sideTopLeft = SideTopLeftView.getInstance()
 			s.sideTopLeft.left = 280
 			s.sideTopLeft.verticalCenter = 0
 			s.addElement(s.sideTopLeft)
 
-
+			/*中间底部,下注按钮区*/
 			s.sideBottomMid = SideBottomMidView.getInstance()
 			s.sideBottomMid.bottom = 200
 			s.sideBottomMid.horizonalCenter = 0
 			s.addElement(s.sideBottomMid)
 
-
+			/*右上,离开排行榜区*/
 			s.sideTopRight = SideTopRightView.getInstance()
 			s.sideTopRight.right = 280
 			s.sideTopRight.verticalCenter = 0
 			s.addElement(s.sideTopRight)
 
+			
 
+			/*已登录, 请求个人信息*/
 			if (UserData.getInstance().token) {
 
 				PersonalModel.getInstance().getMyInfo((res) => {
@@ -102,8 +97,8 @@ module main {
 
 
 			// TemplateTool.openDrag(s)
-			// TemplateTool.openDrag(s)
 
+			/*绑定document键盘事件, 调用事件中转类派发事件, 目前只有聊天室用到回车事件*/
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))
 
 		}

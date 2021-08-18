@@ -7,7 +7,6 @@ module main {
         public betTime: number
 
         private _timeId: number
-
         private static _instance: GameTime
 
         public static getInstance(): GameTime {
@@ -17,7 +16,7 @@ module main {
         constructor() {
 
             let s = this
-            s._timeId = -1;
+            s._timeId = 0;
         }
 
         public run(): void {
@@ -61,17 +60,18 @@ module main {
             if (0 < second && second < 26) {
 
                 s.betTime = 25 - second
-
+                GameView.getInstance().slideUp()
                 console.log('下注时间还剩: ', s.betTime);
-            } else if (27 <= second && second <= 32) {
+            } else if (26 <= second && second <= 32) {
 
+                GameView.getInstance().slideDown()
                 console.log('锁定时间: ', second);
             } else if (32 < second && second <= 58) {
 
                 console.log('开奖时间: ', second);
-            } else if (58 < second) {
+            } else if (59 < second) {
 
-                console.log('该轮游戏到达59阶段, 可开始请求时间戳, 进入下一轮游戏');
+                console.log('该轮游戏到达59阶段, 可开始请求时间戳, 进入下一轮游戏', second);
                 GYLite.TimeManager.unTimeInterval(s._timeId, s.timeStart, s)
                 s.run()
             }
