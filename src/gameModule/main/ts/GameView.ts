@@ -26,6 +26,14 @@ module main {
             s._gem.horizonalCenter = 0
             s.addElement(s._gem);
 
+
+            // let sdf = new GYMovieClip();
+            // sdf.setDataPath(URLConf.gameSke + "war_movie_clips.json", URLConf.gameSke + "war_movie_clips.png");
+            // sdf.setMovieName("TableItemSmall");
+            // sdf.play(-1);
+            // sdf.horizonalCenter = 0
+            // s.addElement(sdf);
+
             s.touchEnabled = true
 
 
