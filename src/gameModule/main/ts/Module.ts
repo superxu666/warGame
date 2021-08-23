@@ -20,6 +20,7 @@ module main {
 
 		public modulePreStart(): void {
 
+
 			TheFirstGame.getInstance().isFirstGame = true
 		}
 		protected start(): void {
@@ -52,7 +53,7 @@ module main {
 			s.gameView.horizonalCenter = 0
 			s.gameView.bottom = 340
 			s.addElement(s.gameView)
-			
+
 			/*中间顶部, 大喇叭*/
 			s.trumpetTop = TrumpetTopView.getInstance()
 			s.trumpetTop.horizonalCenter = 0
@@ -77,7 +78,6 @@ module main {
 			s.sideTopRight.verticalCenter = 0
 			s.addElement(s.sideTopRight)
 
-			
 
 			/*已登录, 请求个人信息*/
 			if (UserData.getInstance().token) {
@@ -91,6 +91,7 @@ module main {
 				s.sideTopRight.bindLoginOut(s.loginout, s)
 
 
+				/*倒计时开始*/
 				// GameTime.getInstance().run()
 
 			}
@@ -100,6 +101,8 @@ module main {
 
 			/*绑定document键盘事件, 调用事件中转类派发事件, 目前只有聊天室用到回车事件*/
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))
+
+
 
 		}
 
@@ -113,6 +116,8 @@ module main {
 		public hide(): void {
 			let s = this;
 			super.hide();
+
+			SoundManager.instance.closeBGM()
 
 			TheFirstGame.getInstance().isFirstGame = false
 		}

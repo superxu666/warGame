@@ -12,7 +12,6 @@ module main {
         private input: GYLite.GYTextInput
         private send: GYLite.GYButton
         private vb: VerticalBox
-        private arr: any[]
         private ws: MainSocket
         private trumpet: GYLite.GYButton
 
@@ -37,33 +36,6 @@ module main {
 
             s.bindEvent()
 
-            s.arr = [
-                { "msg": "牛逼", "nickName": "小王", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "1", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "3", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "5", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "4", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "阿萨德", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "1", "type": "1", "userId": "1" },
-                { "msg": "阿斯顿发文而阿斯顿发文而阿斯顿发文而阿斯顿发文而阿斯顿发文而", "nickName": "小王", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "4", "type": "1", "userId": "1" },
-                { "msg": "牛逼", "nickName": "小王", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "小王", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "阿萨德", "grade": "3", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "小王", "grade": "4", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "小王", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "小王", "grade": "6", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "阿萨德", "grade": "2", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "小王", "grade": "7", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "小王", "grade": "5", "type": "1", "userId": "1" },
-                { "msg": "暗示法阿的说法", "nickName": "阿萨德", "grade": "2", "type": "1", "userId": "1" }
-            ]
-
-            // TemplateTool.openDrag(s)
-            // TemplateTool.setBackGrapics(s)
-            // TemplateTool.setBackGrapics(s.vb)
-
-            // s.test()
         }
 
         private bindEvent(): void {
@@ -132,12 +104,6 @@ module main {
             }
 
 
-            // GYLite.TimeManager.timeOut(s.test, s, 500)
-        }
-
-        private test(): void {
-            let s = this
-            s.onmessage(s.arr[Math.floor(Math.random() * s.arr.length)])
         }
 
     }
@@ -162,7 +128,7 @@ module main {
         public setData(d): void {
 
             let s = this
-            s.mes.text = d.nickName + ' : ' + d.msg
+            s.mes.htmlText = `<font color=0x00A8F3>${d.nickName}</font> : <font color=${(NickNameColor.colorSets[d.grade] || NickNameColor.colorSets['6'])}>${d.msg}</font>`
             s.updateState(d)
         }
 
@@ -170,8 +136,8 @@ module main {
         private updateState(d): void {
 
             let s = this
-            s.height = s.mes.contentHeight + 22
-            s.mes.color = NickNameColor.colorSets[d.grade] || NickNameColor.colorSets['6']
+            s.height = s.mes.contentHeight + 5
+            // s.mes.color = NickNameColor.colorSets[d.grade] || NickNameColor.colorSets['6']
         }
 
     }

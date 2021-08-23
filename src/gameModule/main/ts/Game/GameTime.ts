@@ -6,18 +6,18 @@ module main {
         public gameTtime: number
         public betTime: number
 
-        private _timeId: number
-        private static _instance: GameTime
+        private _timeId: number = 0
+        /*锁定时间, 默认锁定不可点击*/
+        public timeOut: Boolean
 
+        private static _instance: GameTime
         public static getInstance(): GameTime {
             return GameTime._instance || (GameTime._instance = new GameTime)
         }
 
-        constructor() {
+        public timeType: string = '1'
 
-            let s = this
-            s._timeId = 0;
-        }
+        constructor() { }
 
         public run(): void {
             let s = this;
@@ -37,6 +37,11 @@ module main {
                 s.gameStart()
 
             }, s)
+
+            /*获取排行榜*/
+            GameModel.getInstance().getLastWinRank()
+            /*获取开奖历史*/
+            GameModel.getInstance().getHistoryLottery()
         }
 
         public gameStart(): void {
@@ -56,22 +61,37 @@ module main {
 
             let s = this
             let second = ++s.gameTtime
+            s.timeOut = true
 
-            if (0 < second && second < 26) {
+            if (0 <= second && second < 26) {
 
+                s.timeOut = false
                 s.betTime = 25 - second
                 GameView.getInstance().slideUp()
-                console.log('下注时间还剩: ', s.betTime);
-            } else if (26 <= second && second <= 32) {
+                GameView.getInstance().updateCountDown(s.betTime, 1)
+                /*下注查询*/
+                GameModel.getInstance().getBettingTotal()
+                /*下注玩家排行*/
+                GameModel.getInstance().getBettingRank()
 
+                // console.log('下注时间还剩: ', s.betTime);
+            } else if (26 <= second && second < 32) {
+
+                if (second == 33) {
+                    GameModel.getInstance().getResult()
+                }
                 GameView.getInstance().slideDown()
-                console.log('锁定时间: ', second);
-            } else if (32 < second && second <= 58) {
+                GameView.getInstance().updateCountDown(31 - second, 2)
 
-                console.log('开奖时间: ', second);
-            } else if (59 < second) {
+                // console.log('锁定时间: ', second);
+            } else if (32 <= second && second < 58) {
 
-                console.log('该轮游戏到达59阶段, 可开始请求时间戳, 进入下一轮游戏', second);
+                // console.log('开奖时间: ', second);
+            } else if (58 < second) {
+
+                // 清空下注台
+                SideBottomMidView.getInstance().clearBet()
+                // console.log('该轮游戏到达59阶段, 可开始请求时间戳, 进入下一轮游戏', second);
                 GYLite.TimeManager.unTimeInterval(s._timeId, s.timeStart, s)
                 s.run()
             }

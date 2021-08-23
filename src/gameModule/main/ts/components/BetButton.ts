@@ -15,7 +15,7 @@ module main {
             s.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleClick, s)
         }
 
-        public setData(conf: any): void {
+        public config(conf: any): void {
 
             const s = this
             s._back = SkinManager.createImage(s, 0, 0, conf.background, conf.alias)
@@ -43,7 +43,9 @@ module main {
 
                 s.selected = !s.selected
             }
+
         }
+
 
         public invalidLayout(): void {
             const s = this

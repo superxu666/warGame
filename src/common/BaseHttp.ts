@@ -14,7 +14,7 @@ class BaseHttp {
             if (res.code == 200) {
                 callBack && callBack.call(thisObj, res)
             } else {
-                throw new Error(url + ': error - ' + res.mes)
+                console.error(url + ': error - ' + res.mes)
             }
         })
     }

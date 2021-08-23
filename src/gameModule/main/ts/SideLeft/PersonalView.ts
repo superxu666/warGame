@@ -65,12 +65,12 @@ module main {
         public render(d: any): void {
 
             let s = this
-            s.userNickText.text = d.data.nickName
-            s.userIdText.text = d.data.userId
-            s.userGText.text = d.data.gold
-            s.userYText.text = d.data.silver
+            if (d.data.avatar) s.head.source = Main.instance.getRes(d.data.avatar, 'main/img/head.png')
+            if (d.data.nickName) s.userNickText.text = d.data.nickName
+            if (d.data.userId) s.userIdText.text = d.data.userId
+            if (d.data.gold) s.userGText.text = d.data.gold
+            if (d.data.silver) s.userYText.text = d.data.silver
         }
-
 
     }
 }

@@ -23,6 +23,9 @@ module main {
         public YBtn: BetButton
         public keepingBtn: GYLite.GYButton
 
+        public betType: number
+        public betNum: number
+
         constructor() {
             super()
             const s = this
@@ -30,14 +33,14 @@ module main {
             s.back = SkinManager.createImage(s, 0, 0, 'war_bet_setting_bg_png', URLConf.gameImg + 'w2sheet.png')
 
             s._jettonArr = [
-                { itemName: '1', num: 1, source: 'war_bet_setting_selected_count_1_png' },
-                { itemName: '10', num: 10, source: 'war_bet_setting_selected_count_10_png' },
-                { itemName: '100', num: 100, source: 'war_bet_setting_selected_count_100_png' },
-                { itemName: '1k', num: 1000, source: 'war_bet_setting_selected_count_1k_png' },
-                { itemName: '1w', num: 10000, source: 'war_bet_setting_selected_count_1w_png' },
-                { itemName: '5w', num: 50000, source: 'war_bet_setting_selected_count_5w_png' },
-                { itemName: '10w', num: 100000, source: 'war_bet_setting_selected_count_10w_png' },
-                { itemName: 'all', num: -1, source: 'war_bet_setting_selected_count_all_png' },
+                { select: true, itemName: '1', num: 1, source: 'war_bet_setting_selected_count_1_png' },
+                { select: false, itemName: '10', num: 10, source: 'war_bet_setting_selected_count_10_png' },
+                { select: false, itemName: '100', num: 100, source: 'war_bet_setting_selected_count_100_png' },
+                { select: false, itemName: '1k', num: 1000, source: 'war_bet_setting_selected_count_1k_png' },
+                { select: false, itemName: '1w', num: 10000, source: 'war_bet_setting_selected_count_1w_png' },
+                { select: false, itemName: '5w', num: 50000, source: 'war_bet_setting_selected_count_5w_png' },
+                { select: false, itemName: '10w', num: 100000, source: 'war_bet_setting_selected_count_10w_png' },
+                { select: false, itemName: 'all', num: -1, source: 'war_bet_setting_selected_count_all_png' },
             ]
             s._btns = {}
             s._selectedSets = {}
@@ -60,7 +63,11 @@ module main {
                 }
                 selected.x = btnBg.x
                 selected.y = btnBg.y
-                selected.visible = false
+
+                selected.visible = item.select
+                if (item.select) {
+                    s._selected = selected
+                }
 
                 let btn = SkinManager.createBtn2(s, 0, 0, [item.source], URLConf.gameImg + 'w1sheet.png')
                 btn.x = btnBg.x + (btnBg.width - btn.width >> 1)
@@ -84,7 +91,7 @@ module main {
             selectionGroup.curSelection = s.GBtn
             s.GBtn.x = 320
             s.GBtn.verticalCenter = 0
-            s.GBtn.setData({
+            s.GBtn.config({
                 background: 'war_bet_setting_selected_count__bormal_bg_png',
                 source: 'war_gold_img_png',
                 select: 'war_bet_setting_selected_count_bg_png',
@@ -94,11 +101,11 @@ module main {
 
             s.YBtn = new BetButton()
             s.YBtn.touchEnabled = true
-            s.GBtn.type = 2
+            s.YBtn.type = 2
             s.YBtn.selectionGroup = selectionGroup
             s.YBtn.x = s.GBtn.x + s.GBtn.width + 5
             s.YBtn.verticalCenter = 0
-            s.YBtn.setData({
+            s.YBtn.config({
                 background: 'war_bet_setting_selected_count__bormal_bg_png',
                 source: 'war_silver_img_png',
                 select: 'war_bet_setting_selected_count_bg_png',
@@ -121,20 +128,51 @@ module main {
             const s = this
 
             s.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleClick, s)
+            s.GBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleBetType, s)
+            s.YBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleBetType, s)
+            s.keepingBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleKeepingBet, s)
         }
 
+        /*切换金银*/
+        private handleBetType(e: egret.Event): void {
+
+            const s = this
+            console.log(e.target.type == 1 ? '金' : '银');
+            s.betType = e.target.type
+            BetModel.getInstance().setData(s.betType, s.betNum)
+        }
+
+        /*下注筹码*/
         private handleClick(e: egret.TouchEvent): void {
             const s = this
             if (e.target['itemName']) {
-                console.log(e.target['itemName']);
+
+                // console.log(e.target['itemName']);
+
                 let itemName = e.target['itemName']
                 if (s._selected) s._selected.visible = false
                 s._selectedSets[itemName].visible = true
                 s._selected = s._selectedSets[itemName]
 
                 console.log(e.target['betNum']);
-
+                s.betNum = e.target['betNum']
+                BetModel.getInstance().setData(s.betType, s.betNum)
             }
+        }
+
+        /*续压*/
+        private handleKeepingBet(): void {
+            // 1. 从BetModel取上一轮的数据结构
+            // 2. 刷新SideBottomMidView的UI
+            // 3. 调用下注接口
+
+            if (BetModel.getInstance().lastSum.length == 0) return
+
+            let lastSum = BetModel.getInstance().lastSum
+            /*调接口*/
+            BetModel.getInstance().bet(lastSum)
+            /*刷新UI*/
+            SideBottomMidView.getInstance().keeping(lastSum)
         }
 
         /*重置按钮*/
@@ -142,6 +180,9 @@ module main {
 
             const s = this
             if (s._selected) s._selected.visible = false
+            s._selectedSets['1'].visible = true
+            s._selected = s._selectedSets['1']
+            s.betNum = 1
         }
 
 

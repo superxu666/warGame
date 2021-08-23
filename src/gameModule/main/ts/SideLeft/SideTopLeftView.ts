@@ -28,9 +28,6 @@ module main {
             s.chatView.y = 150
             s.addElement(s.chatView)
 
-            // TemplateTool.setBackGrapics(s.chatView, 0xff0000)
-            // TemplateTool.openDrag(s.chatView)
-
         }
 
         public renderPersonvalView(d: any): void {
