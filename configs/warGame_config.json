@@ -1,21 +1,21 @@
 {
 	"platform": "",
-	"screenMode": 0,
-	"mdDirVer": {
-		"gggg": {},
-		"game": {},
-		"main": {},
-		"login": {}
-	},
 	"winWidth": 1440,
-	"libDirVer": {
-		"editor": "20210401163145",
-		"simulator3": "20210207152001",
-		"ui1Lib": "20210324183000",
-		"commonLib": "20210616213612",
-		"ui2Lib": "20210324181242"
-	},
 	"designWidth": 1920,
 	"designHeight": 1080,
-	"winHeight": 810
+	"mdDirVer": {
+		"game": {},
+		"main": {},
+		"login": {},
+		"gggg": {}
+	},
+	"winHeight": 810,
+	"libDirVer": {
+		"editor": "20210401163145",
+		"commonLib": "20210616213612",
+		"ui2Lib": "20210324181242",
+		"simulator3": "20210207152001",
+		"ui1Lib": "20210324183000"
+	},
+	"screenMode": 0
 }

@@ -7,15 +7,6 @@ module main {
 
         constructor() {
             const s = this
-            /*
-                [{
-                avatar: "a",
-                nickName: "傲世战神",
-                userId: 81342587,
-                wingold: 8,
-                winsilver: 0,
-                }]
-            */
             s.lastWinRank = []
         }
 

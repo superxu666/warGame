@@ -91,15 +91,15 @@ module main {
 
 
 				/*倒计时开始*/
-				// GameTime.getInstance().run()
+				GameTime.getInstance().run()
 
 			}
 
 			/*绑定document键盘事件, 调用事件中转类派发事件, 目前只有聊天室用到回车事件*/
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))
 
-
-
+			SoundManager.instance.playBGM(Conf.sound + 'gamebgm.mp3')
+			
 		}
 
 		private handleKeyborad(e): void {
@@ -127,11 +127,7 @@ module main {
 
 			let s = this
 
-			PersonalModel.getInstance().logout(() => {
-
-				UIControl.getInstance().closeCurUI()
-				UIControl.getInstance().openUI('login')
-			})
+			PersonalModel.getInstance().logout()
 
 		}
 	}

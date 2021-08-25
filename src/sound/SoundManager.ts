@@ -374,6 +374,9 @@ class SoundData implements GYLite.IPoolObject
 	/**音频文件的base64字符串，用于桥接播放*/public fileData:string;
 	public static COMMON_SOUND:number = 0;
 	public static BACKGROUND_SOUND:number = 1;
+	constructor(){
+		
+	}
 	public soundComplete(e:egret.Event=null):void
 	{
 		let s = this;		

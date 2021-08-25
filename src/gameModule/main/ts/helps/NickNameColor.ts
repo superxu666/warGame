@@ -2,6 +2,7 @@ module main {
     export class NickNameColor {
 
         public static colorSets: Object = {
+            '0': 0xBA5B5B,
             '1': 0xFFFFFF,
             '2': 0x3FA5A9,
             '3': 0x3FA5A9,

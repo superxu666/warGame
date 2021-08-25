@@ -135,7 +135,6 @@ module main {
 
             let s = this
             s.height = s.mes.contentHeight + 5
-            // s.mes.color = NickNameColor.colorSets[d.grade] || NickNameColor.colorSets['6']
         }
 
     }

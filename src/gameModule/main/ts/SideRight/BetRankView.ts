@@ -30,20 +30,6 @@ module main {
             s.list = SkinManager.createListV(s, 55, 178, 230, 376, BetRankItem)
             s.list.scrollerPolicy = 2
 
-            let ary = []
-            for (let i = 0; i < 10; i++) {
-                let o = {
-                    avatar: "a",
-                    betgold: 3,
-                    exp: 6000,
-                    betsilver: 0,
-                    nickName: "傲世战神",
-                    userId: 81342587,
-                }
-                ary.push(o)
-
-            }
-
             s.bindEvent()
         }
 

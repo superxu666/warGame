@@ -48,7 +48,6 @@ module main {
             s.close.top = -20
             s.close.right = -20
 
-
             let headBg = SkinManager.createImage(s, 0, 40, 'rms_user_head_bg_png', URLConf.mainImg + 'd2sheet.png')
             headBg.x = s.width - headBg.width >> 1
             s.head = SkinManager.createImage(s, 0, 0, 'r', URLConf.mainImg + 'head.png')
@@ -69,9 +68,9 @@ module main {
 
             let useridBg = SkinManager.createImage(s, 0, 250, 'rms_userinfo_id_bg_png', URLConf.mainImg + 'd2sheet.png')
             useridBg.x = s.width - useridBg.width >> 1
-            s.nickname = SkinManager.createText(s, 0, 226, '思锐谁逗你覅', 0xffffff, 18, 'center', 200, 50)
+            s.nickname = SkinManager.createText(s, 0, 226, '', 0xffffff, 18, 'center', 200, 50)
             s.nickname.x = s.width - s.nickname.width >> 1
-            s.userid = SkinManager.createText(s, 0, 262, 'ID 0909234', 0x946C47, 14, 'center', 110, 25)
+            s.userid = SkinManager.createText(s, 0, 262, '', 0x946C47, 14, 'center', 110, 25)
             s.userid.x = s.width - s.userid.width >> 1
 
             s.gText = SkinManager.createText(s, 0, 192, '????', 0xffffff, 16, 'right', 130, 42)
@@ -82,7 +81,7 @@ module main {
             let gbg = SkinManager.createImage(s, s.gText.x + s.gText.width + 20, s.gText.y - 12, 'game_cion_gold_big_png', URLConf.mainImg + 'd1sheet.png')
             let ybg = SkinManager.createImage(s, 0, gbg.y, 'game_cion_silver_big_png', URLConf.mainImg + 'd1sheet.png')
             ybg.right = 80 + s.yText.width + 20
-            let tips = SkinManager.createText(s, 0, 484, 'dsadfasdfasdf')
+            let tips = SkinManager.createText(s, 0, 484, '')
             tips.htmlText = `提示: 鲜花每个<font color=0xEFCD02>200金币</font>, 红包每个<font color=0xEFCD02>2000金币</font>, 大便每个<font color=0xEFCD02>200金币</font>`
             tips.x = s.width - tips.width >> 1
 
@@ -99,7 +98,6 @@ module main {
                 btn['eventname'] = 'btn_' + i
                 btn.x = 150 + i * (btn.width + 70)
             }
-
 
             s.bindEvent()
 
@@ -157,9 +155,9 @@ module main {
 
             s.head.source = Main.instance.getRes(d.avatar, URLConf.mainImg + 'head.png')
             s.nickname.text = d.nickName
-            s.userid.text = d.userId
-            s.gText.text = d.privacy == 0 ? d.gold : '????'
-            s.yText.text = d.privacy == 0 ? d.silver : '????'
+            s.userid.text = `ID ${d.userId}`
+            s.gText.text = d.privacy == 0 ? '????' : d.gold
+            s.yText.text = d.privacy == 0 ? '????' : d.silver
 
         }
 

@@ -16,7 +16,6 @@ module main {
 
                 // 更新左上角显示的游戏币
                 PersonalModel.getInstance().getMyInfo()
-
                 callback && callback.call(thisobj)
             })
         }

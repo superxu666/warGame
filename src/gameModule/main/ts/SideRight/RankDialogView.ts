@@ -23,12 +23,14 @@ module main {
             super()
             const s = this
 
+            s.width = 1046
+            s.height = 536
             s.horizonalCenter = 0
             s.verticalCenter = 0
 
             s.back = SkinManager.createScaleImage(s, 0, 0, 'rms_view_bg_png', URLConf.mainImg + 'd1sheet.png', new GYLite.Scale9GridRect(60, 60, 60, 60))
-            s.back.width = 1046
-            s.back.height = 536
+            s.back.width = s.width
+            s.back.height = s.height
 
             s.close = SkinManager.createBtn2(s, 0, 0, ['rms_view_close_btn_png'], URLConf.mainImg + 'd1sheet.png', null, null, ScaleButtonSkin2)
             s.close['eventname'] = 'close'

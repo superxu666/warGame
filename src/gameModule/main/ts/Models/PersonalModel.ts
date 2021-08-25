@@ -32,7 +32,7 @@ module main {
         /*隐私开关*/
         public updatePrivacy(privacy: string | number): void {
 
-            HttpMsg.getInstance().sendMsg('/war/user/updatePrivacy', {
+            BaseHttp.getInstance().sendMsg('/war/user/updatePrivacy', {
                 privacy
             }, HTTPConf.M_POST, (res) => {
 
@@ -46,6 +46,7 @@ module main {
             BaseHttp.getInstance().sendMsg('/war/user/getMyInfo', {}, HTTPConf.M_GET, (res) => {
                 s.setData(res.data)
                 PersonalView.getInstance().setData(res.data)
+                SettingDialogView.getInstance().setData(res.data)
                 callback && callback.call(thisobj, res)
             })
         }
@@ -55,8 +56,14 @@ module main {
         public logout(callback?: Function, thisobj?: any): void {
 
             BaseHttp.getInstance().sendMsg('/logout', {}, HTTPConf.M_POST, (res) => {
+
                 UserData.getInstance().token = ''
                 sessionStorage.removeItem('token')
+                GameTime.getInstance().stop()
+
+                UIControl.getInstance().closeCurUI()
+				UIControl.getInstance().openUI('login')
+
                 callback && callback.call(thisobj, res)
             })
         }

@@ -52,6 +52,8 @@ module main {
                 second = 25 - s.gameTtime
                 s.betTime = second
                 console.log('下注时间还剩: ', second);
+
+                SoundManager.instance.play(Conf.sound + 'mrs_bet_start.mp3')
             }
 
             s._timeId = GYLite.TimeManager.timeInterval(s.timeStart, s, 1000)
@@ -74,6 +76,12 @@ module main {
                 /*下注玩家排行*/
                 GameModel.getInstance().getBettingRank()
 
+                if (second == 23) {
+                    SoundManager.instance.play(Conf.sound + 'rms_bet_alarm.mp3', 0, 2, () => {
+                        SoundManager.instance.play(Conf.sound + 'rms_bet_end.mp3')
+                    })
+                }
+
                 // console.log('下注时间还剩: ', s.betTime);
             } else if (26 <= second && second < 32) {
 
@@ -95,6 +103,17 @@ module main {
                 GYLite.TimeManager.unTimeInterval(s._timeId, s.timeStart, s)
                 s.run()
             }
+
+        }
+
+        /**
+         * 停止计时
+         */
+        public stop(): void {
+            const s = this
+            GYLite.TimeManager.unTimeInterval(s._timeId, s.timeStart, s)
+            // 清空下注台
+            SideBottomMidView.getInstance().clearBet()
 
         }
 

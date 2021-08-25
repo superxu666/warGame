@@ -46,9 +46,11 @@ module main {
             }
             s._state[arr[1]] = () => {
                 console.log('打开明细');
+                BetDetailDialogView.getInstance().show()
             }
             s._state[arr[2]] = () => {
                 console.log('设置');
+                SettingDialogView.getInstance().show()
             }
             s._state[arr[3]] = () => {
                 console.log('登出');
@@ -60,10 +62,6 @@ module main {
             s._betRankView.width = s.width
             s._betRankView.height = s.height
             s.addElement(s._betRankView)
-
-            // TemplateTool.setBackGrapics(s._betRankView)
-            // TemplateTool.openDrag(s._betRankView)
-
 
             s._currentRoundSumView = CurrentRoundSumView.getInstance()
             s.addElement(s._currentRoundSumView)

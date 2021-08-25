@@ -269,7 +269,7 @@ module login {
             const parent = new GYLite.GYUIComponent
             const t = SkinManager.createText(parent, 0, 0, '手机号', 0xffffff, 30)
             t.y = (78 - t.height) / 2
-            const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, 0, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, 0, 452, 78, '', 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, function () {
                 s.phone = p.text
@@ -294,7 +294,7 @@ module login {
             const parent = new GYLite.GYUIComponent
             const t = SkinManager.createText(parent, 0, 0, '验证码', 0xffffff, 30)
             t.y = (78 - t.height) / 2
-            const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, 0, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 10, 0, 452, 78, '', 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.code = p.text
@@ -335,7 +335,7 @@ module login {
             const parent = new GYLite.GYUIComponent
             const t = SkinManager.createText(parent, 0, 0, '密码', 0xffffff, 30)
             t.y = (78 - t.height) / 2
-            const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, 0, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, 0, 452, 78, '', 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.passw = p.text
@@ -381,7 +381,7 @@ module login {
             const parent = new GYLite.GYUIComponent
             const t = SkinManager.createText(parent, 0, 0, '昵称', 0xffffff, 30)
             t.y = (78 - t.height) / 2
-            const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, 0, 452, 78, null, 30)
+            const p = TemplateTool.createTextInput(parent, t.x + t.width + 40, 0, 452, 78, '', 30)
             p.skin = new GYLite.TextInputSkin(Main.instance.getRes('rms_login_input_bg_png', Conf.d2sheetAlias), new GYLite.Scale9GridRect())
             p.addEventListener(egret.Event.CHANGE, () => {
                 s.nickname = p.text
