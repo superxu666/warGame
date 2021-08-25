@@ -46,7 +46,7 @@ class URLConf {
 		else if(hostStr == "dev")
 		{
 			//本地测试页指定完整路径
-			URLConf.root = "http://103.218.3.72/";
+			URLConf.root = "http://" + UserData.getInstance().host + "/";
 			URLConf.modules = URLConf.root + "moduleRelease/";
 			URLConf.moduleLibs = URLConf.root + "moduleLibRelease/";
 			URLConf.videoRoot = "";
@@ -54,7 +54,7 @@ class URLConf {
 		else if(hostStr == "www")
 		{
 			//本地生产页指定完整路径
-			URLConf.root = "http://103.218.3.72/";//本地页面指定url 生产
+			URLConf.root = "http://" + UserData.getInstance().host + "/";//本地页面指定url 生产
 			URLConf.modules = URLConf.root + "moduleRelease/";
 			URLConf.moduleLibs = URLConf.root + "moduleLibRelease/";
 			URLConf.videoRoot = "";

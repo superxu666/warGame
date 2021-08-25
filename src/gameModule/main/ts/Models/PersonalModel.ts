@@ -40,33 +40,24 @@ module main {
         }
 
         /*左上角个人中心*/
-        public getMyInfo(cb: Function): void {
+        public getMyInfo(callback?: Function, thisobj?: any): void {
 
             let s = this
             BaseHttp.getInstance().sendMsg('/war/user/getMyInfo', {}, HTTPConf.M_GET, (res) => {
                 s.setData(res.data)
-                cb && cb(res)
-            })
-        }
-
-
-        /*左上角个人中心*/
-        public getInfoById(userId: string | number): void {
-            HttpMsg.getInstance().sendMsg('/war/user/getInfoById', {
-                userId
-            }, HTTPConf.M_GET, (res) => {
-
+                PersonalView.getInstance().setData(res.data)
+                callback && callback.call(thisobj, res)
             })
         }
 
 
         /*退出*/
-        public logout(cb: Function): void {
+        public logout(callback?: Function, thisobj?: any): void {
 
             BaseHttp.getInstance().sendMsg('/logout', {}, HTTPConf.M_POST, (res) => {
                 UserData.getInstance().token = ''
                 sessionStorage.removeItem('token')
-                cb && cb(res)
+                callback && callback.call(thisobj, res)
             })
         }
 

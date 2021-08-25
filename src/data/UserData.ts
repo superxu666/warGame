@@ -17,9 +17,9 @@ class UserData {
 	public studentNumber:string;
 	public age:string;
 	public openId:string;
-	public host: string="103.218.3.72"
-	public root:string="http://103.218.3.72/api";
-	public ossRoot:string="http://103.218.3.72";//本地页面指定url
+	public host: string="www.aszc888.com"
+	public root:string="http://www.aszc888.com/api";
+	public ossRoot:string="http://www.aszc888.com";//本地页面指定url
 	public grade:string;
 	public headPortrait:string;
 	public isFormalStudent:any;
@@ -58,13 +58,13 @@ class UserData {
 		s.isRelease = paramIsRelease > 0?paramIsRelease:d.isRelease;
 		if(s.isRelease == 1 || s.isRelease == 3)
 		{
-			s.ossRoot = "http://103.218.3.72";
-			s.root = "http://103.218.3.72";
+			s.ossRoot = "http://" + s.host;
+			s.root = "http://" + s.host;
 		}		
 		else
 		{
-			s.ossRoot = "http://103.218.3.72";
-			s.root = "http://103.218.3.72";
+			s.ossRoot = "http://" + s.host;
+			s.root = "http://" + s.host;
 		}		
 		
 		s.headPortrait = d.headPortrait!=null?d.headPortrait:d.root+"/s/images/userAvatar.png";		
@@ -75,9 +75,9 @@ class UserData {
 		{
 			let s = this;
 
-			s.root = "http://" + s.host + '/api/'
+			s.root = "http://" + s.host + '/api'
 
-			s.headPortrait = "http://103.218.3.72/s/images/userAvatar.png";
+			s.headPortrait = "http://" + s.host + "/s/images/userAvatar.png";
 		}
 		s.whiteUserIndex = s.getWhiteUserIndex();
 		Log.writeLog(MultiLang.str69 + s.isRelease + "-" + MultiLang.str70 + s.whiteUserIndex,Log.WARN);
@@ -111,8 +111,8 @@ class UserData {
 		{
 			let s = this;
 			s.token = ConfigManager.getToken();
-			s.headPortrait = "http://103.218.3.72/s/images/userAvatar.png";
-			s.root = 'http://' + s.host + '/api/'
+			s.headPortrait = "http://" + s.host + "/s/images/userAvatar.png";
+			s.root = 'http://' + s.host + '/api'
 		}
 		if(s._webData.isRelease != null)
 			s.isRelease = s._webData.isRelease;
@@ -203,17 +203,17 @@ class UserData {
 	/**是否测试环境*/
 	public isDebugOrigin():boolean
 	{
-		return !(window.location.origin.indexOf("103.218.3.72") > -1);
+		return !(window.location.origin.indexOf(this.host) > -1);
 	}
 	public getOrigin():string
 	{
 		let s = this;
-		return s.isDebugOrigin()?"http://103.218.3.72":"http://103.218.3.72";
+		return s.isDebugOrigin()?"http://" + s.host:"http://" + s.host;
 	}
 	public getOssOrigin():string
 	{
 		let s = this;
-		return s.isDebugOrigin()?"http://103.218.3.72":"http://103.218.3.72";
+		return s.isDebugOrigin()?"http://" + s.host:"http://" + s.host;
 	}
 	/**是否url参数debug*/
 	public getUrlDebug():boolean

@@ -74,7 +74,7 @@ module main {
             BaseHttp.getInstance().sendMsg('/war/game/bet', params, HTTPConf.M_POST, (res) => {
 
                 // 更新左上角显示的游戏币
-                PersonalView.getInstance().render(res)
+                PersonalModel.getInstance().getMyInfo()
             }, s)
 
         }

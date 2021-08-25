@@ -38,7 +38,8 @@ module main {
                 img.buttonModeForMouse = true
                 s._imgArr.push(img)
             }
-            RankDialogView.getInstance().show()
+            
+            // RankDialogView.getInstance().show()
             s._state[arr[0]] = () => {
                 console.log('打开排行');
                 RankDialogView.getInstance().show()

@@ -86,8 +86,6 @@ module main {
         public onmessage(d: any): void {
             let s = this
 
-            // console.log('mes - ', d);
-
             if (d && typeof d.data == 'string') {
                 const rd = JSON.parse(d.data)
                 if (rd.type != '1') {

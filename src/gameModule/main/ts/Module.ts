@@ -83,7 +83,6 @@ module main {
 			if (UserData.getInstance().token) {
 
 				PersonalModel.getInstance().getMyInfo((res) => {
-					s.sideTopLeft.renderPersonvalView(res)
 					s.sideTopLeft.notifyChatView(res)
 				})
 
@@ -95,9 +94,6 @@ module main {
 				// GameTime.getInstance().run()
 
 			}
-
-
-			// TemplateTool.openDrag(s)
 
 			/*绑定document键盘事件, 调用事件中转类派发事件, 目前只有聊天室用到回车事件*/
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))

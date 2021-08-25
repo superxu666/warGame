@@ -15,10 +15,9 @@ module main {
         private back: GYLite.GYScaleSprite
         private close: GYLite.GYButton
         private list: GYLite.GYListV
-        private myrankText: GYLite.GYText
-        private myrankNum: GYLite.GYText
-        private myicon: GYLite.GYImage
         private type: number = 1
+        private radioGroup: GYLite.GYRadioGroup
+        private firstBtn: GYLite.GYRadioButton
 
         constructor() {
             super()
@@ -64,27 +63,29 @@ module main {
             }, {
                 source: 'VIP2.png',
                 sourceSel: 'VIP1.png',
-
             }]
 
-            let radioGroup = new GYLite.GYRadioGroup
+            s.radioGroup = new GYLite.GYRadioGroup
             for (let i = 0; i < 5; i++) {
 
                 if (i < 4) {
 
                     let btn = <GYLite.GYRadioButton>SkinManager.createBtn2(s, 28, 0, [btnAry[i].source, null, null, null, btnAry[i].sourceSel, btnAry[i].sourceSel, btnAry[i].sourceSel, btnAry[i].sourceSel], URLConf.mainImg + 'd1sheet.png', null, GYLite.GYRadioButton, MyRadioButtonSkin)
                     btn.y = i * (btn.height + 30) + 100
-                    btn.radioGroup = radioGroup
+                    btn.radioGroup = s.radioGroup
                     btn['eventname'] = 'btn_' + i
                     if (i == 0) {
                         btn.radioGroup.selectedButton = btn
                     }
                     let bg = SkinManager.createImage(s, 20, btn.y + btn.height, 'rms_top_list_tab_line_png', URLConf.mainImg + 'd1sheet.png')
+                    if (!s.firstBtn) {
+                        s.firstBtn = btn
+                    }
                 } else {
 
                     let btn = <GYLite.GYRadioButton>SkinManager.createBtn2(s, 28, 0, [Conf.img + btnAry[i].source, null, null, null, Conf.img + btnAry[i].sourceSel, Conf.img + btnAry[i].sourceSel, Conf.img + btnAry[i].sourceSel, Conf.img + btnAry[i].sourceSel], null, null, GYLite.GYRadioButton, MyRadioButtonSkin)
                     btn.y = i * (btn.height + 30) + 100
-                    btn.radioGroup = radioGroup
+                    btn.radioGroup = s.radioGroup
                     btn['eventname'] = 'btn_' + i
                     if (i == 0) {
                         btn.radioGroup.selectedButton = btn
@@ -95,20 +96,8 @@ module main {
 
             }
 
-            s.list = SkinManager.createListV(s, 290, 60, 716, 330, RankDialogItem)
+            s.list = SkinManager.createListV(s, 290, 60, 716, 410, RankDialogItem)
             s.list.canDrag = true
-
-            let myrankbg = SkinManager.createScaleImage(s, 290, s.list.y + s.list.height + 35, 'rms_top_list_my_info_bg_png', URLConf.mainImg + 'd1sheet.png', new GYLite.Scale9GridRect(24, 24, 24, 24))
-            myrankbg.width = s.list.width
-            let myranktit = SkinManager.createImage(s, 0, 0, 'rms_top_list_my_info_title_png', URLConf.mainImg + 'd1sheet.png')
-            myranktit.x = (122 - myranktit.width >> 1) + myrankbg.x
-            myranktit.y = (myrankbg.height - myranktit.height >> 1) + myrankbg.y
-
-            s.myicon = SkinManager.createImage(s, 900, myranktit.y, 'game_cion_gold_small_png', URLConf.mainImg + 'd1sheet.png')
-
-            s.myrankText = SkinManager.createText(s, myrankbg.x + 140, 0, '????')
-            s.myrankText.y = (myrankbg.height - s.myrankText.height >> 1) + myrankbg.y + 2
-            s.myrankNum = SkinManager.createText(s, s.myicon.x + s.myicon.width + 5, s.myrankText.y, '0')
 
             s.bindEvent()
 
@@ -126,35 +115,60 @@ module main {
                 switch (e.target['eventname']) {
                     case 'btn_0':
                         s.type = 1
-
+                        GameModel.getInstance().selectWinRank({
+                            type: s.type,
+                            today: 1
+                        })
                         break
                     case 'btn_1':
                         s.type = 2
+                        GameModel.getInstance().selectWinRank({
+                            type: s.type,
+                            today: 1
+                        })
                         break
                     case 'btn_2':
                         s.type = 1
+                        GameModel.getInstance().selectWinRank({
+                            type: s.type,
+                            today: 0
+                        })
                         break
                     case 'btn_3':
                         s.type = 2
+                        GameModel.getInstance().selectWinRank({
+                            type: s.type,
+                            today: 0
+                        })
                         break
                     case 'btn_4':
                         s.type = 1
+
+                        GameModel.getInstance().getVipRank()
                         break
                     case 'close':
                         s.hide()
                         break
                 }
 
-                s.myicon.source = Main.instance.getRes('game_cion_silver_small_png', URLConf.mainImg + 'd1sheet.png')
             }
         }
 
         /**
          * 更新列表数据
          */
-        public updateRankList(d): void {
+        public updateRankList(d: any[], vip?: string): void {
             const s = this
-            if (d.length == 0) return
+
+            let userId = PersonalModel.getInstance().userId
+            // 处理排行
+            d = d.map((item, index) => {
+                return {
+                    ...item,
+                    rank: index + 1,
+                    vip: vip
+                }
+            })
             s.list.dataProvider = d
         }
 
@@ -166,26 +180,27 @@ module main {
             let pr = LayerManager.getInstance().topLay;
             pr.addElement(s);
 
-            // GameModel.getInstance().selectWinRank({
-            //     type: 1,
-            //     today: 1
-            // })
+            s.radioGroup.selectedButton = s.firstBtn
+            GameModel.getInstance().selectWinRank({
+                type: 1,
+                today: 1
+            })
 
-            let ary = []
-            for (let i = 0; i < 10; i++) {
+            // let ary = []
+            // for (let i = 0; i < 10; i++) {
 
-                let o = {
-                    "userId": 81342587,
-                    "nickName": "新用户1",
-                    "avatar": "a",
-                    "type": "2",
-                    "num": "100000",
-                    "rank": i + 1
-                }
-                ary.push(o)
-            }
+            //     let o = {
+            //         "userId": 81342587,
+            //         "nickName": "新用户1",
+            //         "avatar": "a",
+            //         "type": "2",
+            //         "num": "100000",
+            //         "rank": i + 1
+            //     }
+            //     ary.push(o)
+            // }
+            // s.list.dataProvider = ary
 
-            s.list.dataProvider = ary
         }
 
         public hide(): void {
@@ -206,13 +221,14 @@ module main {
         private nickname: GYLite.GYText
         private money: GYLite.GYText
         private icon: GYLite.GYImage
+        private back: GYLite.GYImage
 
         constructor() {
             super()
             const s = this
 
             s.width = 716
-            s.height = 330 / 5
+            s.height = 410 / 5
             s.rankImg = SkinManager.createImage(s, 0, 0, '')
             s.rankImg.visible = false
             s.rankText = SkinManager.createText(s, 0, 0, '')
@@ -220,12 +236,13 @@ module main {
             s.rankText.textAlign = 'center'
             s.rankText.visible = false
 
-            let bg = SkinManager.createImage(s, 140, 0, 'user_head_bg_84_76_png', URLConf.mainImg + 'd1sheet.png')
-            let scale = bg.width / bg.height
-            bg.width = s.height - 10
-            bg.height = (s.height - 10) / scale
-            bg.y = (s.height - 10) - bg.height >> 1
-            s.head = SkinManager.createImage(s, bg.x + 9, bg.y + 6, '')
+            s.back = SkinManager.createImage(s, 140, 0, 'user_head_bg_84_76_png', URLConf.mainImg + 'd1sheet.png')
+            s.back.visible = false
+            let scale = s.back.width / s.back.height
+            s.back.width = s.height - 10
+            s.back.height = (s.height - 10) / scale
+            s.back.y = (s.height - 10) - s.back.height >> 1
+            s.head = SkinManager.createImage(s, s.back.x + 9, s.back.y + 6, '')
             s.head.width = s.height - 29
             s.head.height = s.height - 29
             TemplateTool.setBorderRadius(s.head)
@@ -233,12 +250,27 @@ module main {
             s.icon = SkinManager.createImage(s, 610, 0, '')
             s.icon.verticalCenter = 0
 
-            s.nickname = SkinManager.createText(s, bg.x + bg.width + 5, 0, '')
+            let line = SkinManager.createScaleImage(s, 0, s.height - 5, 'rms_top_list_item_line_png', URLConf.mainImg + 'd1sheet.png', new GYLite.Scale9GridRect(20, 20))
+            line.width = s.width
+
+            s.nickname = SkinManager.createText(s, s.back.x + s.back.width + 5, 0, '')
             s.nickname.verticalCenter = 0
 
             s.money = SkinManager.createText(s, 0, 0, '')
             s.money.verticalCenter = 2
 
+            s.bindEvent()
+        }
+
+        private bindEvent(): void {
+            const s = this
+            s.touchEnabled = true
+            s.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleClick, s)
+        }
+
+        private handleClick(): void {
+            const s = this
+            MainModel.getInstance().getInfoById(s._data.userId)
         }
 
         public setData(d: any): void {
@@ -249,6 +281,8 @@ module main {
                 return;
             }
             s.visible = true;
+            s._data = d
+            
 
             if (d.rank <= 3) {
 
@@ -263,8 +297,10 @@ module main {
                 s.rankText.visible = true
             }
 
+            s.back.visible = true
             s.head.source = Main.instance.getRes(d.avatar, Conf.img + 'head.png')
             s.nickname.text = d.nickName
+            if (d.vip) return
             s.icon.source = Main.instance.getRes(d.type == 1 ? 'game_cion_gold_small_png' : 'game_cion_silver_small_png', URLConf.mainImg + 'd1sheet.png')
             s.money.text = UtilTool.formatBet(Number(d.num))
             s.money.x = s.icon.x + s.icon.width + 5

@@ -30,11 +30,6 @@ module main {
 
         }
 
-        public renderPersonvalView(d: any): void {
-            let s = this
-            s.personalView.render(d)
-        }
-
         public notifyChatView(d: any): void {
 
             let s=this

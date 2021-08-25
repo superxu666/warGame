@@ -56,20 +56,12 @@ module main {
 
             const s = this
             if (type == 1) { // 下注排行
-                s.list.dataProvider = []
+
                 GameModel.getInstance().getBettingRank()
             } else { // 上轮赢家
 
-                s.list.dataProvider = []
                 let lastWin = GameModel.getInstance().lastWinRank
-                if (lastWin.length == 0) return
-                s.list.dataProvider = lastWin.map((item) => {
-                    return {
-                        ...item,
-                        betgold: item.wingold,
-                        betsilver: item.winsilver
-                    }
-                })
+                s.updateRankList(lastWin)
             }
 
         }
@@ -79,8 +71,13 @@ module main {
          */
         public updateRankList(d: any[]): void {
             const s = this
-            if (s.tabBtn.type == 2) return
-            if (d.length == 0) return
+            d = d.map((item) => {
+                return {
+                    ...item,
+                    betgold: item.wingold,
+                    betsilver: item.winsilver
+                }
+            })
             s.list.dataProvider = d
         }
 
@@ -128,6 +125,6 @@ module main {
 
         }
 
-        
+
     }
 }
