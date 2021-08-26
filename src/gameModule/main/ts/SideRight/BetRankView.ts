@@ -42,10 +42,10 @@ module main {
 
             const s = this
             if (type == 1) { // 下注排行
-
+                UtilTool.clickSound()
                 GameModel.getInstance().getBettingRank()
             } else { // 上轮赢家
-
+                UtilTool.clickSound()
                 let lastWin = GameModel.getInstance().lastWinRank
                 s.updateRankList(lastWin)
             }

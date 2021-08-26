@@ -14,7 +14,9 @@ class SoundManager {
 	public constructor() {
 		SoundManager._instance = this;
 		let s = this;		
-		s.soundDict = {};		
+		s.soundDict = {};
+		if(egret.nativeRender)
+			MsgBase.getMsgHandle().regMsg(MsgBase.AUDIO_END,s.nativeAudioEnd,s);
 	}
 	private nativeAudioEnd(d:any):void
 	{let s = this;		
@@ -104,10 +106,10 @@ class SoundManager {
 		soundObj.soundType = type;		
 		//功能还没联调，先注释，勿删除
 		soundObj.fileType = fileType == fileType?fileType:UIControl.getInstance().curFileType;
-		if(soundObj.fileType == FileType.LESSON)
+		// if(soundObj.fileType == FileType.LESSON)
 			soundObj.fileID = fileID?fileID:UIControl.getInstance().curFileID;		
-		else
-			soundObj.fileID = null;
+		// else
+			// soundObj.fileID = null;
 		soundObj.filePath = soundObj.fileID?soundObj.fileID + "/res/" + url:url;
 		s.playBySoundData(soundObj, startTime, loops, compF, thisObject);
 	}
@@ -170,7 +172,30 @@ class SoundManager {
 		soundObj.position = 0;
 		soundObj.loops = loops;		
 		if(!s._paused)
-		{			
+		{
+			if(egret.nativeRender)
+			{	
+				let base64:string;
+				let obj:any = {url:soundObj.url, operType:1,fileData:base64,soundType:soundObj.soundType,loops:loops};
+				// 运行时桥接原生进行播放，存在fileID取本地路径(zip内的)，不存在直接发送base64音频过去				
+				// if(UserData.getInstance().whiteUserIndex == 1 && soundObj.fileID)
+				if(soundObj.fileID && (soundObj.fileType != FileType.LESSON))
+				{
+					obj.fileID = soundObj.fileID;
+					obj.type = soundObj.fileType;
+					obj.filePath = soundObj.filePath;
+				}    
+				else
+				{
+					if(soundObj.fileData == null)
+						base64 = soundObj.fileData = egret.Base64Util.encode(soundObj.sound.bytes);
+					else
+						base64 = soundObj.fileData;
+					obj.fileData = base64;					
+				}				
+				MsgBase.getMsgHandle().sendMsg(MsgBase.AUDIO_OPER,obj);
+				return;
+			}
 			soundObj.channel = soundObj.sound.play(0,loops);
 			if(loops!==0 && !GYLite.CommonUtil.GYIs(soundObj.sound, MySound))
 			{				
@@ -219,7 +244,14 @@ class SoundManager {
 						soundObj.clear();					
 				}				
 			}
-			let len:number;			
+			let len:number;
+			len = arr.length;
+			while(--len>-1)
+			{				
+				delete s.soundDict[arr[len].url];
+				if(egret.nativeRender)
+					MsgBase.getMsgHandle().sendMsg(MsgBase.AUDIO_OPER,{url:arr[len].url, operType:3});
+			}
 			len = arr2.length;
 			while(--len>-1)
 			{				
@@ -236,7 +268,9 @@ class SoundManager {
 				soundObj.dispose();
 			else
 				soundObj.clear();
-			delete s.soundDict[url];			
+			delete s.soundDict[url];
+			if(egret.nativeRender)
+				MsgBase.getMsgHandle().sendMsg(MsgBase.AUDIO_OPER,{url:url, operType:3});
 		}
 	}
 	/**暂停所有声音*/
@@ -245,7 +279,9 @@ class SoundManager {
 		let soundObj:SoundData;
 		let arr:Array<any>;
 		if(s._paused)return;
-		s._paused = true;		
+		s._paused = true;
+		if(egret.nativeRender)
+			MsgBase.getMsgHandle().sendMsg(MsgBase.AUDIO_OPER,{url:null, operType:2});
 		for(let key in s.soundDict)
 		{
 			soundObj = s.soundDict[key];
@@ -269,7 +305,9 @@ class SoundManager {
 		let soundObj:SoundData;
 		let arr:Array<any>;
 		if(!s._paused)return;
-		s._paused = false;		
+		s._paused = false;
+		if(egret.nativeRender)
+			MsgBase.getMsgHandle().sendMsg(MsgBase.AUDIO_OPER,{url:null, operType:4});
 		for(let key in s.soundDict)
 		{				
 			soundObj = s.soundDict[key];			
@@ -293,7 +331,7 @@ class SoundManager {
 	public dispose(url:string=null,disposeSrc:boolean=false):void
 	{
 		let s = this;
-		s.stop(url,0,disposeSrc);
+		s.stop(url,-1,disposeSrc);
 	}
 	public get paused():boolean
 	{
@@ -346,13 +384,21 @@ class SoundManager {
 		len = arr.length;
 		while(--len>-1)
 		{				
-			delete SoundManager.instance.soundDict[arr[len].url];			
+			delete SoundManager.instance.soundDict[arr[len].url];
+			if(egret.nativeRender)
+				MsgBase.getMsgHandle().sendMsg(MsgBase.AUDIO_OPER,{url:arr[len].url, operType:3});
 		}
 		len = arr2.length;
 		while(--len>-1)
 		{				
 			delete SoundManager.instance._loaddingDict[arr2[len].url];				
 		}		
+	}
+
+	public playClickSound()
+	{
+		let s = this;
+		s.play("sound/cardClick.mp3", 0, 1, null, null, 1,FileType.FRAME,FileID.FRAME);
 	}
 }
 class SoundData implements GYLite.IPoolObject
@@ -374,9 +420,6 @@ class SoundData implements GYLite.IPoolObject
 	/**音频文件的base64字符串，用于桥接播放*/public fileData:string;
 	public static COMMON_SOUND:number = 0;
 	public static BACKGROUND_SOUND:number = 1;
-	constructor(){
-		
-	}
 	public soundComplete(e:egret.Event=null):void
 	{
 		let s = this;		
@@ -388,7 +431,7 @@ class SoundData implements GYLite.IPoolObject
 			else
 				s.compFunc.call(s.thisObject);
 		}		
-		if(GYLite.CommonUtil.GYIs(s.sound, MySound) && e == null)
+		if(!egret.nativeRender && GYLite.CommonUtil.GYIs(s.sound, MySound) && e == null)
 		{
 			let mySound:MySound = (<MySound>s.sound);
 			if(mySound.originChannel && mySound.originChannel.hasEventListener(egret.Event.SOUND_COMPLETE))
@@ -454,6 +497,8 @@ class SoundData implements GYLite.IPoolObject
 			(<MySound>s.sound).stop();
 		}
 		s.sound = null;		
+		s.thisObject= null;
+		s.compFunc = null;
 		GYLite.PoolUtil.toPool(this, SoundData);
 	}
     public inPool: boolean;
@@ -466,7 +511,7 @@ class SoundData implements GYLite.IPoolObject
 	/**销毁声音，会把声音源数据销毁*/
 	public dispose():void
 	{
-		let s = this;		
+		let s = this;				
 		GYLite.GYLoader.deleteResByKey(s.url);
 		s.clear();		
 	}

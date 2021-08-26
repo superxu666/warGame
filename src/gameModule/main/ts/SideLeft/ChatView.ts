@@ -40,22 +40,28 @@ module main {
 
         private bindEvent(): void {
             let s = this
-            s.send.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSend, s)
+            s.send.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleSendEvent, s)
             s.trumpet.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleTrumpet, s)
             s.input.addEventListener(egret.Event.FOCUS_IN, s.focusIn, s)
             s.input.addEventListener(egret.Event.FOCUS_OUT, s.focusOut, s)
             BaseWar.getInstance().bind('chatInput', s.handleSend, s)
         }
 
+        private handleSendEvent(e: egret.Event): void {
+            const s = this
+            s.handleSend(s.input.text)
+        }
+
         public handleSend(text: string): void {
 
             let s = this
+            UtilTool.clickSound()
             if (PersonalModel.getInstance().black == '1') {
 
                 console.log('你被关进小黑屋, 联系管理员');
                 return
             }
-            if (!s.input.text && !text) return
+            if (!text) return
             s.ws.send(s.input.text || text)
             s.input.text = ''
             s.vb.scroller.scrollPosY = s.vb.scroller.scrollBarV.maximum
@@ -63,6 +69,7 @@ module main {
 
         private handleTrumpet(): void {
             let s = this
+            UtilTool.clickSound()
             TrumpetView.getInstance().show()
         }
 

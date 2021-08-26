@@ -20,7 +20,6 @@ module main {
 
 		public modulePreStart(): void {
 
-
 			TheFirstGame.getInstance().isFirstGame = true
 		}
 		protected start(): void {
@@ -85,9 +84,6 @@ module main {
 				PersonalModel.getInstance().getMyInfo((res) => {
 					s.sideTopLeft.notifyChatView(res)
 				})
-
-				/*绑定登出按钮*/
-				s.sideTopRight.bindLoginOut(s.loginout, s)
 
 
 				/*倒计时开始*/

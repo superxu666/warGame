@@ -41,6 +41,7 @@ module main {
 
         private handleScrollList(e: egret.Event): void {
             const s = this
+            UtilTool.clickSound()
             if (e.target.name == 'l') {
 
                 s.list.hScroller.scrollToLeft(360 / 8 * 4)

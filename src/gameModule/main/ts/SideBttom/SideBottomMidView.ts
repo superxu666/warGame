@@ -187,6 +187,7 @@ module main {
 
             // 锁定中, 不可点击
             if (GameTime.getInstance().timeOut) return
+            UtilTool.clickSound()
             s.slideUp()
             // console.log('当前下注: ', s.itemName);
             let result = BetModel.getInstance().setBetSets(s.itemName)

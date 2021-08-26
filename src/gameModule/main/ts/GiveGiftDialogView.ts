@@ -111,9 +111,11 @@ module main {
             s.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleClick, s)
             s.eventSets = {
                 close: () => {
+                    UtilTool.clickSound()
                     s.hide()
                 },
                 btn_0: () => {
+                    UtilTool.clickSound()
                     MainModel.getInstance().giveGift({
                         userId: s.userData.userId,
                         type: 1,
@@ -122,6 +124,7 @@ module main {
                     })
                 },
                 btn_1: () => {
+                    UtilTool.clickSound()
                     MainModel.getInstance().giveGift({
                         userId: s.userData.userId,
                         type: 1,
@@ -130,6 +133,7 @@ module main {
                     })
                 },
                 btn_2: () => {
+                    UtilTool.clickSound()
                     MainModel.getInstance().giveGift({
                         userId: s.userData.userId,
                         type: 1,
@@ -138,6 +142,7 @@ module main {
                     })
                 },
                 btn_3: () => {
+                    UtilTool.clickSound()
                     GiveGoldDialogView.getInstance().show(s.userData)
                 }
             }

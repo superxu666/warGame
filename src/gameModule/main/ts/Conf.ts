@@ -7,7 +7,6 @@ module main {
 
         public static d1sheetAlias: string = 'main/img/d1sheet.png'
         public static d2sheetAlias: string = 'main/img/d2sheet.png'
-        public static d3sheetAlias: string = 'main/img/d3sheet.png'
 
     }
 }

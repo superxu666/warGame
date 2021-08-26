@@ -31,7 +31,7 @@ module main {
         public getMyRecord(): void {
 
             BaseHttp.getInstance().sendMsg('/war/accountrecord/getMyRecord', {}, HTTPConf.M_GET, (res) => {
-
+                BetDetailDialogView.getInstance().setData(res.data)
             })
         }
 

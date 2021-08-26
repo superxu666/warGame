@@ -82,9 +82,11 @@ module main {
 
             s.eventSets = {
                 close: () => {
+                    UtilTool.clickSound()
                     s.hide()
                 },
                 signOut: () => {
+                    UtilTool.clickSound()
                     PersonalModel.getInstance().logout(() => {
                         s.hide()
                     }, s)
@@ -97,6 +99,7 @@ module main {
 
                 },
                 switch: (isOpen: boolean) => {
+                    UtilTool.clickSound()
                     PersonalModel.getInstance().updatePrivacy(isOpen ? 1 : 0)
                 }
 

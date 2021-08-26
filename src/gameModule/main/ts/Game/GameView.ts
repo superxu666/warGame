@@ -20,7 +20,9 @@ module main {
         constructor() {
             super()
             const s = this
-
+            
+            s.width = 692
+            s.height = 460
             s.back = SkinManager.createImage(s, 0, 0, 'war_tar_bg_png', URLConf.gameImg + 'w1sheet.png')
 
             s._gem = new GYMovieClip();

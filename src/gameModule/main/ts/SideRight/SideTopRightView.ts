@@ -54,7 +54,7 @@ module main {
             }
             s._state[arr[3]] = () => {
                 console.log('登出');
-                s.loginoutcb && s.loginoutcb.call(s.loginoutthisobj)
+                PersonalModel.getInstance().logout()
             }
 
 
@@ -80,16 +80,9 @@ module main {
 
             let s = this
             if (e.target['imgname']) {
+                UtilTool.clickSound()
                 s._state[e.target['imgname']] && s._state[e.target['imgname']]()
             }
-        }
-
-        private loginoutcb: Function
-        private loginoutthisobj: any
-        public bindLoginOut(callback: Function, thisobj: any): void {
-            let s = this
-            s.loginoutcb = callback
-            s.loginoutthisobj = thisobj
         }
 
 

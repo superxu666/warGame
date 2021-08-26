@@ -45,7 +45,7 @@ class MySound implements GYLite.ISound{
 	{
 		let s = this;
 		let loadInfo:GYLite.LoadInfo;
-		loadInfo = Main.instance.myLoader.loadBytes(bytes, s.bytesSoundLoaded,s,GYLite.GYLoader.TYPE_SOUND,GYLite.GYLoader.getMimeType(GYLite.GYLoader.TYPE_SOUND,s.path));		
+		loadInfo = Main.instance.myLoader.loadBytes(bytes, s.bytesSoundLoaded,s,GYLite.GYLoader.TYPE_SOUND,GYLite.GYLoader.getMimeType(GYLite.GYLoader.TYPE_SOUND,s.path));				
 	}
 	private bytesSoundLoaded(l:GYLite.LoadInfo):void
 	{let s = this;
@@ -141,9 +141,15 @@ class MySound implements GYLite.ISound{
 		s._channel.clear();		
 	}
 	public close(): void
-	{let s =this;
+	{let s =this;		
 		if(s._originSound)
+		{
+			if(s._originSound["url"])
+				GYLite.GYLoader.deleteResByKey(s._originSound["url"]);
 			s._originSound.close();
+			s.bytes = null;
+		}
+			
 	}
 	public get length():number
 	{let s =this;
@@ -160,7 +166,7 @@ class MySound implements GYLite.ISound{
 	{let s =this;
 		if(s._originSound)
 			s._originSound.load(url);
-	}
+	}	
 }
 class MyChannel extends egret.EventDispatcher implements egret.SoundChannel
 {

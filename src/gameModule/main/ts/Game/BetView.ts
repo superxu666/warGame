@@ -136,8 +136,8 @@ module main {
         /*切换金银*/
         private handleBetType(e: egret.Event): void {
 
-            const s = this
-            console.log(e.target.type == 1 ? '金' : '银');
+            const s = this            
+            UtilTool.clickSound()
             s.betType = e.target.type
             BetModel.getInstance().setData(s.betType, s.betNum)
         }
@@ -147,14 +147,11 @@ module main {
             const s = this
             if (e.target['itemName']) {
 
-                // console.log(e.target['itemName']);
-
+                UtilTool.clickSound()
                 let itemName = e.target['itemName']
                 if (s._selected) s._selected.visible = false
                 s._selectedSets[itemName].visible = true
                 s._selected = s._selectedSets[itemName]
-
-                console.log(e.target['betNum']);
                 s.betNum = e.target['betNum']
                 BetModel.getInstance().setData(s.betType, s.betNum)
             }
@@ -167,7 +164,7 @@ module main {
             // 3. 调用下注接口
 
             if (BetModel.getInstance().lastSum.length == 0) return
-
+            UtilTool.clickSound()
             let lastSum = BetModel.getInstance().lastSum
             /*调接口*/
             BetModel.getInstance().bet(lastSum)

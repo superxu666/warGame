@@ -114,6 +114,7 @@ module main {
             const s = this
             if (e.target['eventname']) {
 
+                UtilTool.clickSound()
                 switch (e.target['eventname']) {
                     case 'btn_0':
                         s.type = 1
@@ -145,7 +146,6 @@ module main {
                         break
                     case 'btn_4':
                         s.type = 1
-
                         GameModel.getInstance().getVipRank()
                         break
                     case 'close':
@@ -272,6 +272,7 @@ module main {
 
         private handleClick(): void {
             const s = this
+            UtilTool.clickSound()
             MainModel.getInstance().getInfoById(s._data.userId)
         }
 

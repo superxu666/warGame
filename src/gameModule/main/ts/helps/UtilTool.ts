@@ -21,10 +21,14 @@ module main {
             let sum = '-'
             if (num >= 10000) {
                 sum = (num / 10000).toString() + 'W'
-            } else if (0 < num && num < 10000) {
+            } else if (0 <= num && num < 10000) {
                 sum = num.toString()
             }
             return sum
+        }
+
+        public static clickSound(): void {
+            SoundManager.instance.play(Conf.sound + 'rms_button_clicked.mp3')
         }
     }
 }

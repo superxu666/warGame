@@ -32,7 +32,7 @@ module main {
                 /*27-32: 封注*/
                 /*33-59: 滚盘+开奖*/
                 let second = (new Date(endTime)).getSeconds()
-                // console.log('服务器时间第: ', second + '秒');
+                // console.log('服务第: ', second + '秒');
                 s.gameTtime = second
                 s.gameStart()
 
@@ -47,13 +47,11 @@ module main {
         public gameStart(): void {
 
             let s = this
-            let second = s.gameTtime
+            let second = 0
             if (s.gameTtime <= 25) {
                 second = 25 - s.gameTtime
                 s.betTime = second
-                console.log('下注时间还剩: ', second);
-
-                SoundManager.instance.play(Conf.sound + 'mrs_bet_start.mp3')
+                // console.log('下注时间还剩: ', second);
             }
 
             s._timeId = GYLite.TimeManager.timeInterval(s.timeStart, s, 1000)
@@ -67,6 +65,15 @@ module main {
 
             if (0 <= second && second < 26) {
 
+                if (second == 1) {
+                    SoundManager.instance.play(Conf.sound + 'rms_round_start.mp3')
+                }
+                if (second == 23) {
+                    SoundManager.instance.play(Conf.sound + 'rms_bet_alarm.mp3', 0, 2, () => {
+                        SoundManager.instance.play(Conf.sound + 'rms_bet_end.mp3')
+                    })
+                }
+
                 s.timeOut = false
                 s.betTime = 25 - second
                 GameView.getInstance().slideUp()
@@ -75,12 +82,6 @@ module main {
                 GameModel.getInstance().getBettingTotal()
                 /*下注玩家排行*/
                 GameModel.getInstance().getBettingRank()
-
-                if (second == 23) {
-                    SoundManager.instance.play(Conf.sound + 'rms_bet_alarm.mp3', 0, 2, () => {
-                        SoundManager.instance.play(Conf.sound + 'rms_bet_end.mp3')
-                    })
-                }
 
                 // console.log('下注时间还剩: ', s.betTime);
             } else if (26 <= second && second < 32) {
@@ -114,9 +115,7 @@ module main {
             GYLite.TimeManager.unTimeInterval(s._timeId, s.timeStart, s)
             // 清空下注台
             SideBottomMidView.getInstance().clearBet()
-
         }
-
 
     }
 }

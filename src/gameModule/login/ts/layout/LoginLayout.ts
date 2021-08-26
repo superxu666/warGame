@@ -54,8 +54,6 @@ module login {
 
             let s = this;
 
-            console.log('layout - ', Main.instance.getRes('rms_view_bg_png', Conf.d1sheetAlias));
-
             let frame = s.frame = SkinManager.createScaleImage(ui, 100, 200, 'rms_view_bg_png', Conf.d1sheetAlias, new GYLite.Scale9GridRect(100, 100, 100, 100))
             frame.width = 680
             frame.height = 410

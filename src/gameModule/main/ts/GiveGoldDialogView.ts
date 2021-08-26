@@ -83,21 +83,23 @@ module main {
 
             s.eventSets = {
                 close: () => {
+                    UtilTool.clickSound()
                     s.hide()
                 },
                 gtext: () => {
+                    UtilTool.clickSound()
                     s.gText.color = 0xffffff
                     s.yText.color = 0x999999
                     s.type = 1
                 },
                 ytext: () => {
-
+                    UtilTool.clickSound()
                     s.gText.color = 0x999999
                     s.yText.color = 0xffffff
                     s.type = 2
                 },
                 send: () => {
-
+                    UtilTool.clickSound()
                     MainModel.getInstance().giveGift({
                         userId: s.userData.userId,
                         type: s.type,

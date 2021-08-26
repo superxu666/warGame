@@ -62,10 +62,13 @@ module main {
             let s = this
             s.handlers = {
                 'close': () => {
+
+                    UtilTool.clickSound()
                     s.hide()
                 },
                 'sendb': () => {
 
+                    UtilTool.clickSound()
                     if (!s.trumpet_b.text) return
 
                     /*调用大喇叭接口*/

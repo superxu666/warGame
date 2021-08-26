@@ -119,4 +119,6 @@ class MsgBase {
 	/**请求缓存URL*/public static CACHE_URL: string = "100117";
 	/**下载资源通知*/public static DOWNLOAD_CALL: string = "100133";
 	/**tips通知*/public static TIPS_CALL:string = "100141";
+	/**音频控制*/public static AUDIO_OPER: string = "100126";
+	/**音频结束回调*/public static AUDIO_END: string = "100127";
 }
