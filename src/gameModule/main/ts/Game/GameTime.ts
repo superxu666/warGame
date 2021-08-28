@@ -94,7 +94,9 @@ module main {
             } else if (32 <= second && second < 58) {
 
                 if (second == 33) {
-                    GameModel.getInstance().getResult(() => {
+                    GameModel.getInstance().getResult((res) => {
+
+                        GameEffect.getInstance().setResult(res.data)
                         GameEffect.getInstance().run()
                     }, s)
                 }

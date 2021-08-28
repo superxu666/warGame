@@ -101,6 +101,12 @@ module main {
         private round = 1;
         private curIndex = 0
         private timer = 0
+        private result: any = null
+        public setResult(d: any): void {
+            const s = this
+            s.result = d
+            console.log('开奖结果: ', d);
+        }
         public run() {
             const s = this
 
@@ -115,6 +121,15 @@ module main {
             if (s.curIndex == 26) {
                 s.curIndex = 0
                 if (s.round > 1) { // 跑完2圈
+
+                    if (s.result) {
+
+                        console.log('---', s.result.result);
+                        
+                    } else {
+
+                    }
+
                     s.round = 1
                     GYLite.TimeManager.unTimeOut(s.timer, s.start, s)
                     return
