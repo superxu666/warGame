@@ -3,6 +3,8 @@ module main {
 
 
         private tween: GYLite.GYTween
+        public isResult: boolean = false
+
         constructor(type = 'small') {
             super()
             const s = this
@@ -17,7 +19,14 @@ module main {
             s.alpha = 0
             s.tween = GYLite.GYTween.to(s, [
                 GYLite.TweenData.getInstance('alpha', 1, null)
-            ], 500, 0, s, null, null, null, false, false)
+            ], 500, 0, s, s.complete, null, null, false, false)
+        }
+
+        private complete(): void {
+            const s = this
+            if (s.show) {
+                s.show = false
+            }
         }
 
         public set show(val) {
@@ -26,6 +35,8 @@ module main {
                 // UtilTool.effectSound()
                 s.tween.run()
             } else {
+
+                if (s.isResult) return
                 s.tween.run(!s.tween.isReserve)
             }
         }

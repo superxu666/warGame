@@ -21,7 +21,9 @@ module main {
 		public modulePreStart(): void {
 			super.modulePreStart();
 
-			TheFirstGame.getInstance().isFirstGame = true
+			TheFirstGame.getInstance().isFirstGame = true;
+			let s = this;
+			s.resetSize(1360,680,LayerManager.SHOWALL);
 		}
 		protected start(): void {
 			super.start();
@@ -45,36 +47,36 @@ module main {
 			/*轮盘背后的下注数量区*/
 			s.betView = BetView.getInstance()
 			s.betView.horizonalCenter = 3
-			s.betView.bottom = 350
+			s.betView.top = 420
 			s.addElement(s.betView)
 
 			/*游戏轮盘*/
 			s.gameView = GameView.getInstance()
 			s.gameView.horizonalCenter = 0
-			s.gameView.bottom = 340
+			s.gameView.top = 80
 			s.addElement(s.gameView)
 
 			/*中间顶部, 大喇叭*/
 			s.trumpetTop = TrumpetTopView.getInstance()
 			s.trumpetTop.horizonalCenter = 0
-			s.trumpetTop.y = 200
+			s.trumpetTop.y = 0
 			s.addElement(s.trumpetTop)
 
 			/*左上,用户信息面板*/
 			s.sideTopLeft = SideTopLeftView.getInstance()
-			s.sideTopLeft.left = 280
+			s.sideTopLeft.left = 0
 			s.sideTopLeft.verticalCenter = 0
 			s.addElement(s.sideTopLeft)
 
 			/*中间底部,下注按钮区*/
 			s.sideBottomMid = SideBottomMidView.getInstance()
-			s.sideBottomMid.bottom = 200
+			s.sideBottomMid.bottom = 0
 			s.sideBottomMid.horizonalCenter = 0
 			s.addElement(s.sideBottomMid)
 
 			/*右上,离开排行榜区*/
 			s.sideTopRight = SideTopRightView.getInstance()
-			s.sideTopRight.right = 280
+			s.sideTopRight.right = 0
 			s.sideTopRight.verticalCenter = 0
 			s.addElement(s.sideTopRight)
 

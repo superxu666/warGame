@@ -7,15 +7,15 @@
 		"gggg": {},
 		"login": {}
 	},
-	"designWidth": 1920,
-	"designHeight": 1080,
 	"libDirVer": {
+		"editor": "20210401163145",
 		"simulator3": "20210207152001",
 		"commonLib": "20210616213612",
 		"ui2Lib": "20210324181242",
-		"ui1Lib": "20210324183000",
-		"editor": "20210401163145"
+		"ui1Lib": "20210324183000"
 	},
-	"screenMode": 0,
-	"winWidth": 1440
+	"designHeight": 1080,
+	"designWidth": 1920,
+	"winWidth": 1440,
+	"screenMode": 0
 }

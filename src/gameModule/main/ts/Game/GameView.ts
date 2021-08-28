@@ -63,6 +63,7 @@ module main {
             s.gameEffect.updateChildPosition()
             s.addElement(s.gameEffect)
 
+            s.touchEnabled = true
             s.bindEvent()
         }
 
@@ -89,7 +90,7 @@ module main {
             if (s.isBet) return
             s.isBet = true
             s.tween = GYLite.GYTween.to(s, [
-                GYLite.TweenData.getInstance('bottom', 436, NaN)
+                GYLite.TweenData.getInstance('top', 0, NaN)
             ], 500, 0, s, null, null, null, true, false)
         }
 

@@ -97,7 +97,6 @@ module main {
                     GameModel.getInstance().getResult((res) => {
 
                         GameEffect.getInstance().setResult(res.data)
-                        GameEffect.getInstance().run()
                     }, s)
                 }
 

@@ -11,6 +11,13 @@ module main {
 
         private effectAry: any[]
         private effectSets: any
+        private resultAry: any[]
+        private result: any = null
+        private resultEffect: EffectItem
+        // 当前mc
+        private curIndex = 0
+        // 当前滚动到第几圈
+        private round = 0
 
         constructor() {
             super()
@@ -18,37 +25,25 @@ module main {
             s.effectAry = []
             s.effectSets = {}
 
-            let nameAry = [
+            s.resultAry = [
                 'k', 'h1', 'g1', 'f1', 'e1', 'h2', 'g2', 'f2', 'e2', 'h3', 'g3', 'f3', 'e3',
                 'i', 'a3', 'b3', 'c3', 'd3', 'a2', 'b2', 'c2', 'd2', 'a1', 'b1', 'c1', 'd1'
             ]
-            for (let i = 0, len = nameAry.length; i < len; i++) {
-                // let mc = new GYMovieClip();
-                // mc.setDataPath(URLConf.gameSke + "war_movie_clips.json", URLConf.gameSke + "war_movie_clips.png");
-                // if (i == 0 || i == 13) {
-                //     mc.setMovieName("TableItemBig");
-                // } else {
-                //     mc.setMovieName("TableItemSmall");
-                // }
-                // mc.play(-1);
-                // mc.visible = false
-                // s.addElement(mc);
-                // s.effectAry.push(mc)
-                // s.effectSets[nameAry[i]] = mc
+            for (let i = 0, len = s.resultAry.length; i < len; i++) {
 
                 if (i == 0 || i == 13) {
 
                     let mc = new EffectItem('big')
                     s.addElement(mc)
                     s.effectAry.push(mc)
-                    s.effectSets[nameAry[i]] = mc
+                    s.effectSets[s.resultAry[i]] = mc
 
                 } else {
 
                     let mc = new EffectItem()
                     s.addElement(mc)
                     s.effectAry.push(mc)
-                    s.effectSets[nameAry[i]] = mc
+                    s.effectSets[s.resultAry[i]] = mc
                 }
 
             }
@@ -98,46 +93,65 @@ module main {
 
         }
 
-        private round = 1;
-        private curIndex = 0
-        private timer = 0
-        private result: any = null
+
         public setResult(d: any): void {
             const s = this
             s.result = d
             console.log('开奖结果: ', d);
+
+            s.clearEffect()
+            s.run(2, () => {
+                // let index = Math.floor(Math.random() * s.resultAry.length)
+                // console.log('开奖结果: ', s.resultAry[index]);
+                s.findResult(d.result)
+            }, s)
+
+            // let index = Math.floor(Math.random() * s.resultAry.length)
+            // console.log('开奖结果: ', s.resultAry[index]);
+            // s.findResult(s.resultAry[index])
         }
-        public run() {
+
+        public run(round: number = 2, completeFunc?: Function, thisobj?: any) {
             const s = this
 
             s.effectAry[s.curIndex].show = true
-            s.timer = GYLite.TimeManager.timeOut(s.start, s, 60)
-        }
-
-        private start() {
-            const s = this
-            s.effectAry[s.curIndex].show = false
-            s.curIndex++
-            if (s.curIndex == 26) {
+            if (s.curIndex == s.effectAry.length - 1) {
                 s.curIndex = 0
-                if (s.round > 1) { // 跑完2圈
-
-                    if (s.result) {
-
-                        console.log('---', s.result.result);
-                        
-                    } else {
-
-                    }
-
-                    s.round = 1
-                    GYLite.TimeManager.unTimeOut(s.timer, s.start, s)
+                if (++s.round == round) { // 默认跑2轮
+                    completeFunc && completeFunc(thisobj)
+                    s.round = 0
                     return
                 }
-                s.round++
-
+                s.run(round, completeFunc, thisobj)
+                return
             }
-            s.run()
+            s.curIndex++
+            GYLite.TimeManager.timeOut(() => { s.run(round, completeFunc, thisobj) }, s, 80)
+
+        }
+
+
+        private findResult(res: string, completeFunc?: Function, thisobj?: any) {
+            const s = this
+
+            s.resultEffect = s.effectSets[res]
+            s.effectSets[res].isResult = true
+            s.effectAry[s.curIndex].show = true
+            if (s.effectAry[s.curIndex] === s.effectSets[res]) {
+                s.curIndex = 0
+                SoundManager.instance.play(Conf.sound + 'war_tribal_minotaur_35174750.mp3', 0, 1, null, null, 123)
+                return
+            }
+            s.curIndex++
+            GYLite.TimeManager.timeOut(() => { s.findResult(res, completeFunc, thisobj) }, s, 80)
+        }
+
+        public clearEffect(): void {
+            const s = this
+            if (s.resultEffect) {
+                s.resultEffect.isResult = false
+                s.resultEffect.alpha = 0
+            }
         }
 
     }
