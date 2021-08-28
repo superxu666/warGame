@@ -30,6 +30,21 @@ module main {
             s.list = SkinManager.createListV(s, 55, 178, 230, 376, BetRankItem)
             s.list.scrollerPolicy = 2
 
+
+            // let ary = []
+            // for (let i = 0; i < 10; i++) {
+            //     let o = {
+            //         avatar: "a",
+            //         betgold: 5,
+            //         betsilver: 0,
+            //         exp: 1314,
+            //         nickName: "傲世战神",
+            //         userId: 81342587,
+            //     }
+            //     ary.push(o)
+            // }
+            // s.updateRankList(ary)
+
             s.bindEvent()
         }
 
@@ -47,6 +62,13 @@ module main {
             } else { // 上轮赢家
                 UtilTool.clickSound()
                 let lastWin = GameModel.getInstance().lastWinRank
+                lastWin = lastWin.map(item => {
+                    return {
+                        ...item,
+                        betgold: item.wingold,
+                        betsilver: item.winsilver
+                    }
+                })
                 s.updateRankList(lastWin)
             }
 
@@ -57,13 +79,6 @@ module main {
          */
         public updateRankList(d: any[]): void {
             const s = this
-            d = d.map((item) => {
-                return {
-                    ...item,
-                    betgold: item.wingold,
-                    betsilver: item.winsilver
-                }
-            })
             s.list.dataProvider = d
         }
 
@@ -84,6 +99,7 @@ module main {
             s.head = SkinManager.createImage(s, 0, 0, '', URLConf.gameImg + 'w1sheet.png')
             s.head.width = 34
             s.head.height = 34
+            TemplateTool.setBorderRadius(s.head)
 
             s.username = SkinManager.createText(s, s.head.x + s.head.width + 2, 16, '')
             s.username.size = 12
@@ -93,16 +109,30 @@ module main {
             s.money.size = 13
             s.money.textAlign = 'center'
 
+            s.bindEvent()
+
+        }
+
+        private bindEvent(): void {
+            const s = this
+            s.touchEnabled = true
+            s.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleClick, s)
+        }
+
+        private handleClick(): void {
+            const s = this
+            UtilTool.clickSound()
+            MainModel.getInstance().getInfoById(s._data.userId)
         }
 
         public setData(d: any): void {
-
             const s = this
             if (!d) {
                 s.visible = false;
                 return;
             }
             s.visible = true;
+            s._data = d
 
             d.avatar && (s.head.source = Main.instance.getRes(d.avatar, Conf.img + 'head.png'))
             let grade = UtilTool.getGrade(d.exp)

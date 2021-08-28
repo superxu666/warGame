@@ -156,8 +156,8 @@ module main {
         }
 
         public setData(d: any): void {
-            const s = this
 
+            const s = this
             s.head.source = Main.instance.getRes(d.avatar, URLConf.mainImg + 'head.png')
             s.nickname.text = d.nickName
             s.userid.text = `ID ${d.userId}`
@@ -170,7 +170,8 @@ module main {
 
             let s = this
 
-            LayerManager.getInstance().setTopMask(true, 0.5, 1);
+            LayerIndex.addIndex()
+            LayerManager.getInstance().setTopMask(true, 0.5, LayerIndex.getIndex());
             let pr = LayerManager.getInstance().topLay;
             pr.addElement(s);
 
@@ -182,9 +183,16 @@ module main {
         public hide(): void {
 
             let s = this
-            LayerManager.getInstance().setTopMask(true, 0.5, 0);
+            if (LayerIndex.getIndex() != 0) {
+                LayerIndex.subIndex()
+                LayerManager.getInstance().setTopMask(true, 0.5, LayerIndex.getIndex());
+            } else {
+                LayerIndex.curIndex = -1
+                LayerManager.getInstance().setTopMask(false)
+            }
             (s.parent as any).removeElement(s);
 
         }
+
     }
 }

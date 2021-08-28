@@ -8,64 +8,62 @@ module main {
         }
 
         private back: GYLite.GYImage
-        private _gem: GYMovieClip
-        private _tween: GYLite.GYTween
-        private _countDown: CountDown
-        private _status: GYLite.GYImage
-        private _rank4: Rank4
-        private _resultListView: ResultListView
+        private gem: GYMovieClip
+        private tween: GYLite.GYTween
+        private countDown: CountDown
+        private status: GYLite.GYImage
+        private rank4: Rank4
+        private resultListView: ResultListView
+        private gameEffect: GameEffect
 
         private isBet: Boolean = false
 
         constructor() {
             super()
             const s = this
-            
+
             s.width = 692
             s.height = 460
             s.back = SkinManager.createImage(s, 0, 0, 'war_tar_bg_png', URLConf.gameImg + 'w1sheet.png')
 
-            s._gem = new GYMovieClip();
-            s._gem.setDataPath(URLConf.gameSke + "war_movie_clips.json", URLConf.gameSke + "war_movie_clips.png");
-            s._gem.setMovieName("DiamondFlash");
-            s._gem.play(-1);
-            s._gem.horizonalCenter = 0
-            s.addElement(s._gem);
+            s.gem = new GYMovieClip();
+            s.gem.setDataPath(URLConf.gameSke + "war_movie_clips.json", URLConf.gameSke + "war_movie_clips.png");
+            s.gem.setMovieName("DiamondFlash");
+            s.gem.play(-1);
+            s.gem.horizonalCenter = 0
+            s.addElement(s.gem);
 
-
-            // let sdf = new GYMovieClip();
-            // sdf.setDataPath(URLConf.gameSke + "war_movie_clips.json", URLConf.gameSke + "war_movie_clips.png");
-            // sdf.setMovieName("TableItemSmall");
-            // sdf.play(-1);
-            // sdf.horizonalCenter = 0
-            // s.addElement(sdf);
-
-            s._rank4 = Rank4.getInstance()
-            s._rank4.width = s.width
-            s._rank4.height = s.height
-            s.addElement(s._rank4)
+            s.rank4 = Rank4.getInstance()
+            s.rank4.width = s.width
+            s.rank4.height = s.height
+            s.addElement(s.rank4)
 
             let statusBack = SkinManager.createImage(s, 0, 0, 'war_status_bg_png', URLConf.gameImg + 'w1sheet.png')
             statusBack.horizonalCenter = -3
             statusBack.verticalCenter = -84
-            s._status = SkinManager.createImage(s, 0, 0, '')
-            s._status.horizonalCenter = -3
-            s._status.verticalCenter = -84
+            s.status = SkinManager.createImage(s, 0, 0, '')
+            s.status.horizonalCenter = -3
+            s.status.verticalCenter = -84
 
-            s._countDown = new CountDown()
-            s._countDown.horizonalCenter = -2
-            s._countDown.verticalCenter = -26
-            s.addElement(s._countDown)
+            s.countDown = new CountDown()
+            s.countDown.horizonalCenter = -2
+            s.countDown.verticalCenter = -26
+            s.addElement(s.countDown)
 
+            s.resultListView = ResultListView.getInstance()
+            s.resultListView.y = 266
+            s.resultListView.width = s.width
+            s.resultListView.height = 54
+            s.addElement(s.resultListView)
 
-            s._resultListView = ResultListView.getInstance()
-            s._resultListView.y = 266
-            s._resultListView.width = s.width
-            s._resultListView.height = 54
-            s.addElement(s._resultListView)
+            /*动效*/
+            s.gameEffect = GameEffect.getInstance()
+            s.gameEffect.width = s.width
+            s.gameEffect.height = s.height
+            s.gameEffect.updateChildPosition()
+            s.addElement(s.gameEffect)
 
             s.bindEvent()
-
         }
 
         private bindEvent(): void {
@@ -73,12 +71,12 @@ module main {
 
             // s.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
 
-            //     if (!s._tween) {
+            //     if (!s.tween) {
 
             //         s.slideUp()
             //     } else {
 
-            //         s._tween.run(!s._tween.isReserve)
+            //         s.tween.run(!s.tween.isReserve)
             //     }
 
             // }, s)
@@ -90,7 +88,7 @@ module main {
 
             if (s.isBet) return
             s.isBet = true
-            s._tween = GYLite.GYTween.to(s, [
+            s.tween = GYLite.GYTween.to(s, [
                 GYLite.TweenData.getInstance('bottom', 436, NaN)
             ], 500, 0, s, null, null, null, true, false)
         }
@@ -100,7 +98,7 @@ module main {
 
             if (!s.isBet) return
             s.isBet = false
-            if (s._tween) s._tween.run(!s._tween.isReserve)
+            if (s.tween) s.tween.run(!s.tween.isReserve)
         }
 
         /*更新倒计时*/
@@ -108,16 +106,16 @@ module main {
             const s = this
 
             if (type == 1) {
-                s._status.source = Main.instance.getRes('war_status_bet_png', URLConf.gameImg + 'w1sheet.png')
+                s.status.source = Main.instance.getRes('war_status_bet_png', URLConf.gameImg + 'w1sheet.png')
             } else if (type == 2) {
-                s._status.source = Main.instance.getRes('war_status_locked_png', URLConf.gameImg + 'w1sheet.png')
+                s.status.source = Main.instance.getRes('war_status_locked_png', URLConf.gameImg + 'w1sheet.png')
             }
-            s._countDown && s._countDown.setData(num)
+            s.countDown && s.countDown.setData(num)
         }
 
         public updateResultList(res): void {
             const s = this
-            s._resultListView.updateList(res.data)
+            s.resultListView.updateList(res.data)
         }
 
     }

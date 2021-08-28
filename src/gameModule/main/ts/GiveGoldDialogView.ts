@@ -131,11 +131,11 @@ module main {
         }
 
 
-        public show(d: any): void {
+        public show(d: any, type?: number): void {
 
             let s = this
-
-            LayerManager.getInstance().setTopMask(true, 0.5, 2);
+            LayerIndex.addIndex()
+            LayerManager.getInstance().setTopMask(true, 0.5, LayerIndex.getIndex());
             let pr = LayerManager.getInstance().topLay;
             pr.addElement(s);
             s.userData = d
@@ -145,7 +145,10 @@ module main {
         public hide(): void {
 
             let s = this
-            LayerManager.getInstance().setTopMask(true, 0.5, 1);
+            if (LayerIndex.getIndex() != 0) {
+                LayerIndex.subIndex()
+            }
+            LayerManager.getInstance().setTopMask(true, 0.5, LayerIndex.getIndex());
             (s.parent as any).removeElement(s);
 
         }

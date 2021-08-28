@@ -86,16 +86,31 @@ module main {
                 // console.log('下注时间还剩: ', s.betTime);
             } else if (26 <= second && second < 32) {
 
-                if (second == 33) {
-                    GameModel.getInstance().getResult()
-                }
+
                 GameView.getInstance().slideDown()
                 GameView.getInstance().updateCountDown(31 - second, 2)
 
                 // console.log('锁定时间: ', second);
             } else if (32 <= second && second < 58) {
 
+                if (second == 33) {
+                    GameModel.getInstance().getResult(() => {
+                        GameEffect.getInstance().run()
+                    }, s)
+                }
+
                 // console.log('开奖时间: ', second);
+
+                /*  开奖接口数据结构
+                    boxresult: null
+                    boxtype: null
+                    id: 18360
+                    multiple: null
+                    result: "h2"
+                    timemin: "202108281017"
+                    timestamp: 1630117053815
+                */
+
             } else if (58 < second) {
 
                 // 清空下注台

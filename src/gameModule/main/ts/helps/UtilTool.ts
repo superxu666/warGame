@@ -28,7 +28,12 @@ module main {
         }
 
         public static clickSound(): void {
-            SoundManager.instance.play(Conf.sound + 'rms_button_clicked.mp3')
+
+            SoundManager.instance.play(Conf.sound + 'rms_button_clicked.mp3', 0, 1, null, null, 1)
+        }
+
+        public static effectSound(index?: number): void {
+            SoundManager.instance.play(Conf.sound + 'war_turn_sound_c9acef1.mp3', 0, 1, null, null, 100)
         }
     }
 }

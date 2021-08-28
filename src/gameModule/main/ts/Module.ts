@@ -19,6 +19,7 @@ module main {
 		}
 
 		public modulePreStart(): void {
+			super.modulePreStart();
 
 			TheFirstGame.getInstance().isFirstGame = true
 		}
@@ -94,7 +95,7 @@ module main {
 			/*绑定document键盘事件, 调用事件中转类派发事件, 目前只有聊天室用到回车事件*/
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))
 
-			SoundManager.instance.playBGM(Conf.sound + 'gamebgm.mp3')
+			// SoundManager.instance.playBGM(Conf.sound + 'gamebgm.mp3')
 			
 		}
 
