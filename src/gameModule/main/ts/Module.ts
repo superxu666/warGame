@@ -13,9 +13,11 @@ module main {
 		public sideTopLeft: SideTopLeftView
 		public sideBottomMid: SideBottomMidView
 
+		public static instance: Module
 
 		public constructor() {
 			super();
+			Module.instance = this
 		}
 
 		public modulePreStart(): void {
@@ -23,7 +25,7 @@ module main {
 
 			TheFirstGame.getInstance().isFirstGame = true;
 			let s = this;
-			s.resetSize(1360,680,LayerManager.SHOWALL);
+			s.resetSize(1360, 680, LayerManager.SHOWALL);
 		}
 		protected start(): void {
 			super.start();
@@ -40,6 +42,9 @@ module main {
 			let s = this;
 			super.show(pr);
 
+			s.width = 1360
+			s.height = 680
+
 			/*背景图*/
 			s.back = SkinManager.createImage(s, 0, 0, URLConf.mainImg + "war_bg_2.jpg");
 			s.back.horizonalCenter = s.back.verticalCenter = 0
@@ -52,8 +57,8 @@ module main {
 
 			/*游戏轮盘*/
 			s.gameView = GameView.getInstance()
-			s.gameView.horizonalCenter = 0
-			s.gameView.top = 80
+			s.gameView.x = s.width - s.gameView.width >> 1
+			s.gameView.y = 80
 			s.addElement(s.gameView)
 
 			/*中间顶部, 大喇叭*/
@@ -88,7 +93,6 @@ module main {
 					s.sideTopLeft.notifyChatView(res)
 				})
 
-
 				/*倒计时开始*/
 				GameTime.getInstance().run()
 
@@ -97,8 +101,7 @@ module main {
 			/*绑定document键盘事件, 调用事件中转类派发事件, 目前只有聊天室用到回车事件*/
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))
 
-			// SoundManager.instance.playBGM(Conf.sound + 'gamebgm.mp3')
-			
+			UtilTool.bgmSound()
 		}
 
 		private handleKeyborad(e): void {

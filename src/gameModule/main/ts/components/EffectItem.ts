@@ -19,7 +19,7 @@ module main {
             s.alpha = 0
             s.tween = GYLite.GYTween.to(s, [
                 GYLite.TweenData.getInstance('alpha', 1, null)
-            ], 500, 0, s, s.complete, null, null, false, false)
+            ], 250, 0, s, s.complete, null, null, false, false)
         }
 
         private complete(): void {

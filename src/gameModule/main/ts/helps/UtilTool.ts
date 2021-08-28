@@ -32,6 +32,16 @@ module main {
             SoundManager.instance.play(Conf.sound + 'rms_button_clicked.mp3', 0, 1, null, null, 1)
         }
 
+        public static bgmSound(url?: string): void {
+            SoundManager.instance.closeBGM()
+            SoundManager.instance.playBGM(url || (Conf.sound + 'gamebgm.mp3'))
+        }
+
+        public static resultSound(): void {
+            SoundManager.instance.closeBGM()
+            SoundManager.instance.play(Conf.sound + 'war_bg_show_result_aab45285.mp3', 0, 1, null, null, 200)
+        }
+
         public static effectSound(index?: number): void {
             SoundManager.instance.play(Conf.sound + 'war_turn_sound_c9acef1.mp3', 0, 1, null, null, 100)
         }

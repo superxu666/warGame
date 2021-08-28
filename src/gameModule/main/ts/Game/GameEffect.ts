@@ -19,11 +19,80 @@ module main {
         // 当前滚动到第几圈
         private round = 0
 
+        private resounceSets: any
+
         constructor() {
             super()
             const s = this
             s.effectAry = []
             s.effectSets = {}
+            s.resounceSets = {
+                a: {
+                    sound: 'war_tribal_orc_232a6789',
+                    cardUrl: 'war_tribal_card_orc_png',
+                    alias: 'w3sheet',
+                    starNum: '2',
+                    mulit: '6',
+                    cardName: '战士'
+                },
+                b: {
+                    sound: 'war_tribal_warlock_c7998282',
+                    cardUrl: 'war_tribal_card_warlock_png',
+                    alias: 'w2sheet',
+                    starNum: '3',
+                    mulit: '8',
+                    cardName: '牧师'
+                },
+                c: {
+                    sound: 'war_tribal_minotaur_35174750',
+                    cardUrl: 'war_tribal_card_monotaur_png',
+                    alias: 'w2sheet',
+                    starNum: '3',
+                    mulit: '8',
+                    cardName: '骑士'
+                },
+                d: {
+                    sound: 'war_tribal_chief_ef2d1aa6',
+                    cardUrl: 'war_tribal_card_chief_png',
+                    alias: 'w2sheet',
+                    starNum: '4',
+                    mulit: '12',
+                    cardName: '酋长'
+                },
+                h: {
+                    sound: 'war_union_king_sound_2161fca8',
+                    cardUrl: 'war_union_card_king_png',
+                    alias: 'w2sheet',
+                    starNum: '4',
+                    mulit: '12',
+                    cardName: '国王'
+                },
+                g: {
+                    sound: 'war_union_knight_sound_9a3e206c',
+                    cardUrl: 'war_union_card_knight_png',
+                    alias: 'w3sheet',
+                    starNum: '3',
+                    mulit: '8',
+                    cardName: '骑士'
+                },
+                f: {
+                    sound: 'war_union_master_sound_38753956',
+                    cardUrl: 'war_union_card_master_png',
+                    alias: 'w3sheet',
+                    starNum: '3',
+                    mulit: '8',
+                    cardName: '牧师'
+                },
+                e: {
+                    sound: 'war_union_warrior_sound_b8b53f6f',
+                    cardUrl: 'war_union_card_warrior_png',
+                    alias: 'w3sheet',
+                    starNum: '2',
+                    mulit: '6',
+                    cardName: '战士'
+                },
+                k: 'war_effect_dragon_black_f18fa885'
+            }
 
             s.resultAry = [
                 'k', 'h1', 'g1', 'f1', 'e1', 'h2', 'g2', 'f2', 'e2', 'h3', 'g3', 'f3', 'e3',
@@ -31,22 +100,26 @@ module main {
             ]
             for (let i = 0, len = s.resultAry.length; i < len; i++) {
 
-                if (i == 0 || i == 13) {
-
-                    let mc = new EffectItem('big')
-                    s.addElement(mc)
-                    s.effectAry.push(mc)
-                    s.effectSets[s.resultAry[i]] = mc
-
-                } else {
-
-                    let mc = new EffectItem()
-                    s.addElement(mc)
-                    s.effectAry.push(mc)
-                    s.effectSets[s.resultAry[i]] = mc
-                }
+                let param = (i == 0 || i == 13) ? 'big' : 'small'
+                let mc = new EffectItem(param)
+                s.addElement(mc)
+                s.effectAry.push(mc)
+                s.effectSets[s.resultAry[i]] = mc
 
             }
+
+
+            // 测试
+            // let cardR = s.resounceSets['f']
+            // CardEffect.getInstance().show(s, {
+            //     x: 0,
+            //     y: 0,
+            //     cardUrl: cardR.cardUrl,
+            //     alias: URLConf.gameImg + `${cardR.alias}.png`,
+            //     starNum: cardR.starNum,
+            //     cardName: cardR.cardName,
+            //     mulit: cardR.mulit
+            // })
 
         }
 
@@ -97,20 +170,17 @@ module main {
         public setResult(d: any): void {
             const s = this
             s.result = d
-            console.log('开奖结果: ', d);
 
-            s.clearEffect()
+            UtilTool.resultSound()
             s.run(2, () => {
-                // let index = Math.floor(Math.random() * s.resultAry.length)
-                // console.log('开奖结果: ', s.resultAry[index]);
                 s.findResult(d.result)
             }, s)
 
-            // let index = Math.floor(Math.random() * s.resultAry.length)
-            // console.log('开奖结果: ', s.resultAry[index]);
-            // s.findResult(s.resultAry[index])
         }
 
+        /**
+         * 动效开始
+         */
         public run(round: number = 2, completeFunc?: Function, thisobj?: any) {
             const s = this
 
@@ -130,18 +200,23 @@ module main {
 
         }
 
-
+        /**
+         * 动效开始查找结果
+         */
         private findResult(res: string, completeFunc?: Function, thisobj?: any) {
             const s = this
 
             s.resultEffect = s.effectSets[res]
-            s.effectSets[res].isResult = true
-            s.effectAry[s.curIndex].show = true
             if (s.effectAry[s.curIndex] === s.effectSets[res]) {
+                s.effectSets[res].isResult = 1
+                s.effectAry[s.curIndex].show = true
                 s.curIndex = 0
-                SoundManager.instance.play(Conf.sound + 'war_tribal_minotaur_35174750.mp3', 0, 1, null, null, 123)
+                GYLite.TimeManager.timeOut(() => {
+                    s.playSound(res)
+                }, s, 250)
                 return
             }
+            s.effectAry[s.curIndex].show = true
             s.curIndex++
             GYLite.TimeManager.timeOut(() => { s.findResult(res, completeFunc, thisobj) }, s, 80)
         }
@@ -151,6 +226,36 @@ module main {
             if (s.resultEffect) {
                 s.resultEffect.isResult = false
                 s.resultEffect.alpha = 0
+
+                CardEffect.getInstance().hide()
+            }
+        }
+
+        /**
+         * 播放结果音频
+         */
+        private playSound(res): void {
+            const s = this
+            if (res != 'i') {
+
+                res = res.charAt()
+                SoundManager.instance.play(Conf.sound + `${s.resounceSets[res].sound}.mp3`, 0, 1, null, null, 300)
+
+                GYLite.TimeManager.timeOut(() => {
+
+                    let cardR = s.resounceSets[res]
+                    let card = s.resultEffect
+                    CardEffect.getInstance().show(s, {
+                        x: card.x,
+                        y: card.y,
+                        cardUrl: cardR.cardUrl,
+                        alias: URLConf.gameImg + `${cardR.alias}.png`,
+                        starNum: cardR.starNum,
+                        cardName: cardR.cardName,
+                        mulit: cardR.mulit
+                    })
+                    
+                }, s, 1000)
             }
         }
 

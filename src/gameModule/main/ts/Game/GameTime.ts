@@ -42,6 +42,8 @@ module main {
             GameModel.getInstance().getLastWinRank()
             /*获取开奖历史*/
             GameModel.getInstance().getHistoryLottery()
+            /*清空动态效果*/
+            GameEffect.getInstance().clearEffect()
         }
 
         public gameStart(): void {
@@ -66,6 +68,9 @@ module main {
             if (0 <= second && second < 26) {
 
                 if (second == 1) {
+
+                    GameStartEffect.getInstance().show()
+                    UtilTool.bgmSound()
                     SoundManager.instance.play(Conf.sound + 'rms_round_start.mp3')
                 }
                 if (second == 23) {
@@ -94,10 +99,7 @@ module main {
             } else if (32 <= second && second < 58) {
 
                 if (second == 33) {
-                    GameModel.getInstance().getResult((res) => {
-
-                        GameEffect.getInstance().setResult(res.data)
-                    }, s)
+                    s.getResult()
                 }
 
                 // console.log('开奖时间: ', second);
@@ -131,6 +133,25 @@ module main {
             GYLite.TimeManager.unTimeInterval(s._timeId, s.timeStart, s)
             // 清空下注台
             SideBottomMidView.getInstance().clearBet()
+        }
+
+        private nullResCount: number = 0
+        private getResult(): void {
+            const s = this
+            GameModel.getInstance().getResult((res) => {
+
+                if (res.data) {
+                    GameEffect.getInstance().setResult(res.data)
+                } else {
+                    if (s.nullResCount == 3) {
+                        s.nullResCount = 0
+                        return
+                    }
+                    s.getResult()
+                    s.nullResCount++
+                }
+
+            }, s)
         }
 
     }

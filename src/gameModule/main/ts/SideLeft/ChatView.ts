@@ -25,13 +25,15 @@ module main {
             s.vb.x = 0
             s.vb.y = s.trumpet.y + s.trumpet.height + 5
             s.vb.width = 210
-            s.vb.height = 350
+            s.vb.height = 346
             s.vb.scroller.verticalPolicy = 0
             s.vb.scrollerViewPort.paddingTop = s.vb.scrollerViewPort.paddingBottom = 5
             s.addElement(s.vb)
 
+            // TemplateTool.setBackGrapics(s.vb)
+
             const line = SkinManager.createImage(s, -12, s.vb.y + s.vb.height + 10, 'war_chat_line_png', URLConf.gameImg + 'w3sheet.png')
-            s.input = TemplateTool.createTextInput(s, 0, line.y + line.height + 2, 160, 30)
+            s.input = TemplateTool.createTextInput(s, 0, line.y + line.height + 2, 160, 30, '', 18, 0x777777, 200)
             s.send = SkinManager.createBtn(s, s.input.x + s.input.width + 14, s.input.y, 'war_send_msg_img_png', null, null, URLConf.gameImg + 'w1sheet.png')
 
             s.bindEvent()
@@ -44,7 +46,7 @@ module main {
             s.trumpet.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleTrumpet, s)
             s.input.addEventListener(egret.Event.FOCUS_IN, s.focusIn, s)
             s.input.addEventListener(egret.Event.FOCUS_OUT, s.focusOut, s)
-            BaseWar.getInstance().bind('chatInput', s.handleSend, s)
+            BaseWar.getInstance().bind('chatInput', s.handleSendEvent, s)
         }
 
         private handleSendEvent(e: egret.Event): void {
@@ -128,11 +130,34 @@ module main {
             s.width = 210
             s.mes = SkinManager.createText(s, 2, 0, '', 0xffffff, 14)
             s.mes.width = s.width - 4
+
+
+            s.bindEvent()
+        }
+
+        private bindEvent(): void {
+            const s = this
+            s.touchEnabled = true
+            s.addEventListener(egret.TouchEvent.TOUCH_TAP, s.handleClick, s)
+        }
+
+        private handleClick(): void {
+            const s = this
+
+            UtilTool.clickSound()
+            MainModel.getInstance().getInfoById(s._data.userId)
         }
 
         public setData(d): void {
 
-            let s = this
+            const s = this
+            if (!d) {
+                s.visible = false
+                return
+            }
+            s.visible = true
+            s._data = d
+
             s.mes.htmlText = `<font color=0x00A8F3>${d.nickName}</font> : <font color=${(NickNameColor.colorSets[d.grade] || NickNameColor.colorSets['6'])}>${d.msg}</font>`
             s.updateState(d)
         }

@@ -65,6 +65,7 @@ module main {
 
             s.touchEnabled = true
             s.bindEvent()
+
         }
 
         private bindEvent(): void {
@@ -90,7 +91,7 @@ module main {
             if (s.isBet) return
             s.isBet = true
             s.tween = GYLite.GYTween.to(s, [
-                GYLite.TweenData.getInstance('top', 0, NaN)
+                GYLite.TweenData.getInstance('y', 0, NaN)
             ], 500, 0, s, null, null, null, true, false)
         }
 
