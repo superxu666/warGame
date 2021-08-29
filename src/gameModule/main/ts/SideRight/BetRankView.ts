@@ -14,11 +14,14 @@ module main {
 
         private tabBtn: TabButton
         private list: GYLite.GYListV
+        private list2: GYLite.GYListV
+        private type: any
 
         constructor() {
             super()
             const s = this
 
+            s.type = 1
             s.tabBtn = new TabButton
             s.tabBtn.x = 62
             s.tabBtn.y = 92
@@ -30,20 +33,9 @@ module main {
             s.list = SkinManager.createListV(s, 55, 178, 230, 376, BetRankItem)
             s.list.scrollerPolicy = 2
 
-
-            // let ary = []
-            // for (let i = 0; i < 10; i++) {
-            //     let o = {
-            //         avatar: "a",
-            //         betgold: 5,
-            //         betsilver: 0,
-            //         exp: 1314,
-            //         nickName: "傲世战神",
-            //         userId: 81342587,
-            //     }
-            //     ary.push(o)
-            // }
-            // s.updateRankList(ary)
+            s.list2 = SkinManager.createListV(s, 55, 178, 230, 376, BetRankItem)
+            s.list2.scrollerPolicy = 2
+            s.list2.visible = false
 
             s.bindEvent()
         }
@@ -56,10 +48,19 @@ module main {
         private handleTabClick(type: number): void {
 
             const s = this
+            s.type = type
             if (type == 1) { // 下注排行
+
+                s.list.visible = true
+                s.list2.visible = false
+
                 UtilTool.clickSound()
                 GameModel.getInstance().getBettingRank()
             } else { // 上轮赢家
+
+                s.list2.visible = true
+                s.list.visible = false
+
                 UtilTool.clickSound()
                 let lastWin = GameModel.getInstance().lastWinRank
                 lastWin = lastWin.map(item => {
@@ -69,7 +70,7 @@ module main {
                         betsilver: item.winsilver
                     }
                 })
-                s.updateRankList(lastWin)
+                s.updateHistoryRankList(lastWin)
             }
 
         }
@@ -80,6 +81,11 @@ module main {
         public updateRankList(d: any[]): void {
             const s = this
             s.list.dataProvider = d
+        }
+
+        private updateHistoryRankList(d: any[]): void {
+            const s = this
+            s.list2.dataProvider = d
         }
 
     }

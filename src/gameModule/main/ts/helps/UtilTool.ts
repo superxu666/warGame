@@ -16,6 +16,31 @@ module main {
             }
         }
 
+        public static getCurExpTotal(x) {
+
+            let exp = ''
+            switch (x) {
+                case '1':
+                    exp = '500'
+                    break
+                case '2':
+                    exp = '1000'
+                    break
+                case '3':
+                    exp = '3000'
+                    break
+                case '4':
+                    exp = '5000'
+                    break
+                case '5':
+                case '6':
+                    exp = '10000'
+                    break
+            }
+
+            return exp
+        }
+
         public static formatBet(num: number): string {
             const s = this
             let sum = '-'

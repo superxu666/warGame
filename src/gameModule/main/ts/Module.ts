@@ -94,7 +94,7 @@ module main {
 				})
 
 				/*倒计时开始*/
-				GameTime.getInstance().run()
+				// GameTime.getInstance().run()
 
 			}
 
@@ -102,6 +102,7 @@ module main {
 			document.addEventListener('keydown', s.handleKeyborad.bind(s))
 
 			UtilTool.bgmSound()
+
 		}
 
 		private handleKeyborad(e): void {

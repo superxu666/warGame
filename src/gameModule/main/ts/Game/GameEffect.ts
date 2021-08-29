@@ -33,7 +33,7 @@ module main {
                     alias: 'w3sheet',
                     starNum: '2',
                     mulit: '6',
-                    cardName: '战士'
+                    cardName: '兽族战士'
                 },
                 b: {
                     sound: 'war_tribal_warlock_c7998282',
@@ -41,7 +41,7 @@ module main {
                     alias: 'w2sheet',
                     starNum: '3',
                     mulit: '8',
-                    cardName: '牧师'
+                    cardName: '萨满'
                 },
                 c: {
                     sound: 'war_tribal_minotaur_35174750',
@@ -49,7 +49,7 @@ module main {
                     alias: 'w2sheet',
                     starNum: '3',
                     mulit: '8',
-                    cardName: '骑士'
+                    cardName: '牛头人'
                 },
                 d: {
                     sound: 'war_tribal_chief_ef2d1aa6',
@@ -65,7 +65,7 @@ module main {
                     alias: 'w2sheet',
                     starNum: '4',
                     mulit: '12',
-                    cardName: '国王'
+                    cardName: '联盟国王'
                 },
                 g: {
                     sound: 'war_union_knight_sound_9a3e206c',
@@ -89,14 +89,13 @@ module main {
                     alias: 'w3sheet',
                     starNum: '2',
                     mulit: '6',
-                    cardName: '战士'
-                },
-                k: 'war_effect_dragon_black_f18fa885'
+                    cardName: '人族战士'
+                }
             }
 
             s.resultAry = [
                 'k', 'h1', 'g1', 'f1', 'e1', 'h2', 'g2', 'f2', 'e2', 'h3', 'g3', 'f3', 'e3',
-                'i', 'a3', 'b3', 'c3', 'd3', 'a2', 'b2', 'c2', 'd2', 'a1', 'b1', 'c1', 'd1'
+                'l', 'a3', 'b3', 'c3', 'd3', 'a2', 'b2', 'c2', 'd2', 'a1', 'b1', 'c1', 'd1'
             ]
             for (let i = 0, len = s.resultAry.length; i < len; i++) {
 
@@ -110,7 +109,7 @@ module main {
 
 
             // 测试
-            // let cardR = s.resounceSets['f']
+            // let cardR = s.resounceSets['k']
             // CardEffect.getInstance().show(s, {
             //     x: 0,
             //     y: 0,
@@ -120,6 +119,31 @@ module main {
             //     cardName: cardR.cardName,
             //     mulit: cardR.mulit
             // })
+            // MovieClipEffect.getInstance().play('k')
+
+            s.result = {
+                "id": 10,
+                "timemin": "202108031607",
+                "result": "l",
+                "multiple": null,
+                "boxtype": "kq",
+                "boxresult": "c1,b1,a1,d2",
+                "timestamp": 1628578737341
+            }
+
+            // main.MovieClipEffect.getInstance().play({
+            //     "id": 10,
+            //     "timemin": "202108031607",
+            //     "result": "l",
+            //     "multiple": null,
+            //     "boxtype": "ts",
+            //     "boxresult": "c1,b1,a1,d2",
+            //     "timestamp": 1628578737341
+            // })
+
+            // s.run(1, () => {
+            //     s.findResult('l')
+            // }, s)
 
         }
 
@@ -228,6 +252,7 @@ module main {
                 s.resultEffect.alpha = 0
 
                 CardEffect.getInstance().hide()
+                MovieClipEffect.getInstance().hide()
             }
         }
 
@@ -236,7 +261,14 @@ module main {
          */
         private playSound(res): void {
             const s = this
-            if (res != 'i') {
+            if (res == 'k') {
+
+                MovieClipEffect.getInstance().playK()
+            } else if (res == 'l') {
+
+                MovieClipEffect.getInstance().play(s.result)
+
+            } else {
 
                 res = res.charAt()
                 SoundManager.instance.play(Conf.sound + `${s.resounceSets[res].sound}.mp3`, 0, 1, null, null, 300)
@@ -254,8 +286,9 @@ module main {
                         cardName: cardR.cardName,
                         mulit: cardR.mulit
                     })
-                    
+
                 }, s, 1000)
+
             }
         }
 

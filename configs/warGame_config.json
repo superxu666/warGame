@@ -1,21 +1,21 @@
 {
 	"platform": "",
-	"screenMode": 0,
+	"winWidth": 1440,
+	"designWidth": 1920,
 	"mdDirVer": {
+		"gggg": {},
 		"game": {},
 		"main": {},
-		"gggg": {},
 		"login": {}
 	},
-	"designWidth": 1920,
+	"screenMode": 0,
+	"designHeight": 1080,
 	"libDirVer": {
-		"ui2Lib": "20210324181242",
+		"ui1Lib": "20210324183000",
+		"editor": "20210401163145",
 		"commonLib": "20210616213612",
 		"simulator3": "20210207152001",
-		"editor": "20210401163145",
-		"ui1Lib": "20210324183000"
+		"ui2Lib": "20210324181242"
 	},
-	"winHeight": 810,
-	"winWidth": 1440,
-	"designHeight": 1080
+	"winHeight": 810
 }

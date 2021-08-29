@@ -92,9 +92,13 @@ module main {
                     }, s)
                 },
                 slide: () => {
-                    let bgmChanel: SoundData = SoundManager.instance.soundDict[Conf.sound + 'gamebgm.mp3']
-                    if (bgmChanel) {
-                        bgmChanel.channel.volume = Number(s.slide.sliderBtn.toolTipString) / 100
+
+
+                    for (let key in SoundManager.instance.soundDict) {
+                        let soundData: SoundData = SoundManager.instance.soundDict[key]
+                        if (soundData && soundData.channel) {
+                            soundData.channel.volume = Number(s.slide.sliderBtn.toolTipString) / 100
+                        }
                     }
 
                 },

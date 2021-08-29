@@ -22,6 +22,15 @@ module main {
             s.trumpet = SkinManager.createBtn(s, 0, 0, 'rms_war_speaker_png', null, null, URLConf.gameImg + 'w3sheet.png')
 
             s.vb = new VerticalBox(ChatItem)
+            s.vb.scroller.scrollBarV.skin = new GYLite.ScrollerSkin(
+                new GYLite.ButtonSkin([Main.instance.getRes('scroller_bar_trum_png', URLConf.mainImg + 'd2sheet.png')], new GYLite.Scale9GridRect(null, null, 9, 9)),
+                Main.instance.getRes('scroller_bar_bg_png', URLConf.mainImg + 'd2sheet.png'),
+                new GYLite.ButtonSkin([Main.instance.getRes('scroller_bar_trum_png', URLConf.mainImg + 'd2sheet.png')]),
+                new GYLite.ButtonSkin([Main.instance.getRes('scroller_bar_trum_png', URLConf.mainImg + 'd2sheet.png')]),
+                new GYLite.Scale9GridRect(null, null, 6, 6)
+            );
+            s.vb.scroller.scrollBarV.hideBtn = true
+            
             s.vb.x = 0
             s.vb.y = s.trumpet.y + s.trumpet.height + 5
             s.vb.width = 210
