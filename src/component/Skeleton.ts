@@ -141,7 +141,7 @@ class Skeleton extends GYLite.GYSprite {
  * armatureName:龙骨动画骨架名称
  * movieClipScale:帧动画缩放大小，有些帧动画导出时为了减小贴图大小，会缩放导出比例，显示的时候会比骨骼动画小，所以需要手动放大以达到骨骼动画的大小
  */
-	public setDataByName(bName: string, skPath: string = "", boneName: string = null, armatureName: string = null, movieClipScale: number = 1): void {
+	public setDataByName(bName: string, skPath: string = "", boneName: string = null, armatureName: string = null, movieClipScale: number = 1,jsonExt:string="_ske.json"): void {
 		let s = this;
 		let forceSk: boolean;
 		let pathStr;
@@ -152,7 +152,7 @@ class Skeleton extends GYLite.GYSprite {
 		if (GameManager.getInstance().deviceVer == "" || forceSk) {
 			//使用骨骼动画
 			s.setData(Main.instance.getDataRes(
-				skPath + bName + "_ske.json"),
+				skPath + bName + jsonExt),
 				Main.instance.getDataRes(skPath + bName + "_tex.json"),
 				Main.instance.getRes(skPath + bName + "_tex.png"), boneName ? boneName : bName, armatureName
 			);
@@ -207,7 +207,7 @@ class Skeleton extends GYLite.GYSprite {
 		else {
 			//如果不传骨架名称，默认为龙骨名称就是骨架名称
 			s._display = egretFactory.buildArmatureDisplay(s._boneName);
-			if (!s._armature) {
+			if (!s._display.armature) {
 				Log.writeLog("不存在Aramture名称为：" + s._boneName + "的龙骨动画,需要指定一个正确骨架名称", Log.WARN);
 			}
 		}
